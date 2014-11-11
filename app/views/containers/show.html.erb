@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @container.name %>
+</p>
+
+<p>
+  <strong>Measurement:</strong>
+  <%= @container.measurement %>
+</p>
+
+<p>
+  <strong>Fluid type:</strong>
+  <%= @container.fluid_type %>
+</p>
+
+<p>
+  <strong>Kinematic viscosity:</strong>
+  <%= @container.kinematic_viscosity %>
+</p>
+
+<p>
+  <strong>Density:</strong>
+  <%= @container.density %>
+</p>
+
+<p>
+  <strong>Outlet pressure:</strong>
+  <%= @container.outlet_pressure %>
+</p>
+
+<p>
+  <strong>Inlet vx:</strong>
+  <%= @container.inlet_vx %>
+</p>
+
+<p>
+  <strong>Inlet vy:</strong>
+  <%= @container.inlet_vy %>
+</p>
+
+<p>
+  <strong>Inlet vz:</strong>
+  <%= @container.inlet_vz %>
+</p>
+
+<%= link_to 'Edit', edit_container_path(@container) %> |
+<%= link_to 'Back', containers_path %>

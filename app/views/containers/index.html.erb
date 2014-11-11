@@ -1,0 +1,43 @@
+<h1>Listing containers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Measurement</th>
+      <th>Fluid type</th>
+      <th>Kinematic viscosity</th>
+      <th>Density</th>
+      <th>Outlet pressure</th>
+      <th>Inlet vx</th>
+      <th>Inlet vy</th>
+      <th>Inlet vz</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @containers.each do |container| %>
+      <tr>
+        <td><%= container.name %></td>
+        <td><%= container.measurement %></td>
+        <td><%= container.fluid_type %></td>
+        <td><%= container.kinematic_viscosity %></td>
+        <td><%= container.density %></td>
+        <td><%= container.outlet_pressure %></td>
+        <td><%= container.inlet_vx %></td>
+        <td><%= container.inlet_vy %></td>
+        <td><%= container.inlet_vz %></td>
+        <td><%= link_to 'Show', container %></td>
+        <td><%= link_to 'Edit', edit_container_path(container) %></td>
+        <td><%= link_to 'Destroy', container, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Container', new_container_path %>

@@ -1,0 +1,66 @@
+<%= form_for(@container) do |f| %>
+  <% if @container.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@container.errors.count, "error") %> prohibited this container from being saved:</h2>
+
+      <ul>
+      <% @container.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :inlet %><br>
+    <%= f.file_field :inlet %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :outlet %><br>
+    <%= f.file_field :outlet %>
+  </div>
+  <div class="field">
+    <%= f.label :walls %><br>
+    <%= f.file_field :walls %>
+  </div>
+  <div class="field">
+    <%= f.label :measurement %><br>
+    <%= f.text_field :measurement %>
+  </div>
+  <div class="field">
+    <%= f.label :fluid_type %><br>
+    <%= f.text_field :fluid_type %>
+  </div>
+  <div class="field">
+    <%= f.label :kinematic_viscosity %><br>
+    <%= f.text_field :kinematic_viscosity %>
+  </div>
+  <div class="field">
+    <%= f.label :density %><br>
+    <%= f.text_field :density %>
+  </div>
+  <div class="field">
+    <%= f.label :outlet_pressure %><br>
+    <%= f.text_field :outlet_pressure %>
+  </div>
+  <div class="field">
+    <%= f.label :inlet_vx %><br>
+    <%= f.text_field :inlet_vx %>
+  </div>
+  <div class="field">
+    <%= f.label :inlet_vy %><br>
+    <%= f.text_field :inlet_vy %>
+  </div>
+  <div class="field">
+    <%= f.label :inlet_vz %><br>
+    <%= f.text_field :inlet_vz %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
