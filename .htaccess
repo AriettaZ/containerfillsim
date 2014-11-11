@@ -1,0 +1,3 @@
+PassengerRestartDir /nfs/17/efranz/awesim_dev/rails9/tmp
+PassengerAppRoot /nfs/17/efranz/awesim_dev/rails9
+RailsEnv development
