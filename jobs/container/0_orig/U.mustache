@@ -24,7 +24,7 @@ boundaryField
     "inlet1_.*"
     {
         type            fixedValue;
-        value           uniform (0 -0.09 0);
+        value           uniform ({{inlet_vx_i}}  {{inlet_vy_i}}  {{inlet_vz_i}});
     }
     "outlet1_.*"
     {

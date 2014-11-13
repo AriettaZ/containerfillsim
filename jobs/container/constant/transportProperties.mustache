@@ -18,7 +18,7 @@ FoamFile
 twoPhase
 {
     transportModel  twoPhase;
-    phase1          {{fluidtype}};
+    phase1          {{fluid_type}};
     phase2          air;
 }
 
@@ -27,7 +27,7 @@ phase1
 {
     transportModel  Newtonian;
 
-    nu              nu [0 2 -1 0 0 0 0] {{kinematicvis}}; // New variable
+    nu              nu [0 2 -1 0 0 0 0] {{kinematic_viscosity}}; // New variable
     rho             rho [ 1 -3 0 0 0 0 0 ] {{density}}; //New variable
 
     CrossPowerLawCoeffs
