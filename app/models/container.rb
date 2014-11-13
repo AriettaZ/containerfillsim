@@ -1,6 +1,15 @@
 class Container < ActiveRecord::Base
   include OSC::Machete::SimpleJob
   
+  MEASUREMENT_SCALES = {
+    mm: "(0.001 0.001 0.001)",
+    cm: "(0.01 0.01 0.01)",
+    meters: "(1.0 1.0 1.0)",
+    inches: "(0.254 0.254 0.254)"
+  }
+  
+  FLUID_TYPES = [:water, :oil]
+  
   [:inlet, :outlet, :walls].each do |f|
     has_attached_file f
     do_not_validate_attachment_file_type f

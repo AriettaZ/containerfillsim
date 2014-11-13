@@ -11,11 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141113223847) do
+ActiveRecord::Schema.define(version: 20141113225149) do
 
   create_table "containers", force: true do |t|
     t.string   "name"
-    t.string   "measurement"
+    t.string   "measurement_scale"
     t.string   "fluid_type"
     t.float    "kinematic_viscosity"
     t.float    "density"

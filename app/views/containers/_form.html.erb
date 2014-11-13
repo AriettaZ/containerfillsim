@@ -29,12 +29,12 @@
     <%= f.file_field :walls %>
   </div>
   <div class="field">
-    <%= f.label :measurement %><br>
-    <%= f.text_field :measurement %>
+    <%= f.label :measurement_scale %><br>
+    <%= select_tag(:measurement_scale, options_for_select(Container::MEASUREMENT_SCALES.to_a)) %>
   </div>
   <div class="field">
     <%= f.label :fluid_type %><br>
-    <%= f.text_field :fluid_type %>
+    <%= select_tag(:fluid_type, options_for_select(Container::FLUID_TYPES)) %>
   </div>
   <div class="field">
     <%= f.label :kinematic_viscosity %><br>
