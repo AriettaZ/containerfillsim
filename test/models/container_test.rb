@@ -22,6 +22,14 @@ class ContainerTest < ActiveSupport::TestCase
     @target = Dir.mktmpdir
     
     # the container gives the staging object used
+    # 
+    #FIXME: another option? override staging_target_dir,
+    # which is the public interface right now to use
+    # @staging << class do
+    #   def staging_target_dir
+    #     Pathname.new(@target).cleanpath
+    #   end
+    # end
     @staging = @container.staging
     @staging.instance_variable_set(:@target, Pathname.new(@target).cleanpath)
     
