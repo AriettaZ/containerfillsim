@@ -16,7 +16,7 @@ test_foam.LagrangianArrays = []
 test_foam.MeshRegions = ['walls_wall']
 test_foam.PointArrays = ['pointLevel']
 
-AnimationScene1.EndTime = {{endtime}} 
+AnimationScene1.EndTime = {{steps}} 
 AnimationScene1.PlayMode = 'Snap To TimeSteps'
 
 test_foam.CaseType = 'Decomposed Case'
@@ -72,10 +72,10 @@ AnnotateTime1 = AnnotateTime()
 
 DataRepresentation4 = Show()
 
-AnimationScene1.AnimationTime = {{endtime}}
+AnimationScene1.AnimationTime = {{steps}}
 
-RenderView1.ViewTime = {{endtime}}
-RenderView1.CacheKey = {{endtime}}
+RenderView1.ViewTime = {{steps}}
+RenderView1.CacheKey = {{steps}}
 RenderView1.UseCache = 1
 
 a3_U_PVLookupTable = GetLookupTableForArray( "U", 3, NanColor=[0.49803900000000001, 0.49803900000000001, 0.49803900000000001], RGBPoints=[0.0, 0.0, 0.0, 1.0, 3.0009595136322038, 1.0, 0.0, 0.0], VectorMode='Magnitude', ColorSpace='HSV', ScalarRangeInitialized=1.0 )

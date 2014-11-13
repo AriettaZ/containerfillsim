@@ -5,7 +5,7 @@ class ContainerTest < ActiveSupport::TestCase
   
   setup do
     @container = Container.create(name: "test",
-      measurement: "meters",
+      measurement: "(1.0 1.0 1.0)", # "meters", -- not use magic values
       fluid_type: "water",
       kinematic_viscosity: 0.000001,
       density: 998.23,

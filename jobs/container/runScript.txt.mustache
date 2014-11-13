@@ -35,7 +35,7 @@ createPatch -overwrite > LOG-createPatch
 changeDictionary  < /dev/null >>  LOG-cD
 
 # command below scales mesh (i.e. "(1e-3 1e-3 1e-3)" to convert mm to m)
-transformPoints -scale "({{tsx}} {{tsy}} {{tsz}})" > LOG-scale
+transformPoints -scale "{{measurement}}" > LOG-scale
 
 cp 0_orig/* 0/
 
