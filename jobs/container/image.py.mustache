@@ -6,9 +6,11 @@
 ####################################################################
 
 from paraview.simple import *
+import os
+
 paraview.simple._DisableFirstRenderCameraReset()
 
-test_foam = OpenFOAMReader( FileName='{{run}}.foam' )
+test_foam = OpenFOAMReader( FileName='out.foam' )
 
 AnimationScene1 = GetAnimationScene()
 test_foam.CellArrays = ['U', 'alpha1', 'ccx', 'ccy', 'ccz', 'cellLevel', 'epsilon', 'k', 'nut', 'p', 'p_rgh']
@@ -28,7 +30,7 @@ DataRepresentation1.EdgeColor = [0.0, 0.0, 0.50000762951094835]
 DataRepresentation1.SelectionPointFieldDataArrayName = 'alpha1'
 DataRepresentation1.SelectionCellFieldDataArrayName = 'alpha1'
 
-test_foam = OpenFOAMReader( FileName='{{run}}.foam' )
+test_foam = OpenFOAMReader( FileName='out.foam' )
 
 #RenderView1.CameraPosition = [0.0, 0.0, 3.8784512065706922]
 #RenderView1.CameraFocalPoint = [0.0, 0.0, 0.51000009523704648]
@@ -94,6 +96,17 @@ ResetCamera()
 DataRepresentation3.ColorArrayName = 'U'
 DataRepresentation3.LookupTable = a3_U_PVLookupTable
 
+
+outputdir = 'images'
+if not os.path.exists(outputdir):
+  os.mkdir(outputdir)
+
+for i in range({{steps}} + 1):
+  AnimationScene1.AnimationTime = i
+  RenderView1.ViewTime = i
+  RenderView1.CacheKey = i
+  RenderView1.UseCache = 1
+  WriteImage('%s/t%02d.png' % (outputdir, i))
 
 
 RenderView1.UseCache = 0
