@@ -46,3 +46,4 @@ gem 'bootstrap-sass', '~> 3.3.1'
 gem 'autoprefixer-rails'
 gem 'simple_form', '~> 3.0.2'
 
+gem 'osc-machete', :path => "/nfs/17/efranz/prod/osc-machete-0.2.2"

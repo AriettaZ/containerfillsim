@@ -1,3 +1,10 @@
+PATH
+  remote: /nfs/17/efranz/prod/osc-machete-0.2.2
+  specs:
+    osc-machete (0.2.1)
+      mustache
+      nokogiri
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -59,8 +66,12 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.25)
+    mini_portile (0.6.0)
     minitest (4.7.5)
     multi_json (1.8.2)
+    mustache (0.99.6)
+    nokogiri (1.6.3.1)
+      mini_portile (= 0.6.0)
     paperclip (4.2.0)
       activemodel (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -132,6 +143,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   jbuilder (~> 1.2)
   jquery-rails
+  osc-machete!
   paperclip (~> 4.2)
   rails (= 4.0.0)
   sass-rails (~> 4.0.0)
