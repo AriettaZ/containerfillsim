@@ -41,6 +41,8 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'paperclip'
-gem 'bootstrap-sass'
+gem "paperclip", "~> 4.2"
+gem 'bootstrap-sass', '~> 3.3.1'
+gem 'autoprefixer-rails'
+gem 'simple_form', '~> 3.0.2'
 

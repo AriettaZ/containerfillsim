@@ -1,3 +1,10 @@
+== WARNING: THIS CURRENTLY USES GEMS NOT INSTALLED ON GLENN
+
+To run, you must do 
+
+    bundle install --path vendor/bundle
+
+
 == README
 
 This README would normally document whatever steps are necessary to get the
