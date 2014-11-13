@@ -45,6 +45,6 @@ class ContainerTest < ActiveSupport::TestCase
   test "staging" do
     job = @staging.new_job(@container.serializable_hash)
     
-    assert_equal "", `diff -r #{job.path} #{@expected}`
+    assert_equal "", `diff -rq #{job.path} #{@expected}`
   end
 end
