@@ -8,7 +8,7 @@
 from paraview.simple import *
 paraview.simple._DisableFirstRenderCameraReset()
 
-test_foam = OpenFOAMReader( FileName='@@run@@.foam' )
+test_foam = OpenFOAMReader( FileName='{{run}}.foam' )
 
 AnimationScene1 = GetAnimationScene()
 test_foam.CellArrays = ['U', 'alpha1', 'ccx', 'ccy', 'ccz', 'cellLevel', 'epsilon', 'k', 'nut', 'p', 'p_rgh']
@@ -16,7 +16,7 @@ test_foam.LagrangianArrays = []
 test_foam.MeshRegions = ['walls_wall']
 test_foam.PointArrays = ['pointLevel']
 
-AnimationScene1.EndTime = @@endtime@@ 
+AnimationScene1.EndTime = {{endtime}} 
 AnimationScene1.PlayMode = 'Snap To TimeSteps'
 
 test_foam.CaseType = 'Decomposed Case'
@@ -28,7 +28,7 @@ DataRepresentation1.EdgeColor = [0.0, 0.0, 0.50000762951094835]
 DataRepresentation1.SelectionPointFieldDataArrayName = 'alpha1'
 DataRepresentation1.SelectionCellFieldDataArrayName = 'alpha1'
 
-test_foam = OpenFOAMReader( FileName='@@run@@.foam' )
+test_foam = OpenFOAMReader( FileName='{{run}}.foam' )
 
 #RenderView1.CameraPosition = [0.0, 0.0, 3.8784512065706922]
 #RenderView1.CameraFocalPoint = [0.0, 0.0, 0.51000009523704648]
@@ -72,10 +72,10 @@ AnnotateTime1 = AnnotateTime()
 
 DataRepresentation4 = Show()
 
-AnimationScene1.AnimationTime = @@endtime@@
+AnimationScene1.AnimationTime = {{endtime}}
 
-RenderView1.ViewTime = @@endtime@@
-RenderView1.CacheKey = @@endtime@@
+RenderView1.ViewTime = {{endtime}}
+RenderView1.CacheKey = {{endtime}}
 RenderView1.UseCache = 1
 
 a3_U_PVLookupTable = GetLookupTableForArray( "U", 3, NanColor=[0.49803900000000001, 0.49803900000000001, 0.49803900000000001], RGBPoints=[0.0, 0.0, 0.0, 1.0, 3.0009595136322038, 1.0, 0.0, 0.0], VectorMode='Magnitude', ColorSpace='HSV', ScalarRangeInitialized=1.0 )
