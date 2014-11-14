@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141113225149) do
+ActiveRecord::Schema.define(version: 20141114001707) do
 
   create_table "containers", force: true do |t|
     t.string   "name"
@@ -38,6 +38,9 @@ ActiveRecord::Schema.define(version: 20141113225149) do
     t.integer  "walls_file_size"
     t.datetime "walls_updated_at"
     t.integer  "steps",               default: 5
+    t.string   "status"
+    t.string   "pbsid"
+    t.string   "job_path"
   end
 
 end
