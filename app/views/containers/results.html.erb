@@ -1,1 +1,8 @@
 <h1>Show results here</h1>
+
+
+<%# the job directory names should match the id of the model that it is associated with; that would be preferred %>
+<%# image_tag "/files/containers/#{@container.id}/images/t00.png" %>
+
+<%= image_tag "/files/containers/#{@container.job_dir_name}/images/t00.png" %>
+<%= image_tag "/files/containers/#{@container.job_dir_name}/movies/filling.gif" %>

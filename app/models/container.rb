@@ -124,7 +124,10 @@ class Container < ActiveRecord::Base
       "Not Submitted"
     end
   end
-  
+ 
+  def job_dir_name
+    Pathname.new(jobs.first.job_path).basename.to_s unless jobs.count == 0
+  end 
   
   # copy all the files I specify to triSurface/
 end
