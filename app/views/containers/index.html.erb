@@ -3,6 +3,8 @@
 <table class="table">
   <thead>
     <tr>
+      <th>#</th>
+      <th>Status</th>
       <th>Name</th>
       <th>Measurement Scale</th>
       <th>Fluid type</th>
@@ -23,6 +25,8 @@
   <tbody>
     <% @containers.each do |container| %>
       <tr>
+        <td><%= container.id %></td>
+        <td><%= job_status_label(container) %></td>
         <td><%= container.name %></td>
         <td><%= container.measurement_scale %></td>
         <td><%= container.fluid_type %></td>
