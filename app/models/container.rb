@@ -28,4 +28,45 @@ class Container < ActiveRecord::Base
   def inlet_vz_i
     inlet_vz.round(0).to_s
   end
+  
+  
+  # FIXME: offer this functionality in machete itself!!!
+  def stage
+    # stage job and copy files
+    job = staging.new_job self
+    
+    # copy files
+    target = job.path.join("constant/triSurface")
+    
+    FileUtils.cp inlet.path, target
+    FileUtils.cp outlet.path, target
+    FileUtils.cp walls.path, target
+    
+    job
+  end
+  
+  #FIXME: in machete, if you don't check to see if respond_to? :pbsid 
+  # you get an error if the migration never occurred for jobs:
+  # undefined local variable or method `pbsid' for #<Container:0x007fe0f79c9700>
+  # when after_find occurs
+  
+  #FIXME: in machete, offer a simpler database migration for adding these fields
+  
+  #FIXME: in machete, we should have stage and submit so we can
+  # override stage and test it without submitting easily
+  # And then use a StagingFactory to create one with default values
+  # that we can override
+  def submit
+    # stage and submit job
+    job = stage
+    job.submit
+  
+    # persist job data
+    self.status = job.status
+    self.pbsid = job.pbsid
+    self.job_path = job.path.to_s
+    self.save
+  end
+  
+  # copy all the files I specify to triSurface/
 end

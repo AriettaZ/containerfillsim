@@ -21,17 +21,7 @@ class ContainerTest < ActiveSupport::TestCase
     # we render instances of simulations in tmpdir for testing purposes
     @target = Dir.mktmpdir
     
-    # the container gives the staging object used
-    # 
-    #FIXME: another option? override staging_target_dir,
-    # which is the public interface right now to use
-    # @staging << class do
-    #   def staging_target_dir
-    #     Pathname.new(@target).cleanpath
-    #   end
-    # end
-    @staging = @container.staging
-    @staging.instance_variable_set(:@target, Pathname.new(@target).cleanpath)
+    @container.stubs(:staging_target_dir).returns(Pathname.new(@target).cleanpath)
     
     # the control is what we want to generate
     @expected = 'test/fixtures/control'
@@ -51,7 +41,7 @@ class ContainerTest < ActiveSupport::TestCase
   end
   
   test "staging" do
-    job = @staging.new_job(@container)
+    job = @container.stage
     
     assert_equal "", `diff -r #{job.path}/0_orig #{@expected}/0_orig`
     assert_equal "", `diff -r #{job.path}/system/controlDict #{@expected}/system/controlDict`, "system/controlDict render failed"
