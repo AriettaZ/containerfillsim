@@ -45,5 +45,23 @@
   <%= @container.inlet_vz %>
 </p>
 
+<p>
+  <strong>Inlet File:</strong>
+  <%= link_to @container.inlet.url if @container.inlet %>
+</p>
+
+
+<p>
+  <strong>Outlet File:</strong>
+  <%= link_to @container.outlet.url if @container.outlet %>
+</p>
+
+
+<p>
+  <strong>Walls File:</strong>
+  <%= link_to @container.walls.url if @container.walls %>
+</p>
+
+
 <%= link_to 'Edit', edit_container_path(@container), class: 'btn btn-primary' %> |
 <%= link_to 'Back', containers_path, class: 'btn btn-default' %>
