@@ -1,5 +1,6 @@
 class Container < ActiveRecord::Base
   include OSC::Machete::SimpleJob::Submittable
+  has_many :jobs, dependent: destroy
   
   MEASUREMENT_SCALES = {
     mm: "(0.001 0.001 0.001)",
@@ -65,15 +66,26 @@ class Container < ActiveRecord::Base
   # And then use a StagingFactory to create one with default values
   # that we can override
   def submit
-    # stage and submit job
-    job = stage
-    job.submit
-  
+    _jobs = []
+    
+    # stage first job and add to array
+    job << stage
+    jobdir = jobs.first.path
+    
+    # create second job
+    _jobs << OSC::Machete::Job.new(script: jobdir.join("gpuRenderScript.txt")).afterok(_jobs.last)
+    
+    # submit all jobs
+    _jobs.each(&:submit)
+    
+    # first save this container so you can use the id when creating the associated Jobs
+    save if id.nil?
+    
     # persist job data
-    self.status = job.status
-    self.pbsid = job.pbsid
-    self.job_path = job.path.to_s
-    self.save
+    _jobs.each do |job|
+      # FIXME: instead of storing the job directory path we should store the script path
+      self.jobs.create(status: job.status, pbsid: job.pbsid, job_path: job.path.to_s, script_name: job.script_name)
+    end
   end
   
   # status presenter methods
