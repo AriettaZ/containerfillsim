@@ -4,5 +4,7 @@
 <%# the job directory names should match the id of the model that it is associated with; that would be preferred %>
 <%# image_tag "/files/containers/#{@container.id}/images/t00.png" %>
 
-<%= image_tag "/files/containers/#{@container.job_dir_name}/images/t00.png" %>
+<% (0..@container.steps).each do |i| %>
+  <%= image_tag "/files/containers/#{@container.job_dir_name}/images/t#{sprintf '%02d', i}.png" %>
+<% end %>
 <%= image_tag "/files/containers/#{@container.job_dir_name}/movies/filling.gif" %>
