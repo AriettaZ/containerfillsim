@@ -29,6 +29,14 @@ class Container < ActiveRecord::Base
     inlet_vz.round(0).to_s
   end
   
+  # FIXME: configuration by overriding methods is not as good
+  # as configuration by custom objects
+  # 
+  # FIXME: change job template so runScript.txt is main.sh
+  # and gpuRenderScript.txt is post.sh
+  def staging_script_name
+    "runScript.txt"
+  end
   
   # FIXME: offer this functionality in machete itself!!!
   def stage
