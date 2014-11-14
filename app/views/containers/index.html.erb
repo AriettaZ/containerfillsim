@@ -1,6 +1,6 @@
 <h1>Listing containers</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Name</th>
@@ -12,6 +12,8 @@
       <th>Inlet vx</th>
       <th>Inlet vy</th>
       <th>Inlet vz</th>
+      <th></th>
+      <th></th>
       <th></th>
       <th></th>
       <th></th>
@@ -30,9 +32,12 @@
         <td><%= container.inlet_vx %></td>
         <td><%= container.inlet_vy %></td>
         <td><%= container.inlet_vz %></td>
-        <td><%= link_to 'Show', container %></td>
-        <td><%= link_to 'Edit', edit_container_path(container) %></td>
-        <td><%= link_to 'Destroy', container, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        
+        <td><%= link_to '<span class="glyphicon glyphicon-eye-open"></span>'.html_safe, container, class: 'btn btn-primary btn-sm', role: 'button' %></td>
+        <td><%= link_to '<span class="glyphicon glyphicon-edit"></span>'.html_safe, edit_container_path(container), class: 'btn btn-default btn-sm', role: 'button' %></td>
+        <td><%# link_to '<span class="glyphicon glyphicon-play"></span>'.html_safe, submit_container_path(container),  class: 'btn btn-success btn-sm', role: 'button' %></td>
+        <td><%# link_to '<span class="glyphicon glyphicon-file"></span>'.html_safe, results_container_path(container), class: 'btn btn-primary btn-sm', role: 'button' if container.completed? %></td>
+        <td><%= link_to '<span class="glyphicon glyphicon-trash"></span>'.html_safe, container, method: :delete, data: { confirm: 'Are you sure?'}, class: 'btn btn-danger btn-sm pull-right', role: 'button' %></td>
       </tr>
     <% end %>
   </tbody>

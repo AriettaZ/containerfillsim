@@ -1,6 +1,6 @@
 <%= form_for(@container) do |f| %>
   <% if @container.errors.any? %>
-    <div id="error_explanation">
+    <div  class="alert alert-danger">
       <h2><%= pluralize(@container.errors.count, "error") %> prohibited this container from being saved:</h2>
 
       <ul>
@@ -61,6 +61,7 @@
     <%= f.text_field :inlet_vz %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= button_tag "Reset", type: :reset, class: 'btn btn-default' %>
+    <%= f.submit "Save", class: 'btn btn-primary' %>
   </div>
 <% end %>
