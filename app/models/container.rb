@@ -91,19 +91,22 @@ class Container < ActiveRecord::Base
   # status presenter methods
   # FIXME: should have a better solution for this
   def submitted?
-    false
+    jobs.count > 0
   end
 
   def completed?
+    # true if each of the jobs .completed?
     false
   end
 
   def failed?
+    # true if any of the jobs .failed?
     false
   end
 
   # returns true if in a running state (R,Q,H)
   def running?
+    # true if any of the jobs .running?
     false
   end
 
