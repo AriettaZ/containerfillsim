@@ -60,6 +60,28 @@ class ContainersController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  # PUT /containers/1/submit
+  def submit
+    if @container.submitted?
+      respond_to do |format|
+        format.html { redirect_to simulations_url, alert: 'Container simulation has already been submitted!' }
+        format.json { head :no_content }
+      end
+    else
+      #TODO: add error handling
+      @container.submit
+      
+      respond_to do |format|
+        format.html { redirect_to simulations_url, notice: 'Container simulation submitted.' }
+        format.json { head :no_content }
+      end
+    end
+  end
+  
+  # GET /containers/1/results
+  def results
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

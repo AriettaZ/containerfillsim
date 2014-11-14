@@ -1,5 +1,10 @@
 ContainerFillSim::Application.routes.draw do
-  resources :containers
+  resources :containers do
+    member do
+      put 'submit'
+      get 'results'
+    end
+  end
   
   root 'containers#index'
 
