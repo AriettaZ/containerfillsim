@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  status: MyString
+  pbsid: MyString
+  job_path: MyString
+
+two:
+  status: MyString
+  pbsid: MyString
+  job_path: MyString

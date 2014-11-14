@@ -1,5 +1,5 @@
 class Container < ActiveRecord::Base
-  include OSC::Machete::SimpleJob
+  include OSC::Machete::SimpleJob::Submittable
   
   MEASUREMENT_SCALES = {
     mm: "(0.001 0.001 0.001)",
@@ -75,6 +75,31 @@ class Container < ActiveRecord::Base
     self.job_path = job.path.to_s
     self.save
   end
+  
+  # status presenter methods
+  # FIXME: should have a better solution for this
+  def submitted?
+    false
+  end
+
+  def completed?
+    false
+  end
+
+  def failed?
+    false
+  end
+
+  # returns true if in a running state (R,Q,H)
+  def running?
+    false
+  end
+
+  # FIXME: better name for this?
+  def status_human_readable
+    "Not Submitted"
+  end
+  
   
   # copy all the files I specify to triSurface/
 end
