@@ -96,7 +96,7 @@ class Container < ActiveRecord::Base
 
   def completed?
     # true if all jobs are completed
-    jobs.where(status: ["F", "C"]).count == jobs.count
+    submitted? && jobs.where(status: ["F", "C"]).count == jobs.count
   end
 
   def failed?
