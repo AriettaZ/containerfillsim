@@ -1,6 +1,6 @@
 class Container < ActiveRecord::Base
   include OSC::Machete::SimpleJob::Submittable
-  has_many :jobs, dependent: destroy
+  has_many :jobs, dependent: :destroy
   
   MEASUREMENT_SCALES = {
     mm: "(0.001 0.001 0.001)",
@@ -69,8 +69,8 @@ class Container < ActiveRecord::Base
     _jobs = []
     
     # stage first job and add to array
-    job << stage
-    jobdir = jobs.first.path
+    _jobs << stage
+    jobdir = _jobs.first.path
     
     # create second job
     _jobs << OSC::Machete::Job.new(script: jobdir.join("gpuRenderScript.txt")).afterok(_jobs.last)
@@ -95,24 +95,34 @@ class Container < ActiveRecord::Base
   end
 
   def completed?
-    # true if each of the jobs .completed?
-    false
+    # true if all jobs are completed
+    jobs.where(status: ["F", "C"]).count == jobs.count
   end
 
   def failed?
     # true if any of the jobs .failed?
-    false
+    jobs.where(status: ["F"]).any?
   end
 
   # returns true if in a running state (R,Q,H)
   def running?
     # true if any of the jobs .running?
-    false
+    jobs.where(status: ["Q", "R", "H"]).any?
   end
 
   # FIXME: better name for this?
   def status_human_readable
-    "Not Submitted"
+    if completed?
+      "Completed"
+    elsif jobs.where(status: "R").any?
+      "Running"
+    elsif jobs.where(status: "Q").any?
+      "Queued"
+    elsif jobs.where(status: "H").any?
+      "Hold"
+    else
+      "Not Submitted"
+    end
   end
   
   

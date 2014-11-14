@@ -40,7 +40,7 @@
         <td><%= link_to '<span class="glyphicon glyphicon-eye-open"></span>'.html_safe, container, class: 'btn btn-primary btn-sm', role: 'button' %></td>
         <td><%= link_to '<span class="glyphicon glyphicon-edit"></span>'.html_safe, edit_container_path(container), class: 'btn btn-default btn-sm', role: 'button' %></td>
         <td><%= link_to '<span class="glyphicon glyphicon-play"></span>'.html_safe, submit_container_path(container), method: :put, class: 'btn btn-success btn-sm', role: 'button' unless container.submitted? %></td>
-        <td><%= link_to '<span class="glyphicon glyphicon-file"></span>'.html_safe, results_container_path(container), class: 'btn btn-primary btn-sm', role: 'button' if container.completed? %></td>
+        <td><%= link_to '<span class="glyphicon glyphicon-file"></span>'.html_safe, results_container_path(container), class: 'btn btn-success btn-sm', role: 'button' if container.completed? %></td>
         <td><%= link_to '<span class="glyphicon glyphicon-trash"></span>'.html_safe, container, method: :delete, data: { confirm: 'Are you sure?'}, class: 'btn btn-danger btn-sm pull-right', role: 'button' %></td>
       </tr>
     <% end %>

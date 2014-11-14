@@ -1,5 +1,5 @@
 class ContainersController < ApplicationController
-  before_action :set_container, only: [:show, :edit, :update, :destroy]
+  before_action :set_container, only: [:show, :edit, :update, :destroy, :submit, :results]
 
   # GET /containers
   # GET /containers.json
@@ -65,7 +65,7 @@ class ContainersController < ApplicationController
   def submit
     if @container.submitted?
       respond_to do |format|
-        format.html { redirect_to simulations_url, alert: 'Container simulation has already been submitted!' }
+        format.html { redirect_to containers_url, alert: 'Container simulation has already been submitted!' }
         format.json { head :no_content }
       end
     else
@@ -73,7 +73,7 @@ class ContainersController < ApplicationController
       @container.submit
       
       respond_to do |format|
-        format.html { redirect_to simulations_url, notice: 'Container simulation submitted.' }
+        format.html { redirect_to containers_url, notice: 'Container simulation submitted.' }
         format.json { head :no_content }
       end
     end
