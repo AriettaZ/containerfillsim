@@ -47,4 +47,4 @@ gem 'autoprefixer-rails'
 gem 'simple_form', '~> 3.0.2'
 
 gem 'osc-machete', :path => "/nfs/17/efranz/prod/osc-machete-0.2.2"
-gem 'mocha', group: [:development, :test]
+gem 'mocha', :require => false, group: [:test]
