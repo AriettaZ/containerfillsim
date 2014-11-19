@@ -14,5 +14,15 @@ $navbar-inverse-brand-hover-color: $navbar-inverse-link-hover-color;
 // Load up bootstrap style sheet
 @import "bootstrap";
 
+
+// display header at top of app layout
+body {
+  padding-top: 84px;
+  background-image: url(image-path('header.png'));
+  background-repeat: no-repeat;
+}
+
+
 // Your custom css styles below (must be manually added)
 @import "containers";
+

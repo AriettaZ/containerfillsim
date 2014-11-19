@@ -2,8 +2,11 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-body {
-  padding-top: 84px;
-  background-image: url(image-path('header.png'));
-  background-repeat: no-repeat;
+
+// this particular carousel's width will be
+// forced to match the width of the images
+// we expect to show which are 400px wide
+div.results.carousel.slide {
+  width: 400px
 }
+
