@@ -4,7 +4,12 @@ class ContainersController < ApplicationController
   # GET /containers
   # GET /containers.json
   def index
-    @containers = Container.all
+    #FIXME: we preload the jobs since we have to look at the jobs for status info
+    # the problem is all of the status presenter methods on Container are actually doing
+    # queries against the jobs table, but those queries never load the Job model objects
+    # which means that after_find is never triggered for each job so the job record cached statuses
+    # never get updated. we need a cleaner solution for all of this
+    @containers = Container.preload(:jobs).all
   end
 
   # GET /containers/1
