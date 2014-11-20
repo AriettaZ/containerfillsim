@@ -96,6 +96,6 @@ class ContainersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def container_params
-      params.require(:container).permit(:name, :measurement_scale, :fluid_type, :kinematic_viscosity, :density, :outlet_pressure, :inlet_vx, :inlet_vy, :inlet_vz, :inlet, :outlet, :walls)
+      params.require(:container).permit!
     end
 end
