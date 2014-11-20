@@ -22,6 +22,10 @@ class Container < ActiveRecord::Base
     @steps || 5
   end
   
+  def measurement_scale_name
+    Container::MEASUREMENT_SCALES.invert[measurement_scale]
+  end
+  
   # FIXME: configuration by overriding methods is not as good
   # as configuration by custom objects
   # 
