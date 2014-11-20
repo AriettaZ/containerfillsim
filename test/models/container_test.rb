@@ -45,9 +45,9 @@ class ContainerTest < ActiveSupport::TestCase
     
     assert_equal "", `diff -r #{job.path}/0_orig #{@expected}/0_orig`
     assert_equal "", `diff -r #{job.path}/system/controlDict #{@expected}/system/controlDict`, "system/controlDict render failed"
-    # assert_equal "", `diff -r #{job.path}/runScript.txt #{@expected}/runScript.txt`, "runScript.txt render failed"
+    assert_equal "", `diff -r #{job.path}/runScript.txt #{@expected}/runScript.txt`, "runScript.txt render failed"
     # assert_equal "", `diff -r #{job.path}/image.py #{@expected}/image.py`, "image.py render failed"
-    # assert_equal "", `diff -r #{job.path}/constant/transportProperties #{@expected}/constant/transportProperties`
+    assert_equal "", `diff -r #{job.path}/constant/transportProperties #{@expected}/constant/transportProperties`
     # assert_equal "", `diff -rq #{job.path} #{@expected}`
     
     assert_equal "", `diff -rq #{job.path}/constant/triSurface #{@expected}/constant/triSurface`, "input files not copied to constant/triSurface/"
