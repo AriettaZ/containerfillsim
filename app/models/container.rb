@@ -79,8 +79,7 @@ class Container < ActiveRecord::Base
     
     # persist job data
     _jobs.each do |job|
-      # FIXME: instead of storing the job directory path we should store the script path
-      self.jobs.create(status: job.status, pbsid: job.pbsid, job_path: job.path.to_s, script_name: job.script_name)
+      self.jobs.create(job: job)
     end
   end
   
