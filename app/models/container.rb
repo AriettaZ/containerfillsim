@@ -17,6 +17,11 @@ class Container < ActiveRecord::Base
     validates_presence_of f
   end
   
+  # default to 5 steps
+  def steps
+    @steps || 5
+  end
+  
   #FIXME: move to a presenter or a view object to use with rendering
   #FIXME: are these supposed to be integers?
   # if so, why do we accept floats as arguments? or do we?
