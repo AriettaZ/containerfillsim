@@ -1,5 +1,5 @@
 PATH
-  remote: /nfs/17/efranz/prod/osc-machete-0.2.2
+  remote: /nfs/17/efranz/prod/osc-machete-0.2.3
   specs:
     osc-machete (0.2.1)
       mustache
