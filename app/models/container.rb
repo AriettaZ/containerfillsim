@@ -2,6 +2,9 @@ class Container < ActiveRecord::Base
   include OSC::Machete::SimpleJob::Submittable
   has_many :jobs, dependent: :destroy
   
+  SOLVE_SCRIPT_NAME="runScript.txt"
+  POST_SCRIPT_NAME="gpuRenderScript.txt"
+  
   MEASUREMENT_SCALES = {
     mm: "(0.001 0.001 0.001)",
     cm: "(0.01 0.01 0.01)",
@@ -32,7 +35,7 @@ class Container < ActiveRecord::Base
   # FIXME: change job template so runScript.txt is main.sh
   # and gpuRenderScript.txt is post.sh
   def staging_script_name
-    "runScript.txt"
+    Container::SOLVE_SCRIPT_NAME
   end
   
   # FIXME: offer this functionality in machete itself!!!
@@ -69,7 +72,7 @@ class Container < ActiveRecord::Base
     jobdir = _jobs.first.path
     
     # create second job
-    _jobs << OSC::Machete::Job.new(script: jobdir.join("gpuRenderScript.txt")).afterok(_jobs.last)
+    _jobs << OSC::Machete::Job.new(script: jobdir.join(Container::POST_SCRIPT_NAME)).afterok(_jobs.last)
     
     # submit all jobs
     _jobs.each(&:submit)
