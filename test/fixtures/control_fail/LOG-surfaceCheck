@@ -1,0 +1,102 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.1.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+Build  : 2.1.0-bd7367f93311
+Exec   : surfaceCheck -blockMesh ./constant/triSurface/walls.stl
+Date   : Nov 14 2014
+Time   : 10:07:49
+Host   : "n0244.ten.osc.edu"
+PID    : 13187
+Case   : /nfs/05/ndem0010/crimson_files/ContainerFill/15
+nProcs : 1
+sigFpe : Enabling floating point exception trapping (FOAM_SIGFPE).
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster
+allowSystemOperations : Disallowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Reading surface from "./constant/triSurface/walls.stl" ...
+
+Statistics:
+Triangles    : 3210
+Vertices     : 1802
+Bounding Box : (-0.499969 -0.51 0.01) (0.499969 0.51 1.01)
+
+// blockMeshDict info
+vertices
+(
+    (-0.499969 -0.51 0.01)
+    (0.499969 -0.51 0.01)
+    (0.499969 0.51 0.01)
+    (-0.499969 0.51 0.01)
+    (-0.499969 -0.51 1.01)
+    (0.499969 -0.51 1.01)
+    (0.499969 0.51 1.01)
+    (-0.499969 0.51 1.01)
+);
+
+blocks
+(
+    hex (0 1 2 3 4 5 6 7) (10 10 10) simpleGrading (1 1 1)
+);
+
+edges
+();
+patches
+();
+Region	Size
+------	----
+wall	3210
+
+
+Surface has no illegal triangles.
+
+Triangle quality (equilateral=1, collapsed=0):
+    0 .. 0.05  : 0.321495
+    0.05 .. 0.1  : 0.0327103
+    0.1 .. 0.15  : 0.0274143
+    0.15 .. 0.2  : 0.029595
+    0.2 .. 0.25  : 0.0274143
+    0.25 .. 0.3  : 0.0264798
+    0.3 .. 0.35  : 0.0267913
+    0.35 .. 0.4  : 0.028972
+    0.4 .. 0.45  : 0.023053
+    0.45 .. 0.5  : 0.0224299
+    0.5 .. 0.55  : 0.0457944
+    0.55 .. 0.6  : 0.216511
+    0.6 .. 0.65  : 0.105607
+    0.65 .. 0.7  : 0.0448598
+    0.7 .. 0.75  : 0.0130841
+    0.75 .. 0.8  : 0.00778816
+    0.8 .. 0.85  : 0
+    0.85 .. 0.9  : 0
+    0.9 .. 0.95  : 0
+    0.95 .. 1  : 0
+
+    min 3.63122e-08 for triangle 315
+    max 0.750817 for triangle 1361
+
+Edges:
+    min 0.000260111 for edge 5037 points (0.228927 0.49 0.809278)(0.228673 0.49 0.809222)
+    max 0.900069 for edge 846 points (0.142808 0.49 0.030828)(0.153449 -0.41 0.034129)
+
+Checking for points less than 1E-6 of bounding box ((0.999938 1.02 1) meter) apart.
+Found 0 nearby points.
+
+Surface is not closed since not all edges connected to two faces:
+    connected to one face : 764
+    connected to >2 faces : 0
+Conflicting face labels:764
+Dumping conflicting face labels to "problemFaces"
+Paste this into the input for surfaceSubset
+
+Number of unconnected parts : 1
+
+Number of zones (connected area with consistent normal) : 1
+
+
+End
+

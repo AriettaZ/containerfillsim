@@ -1,0 +1,18 @@
+---Job started at:
+Sat Sep 27 19:25:49 EDT 2014
+---Job finished at:
+Sat Sep 27 20:19:48 EDT 2014
+
+-----------------------
+Resources requested:
+nodes=8:ppn=12
+-----------------------
+Resources used:
+cput=79:41:39
+walltime=00:54:02
+mem=8.671 GB
+vmem=25.406 GB
+-----------------------
+Resource units charged (estimate):
+8.645 RUs
+-----------------------

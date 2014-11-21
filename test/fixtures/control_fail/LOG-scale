@@ -1,0 +1,25 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.1.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+Build  : 2.1.0-bd7367f93311
+Exec   : transformPoints -scale (1.0 1.0 1.0)
+Date   : Nov 14 2014
+Time   : 10:19:07
+Host   : "n0244.ten.osc.edu"
+PID    : 13340
+Case   : /nfs/05/ndem0010/crimson_files/ContainerFill/15
+nProcs : 1
+sigFpe : Enabling floating point exception trapping (FOAM_SIGFPE).
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster
+allowSystemOperations : Disallowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Scaling points by (1 1 1)
+Writing points into directory "/nfs/05/ndem0010/crimson_files/ContainerFill/15/constant/polyMesh"
+

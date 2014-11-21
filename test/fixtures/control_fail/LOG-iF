@@ -1,0 +1,223 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.1.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+Build  : 2.1.0-bd7367f93311
+Exec   : interFoam -parallel
+Date   : Nov 14 2014
+Time   : 10:21:12
+Host   : "n0244.ten.osc.edu"
+PID    : 13374
+Case   : /nfs/05/ndem0010/crimson_files/ContainerFill/15
+nProcs : 96
+Slaves : 
+95
+(
+"n0244.ten.osc.edu.13375"
+"n0244.ten.osc.edu.13376"
+"n0244.ten.osc.edu.13377"
+"n0244.ten.osc.edu.13378"
+"n0244.ten.osc.edu.13379"
+"n0244.ten.osc.edu.13380"
+"n0244.ten.osc.edu.13381"
+"n0244.ten.osc.edu.13382"
+"n0244.ten.osc.edu.13383"
+"n0244.ten.osc.edu.13384"
+"n0244.ten.osc.edu.13385"
+"n0658.ten.osc.edu.25186"
+"n0658.ten.osc.edu.25190"
+"n0658.ten.osc.edu.25191"
+"n0658.ten.osc.edu.25192"
+"n0658.ten.osc.edu.25193"
+"n0658.ten.osc.edu.25194"
+"n0658.ten.osc.edu.25195"
+"n0658.ten.osc.edu.25196"
+"n0658.ten.osc.edu.25198"
+"n0658.ten.osc.edu.25199"
+"n0658.ten.osc.edu.25200"
+"n0658.ten.osc.edu.25201"
+"n0649.ten.osc.edu.19899"
+"n0649.ten.osc.edu.19903"
+"n0649.ten.osc.edu.19904"
+"n0649.ten.osc.edu.19905"
+"n0649.ten.osc.edu.19906"
+"n0649.ten.osc.edu.19907"
+"n0649.ten.osc.edu.19908"
+"n0649.ten.osc.edu.19909"
+"n0649.ten.osc.edu.19911"
+"n0649.ten.osc.edu.19912"
+"n0649.ten.osc.edu.19913"
+"n0649.ten.osc.edu.19914"
+"n0648.ten.osc.edu.6416"
+"n0648.ten.osc.edu.6420"
+"n0648.ten.osc.edu.6421"
+"n0648.ten.osc.edu.6422"
+"n0648.ten.osc.edu.6423"
+"n0648.ten.osc.edu.6424"
+"n0648.ten.osc.edu.6425"
+"n0648.ten.osc.edu.6426"
+"n0648.ten.osc.edu.6428"
+"n0648.ten.osc.edu.6429"
+"n0648.ten.osc.edu.6430"
+"n0648.ten.osc.edu.6431"
+"n0643.ten.osc.edu.24298"
+"n0643.ten.osc.edu.24302"
+"n0643.ten.osc.edu.24303"
+"n0643.ten.osc.edu.24304"
+"n0643.ten.osc.edu.24305"
+"n0643.ten.osc.edu.24306"
+"n0643.ten.osc.edu.24307"
+"n0643.ten.osc.edu.24308"
+"n0643.ten.osc.edu.24310"
+"n0643.ten.osc.edu.24311"
+"n0643.ten.osc.edu.24312"
+"n0643.ten.osc.edu.24313"
+"n0641.ten.osc.edu.1480"
+"n0641.ten.osc.edu.1484"
+"n0641.ten.osc.edu.1485"
+"n0641.ten.osc.edu.1486"
+"n0641.ten.osc.edu.1487"
+"n0641.ten.osc.edu.1488"
+"n0641.ten.osc.edu.1489"
+"n0641.ten.osc.edu.1490"
+"n0641.ten.osc.edu.1491"
+"n0641.ten.osc.edu.1492"
+"n0641.ten.osc.edu.1493"
+"n0641.ten.osc.edu.1494"
+"n0301.ten.osc.edu.3379"
+"n0301.ten.osc.edu.3383"
+"n0301.ten.osc.edu.3384"
+"n0301.ten.osc.edu.3385"
+"n0301.ten.osc.edu.3386"
+"n0301.ten.osc.edu.3387"
+"n0301.ten.osc.edu.3388"
+"n0301.ten.osc.edu.3389"
+"n0301.ten.osc.edu.3390"
+"n0301.ten.osc.edu.3391"
+"n0301.ten.osc.edu.3392"
+"n0301.ten.osc.edu.3393"
+"n0300.ten.osc.edu.16039"
+"n0300.ten.osc.edu.16043"
+"n0300.ten.osc.edu.16044"
+"n0300.ten.osc.edu.16045"
+"n0300.ten.osc.edu.16046"
+"n0300.ten.osc.edu.16047"
+"n0300.ten.osc.edu.16048"
+"n0300.ten.osc.edu.16049"
+"n0300.ten.osc.edu.16050"
+"n0300.ten.osc.edu.16051"
+"n0300.ten.osc.edu.16052"
+"n0300.ten.osc.edu.16053"
+)
+
+Pstream initialized with:
+    floatTransfer     : 0
+    nProcsSimpleSum   : 0
+    commsType         : nonBlocking
+sigFpe : Enabling floating point exception trapping (FOAM_SIGFPE).
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster
+allowSystemOperations : Disallowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Create mesh for time = 0
+
+// using new solver syntax:
+U
+{
+    solver          PBiCG;
+    preconditioner  DILU;
+    tolerance       0.001;
+    relTol          0.01;
+}
+
+// using new solver syntax:
+k
+{
+    solver          PBiCG;
+    preconditioner  DILU;
+    tolerance       0.001;
+    relTol          0.01;
+}
+
+// using new solver syntax:
+epsilon
+{
+    solver          PBiCG;
+    preconditioner  DILU;
+    tolerance       0.001;
+    relTol          0.01;
+}
+
+// using new solver syntax:
+omega
+{
+    solver          PBiCG;
+    preconditioner  DILU;
+    tolerance       1;
+    relTol          1;
+}
+
+// using new solver syntax:
+nuTilda
+{
+    solver          PBiCG;
+    preconditioner  DILU;
+    tolerance       1;
+    relTol          1;
+}
+
+// using new solver syntax:
+UFinal
+{
+    solver          PBiCG;
+    preconditioner  DILU;
+    tolerance       0.001;
+    relTol          0.01;
+}
+
+// using new solver syntax:
+kFinal
+{
+    solver          PBiCG;
+    preconditioner  DILU;
+    tolerance       0.001;
+    relTol          0.01;
+}
+
+// using new solver syntax:
+epsilonFinal
+{
+    solver          PBiCG;
+    preconditioner  DILU;
+    tolerance       0.001;
+    relTol          0.01;
+}
+
+// using new solver syntax:
+omegaFinal
+{
+    solver          PBiCG;
+    preconditioner  DILU;
+    tolerance       1;
+    relTol          1;
+}
+
+// using new solver syntax:
+nuTildaFinal
+{
+    solver          PBiCG;
+    preconditioner  DILU;
+    tolerance       1;
+    relTol          1;
+}
+
+
+PIMPLE: Operating solver in PISO mode
+
+Reading field p_rgh
+

@@ -1,0 +1,25 @@
+
+New 'OnDemand' desktop is n0644.ten.osc.edu:1
+
+Starting applications specified in /nfs/05/ndem0010/.crimson_cfg/vnc/xstartup.turbovnc
+Log file is /nfs/05/ndem0010/.crimson_cfg/vnc/n0644.ten.osc.edu:1.log
+
+
+Can't find file /nfs/05/ndem0010/.vnc/n0644.ten.osc.edu:2.pid
+You'll have to kill the Xvnc process manually
+
+
+-----------------------
+Resources requested:
+mem=48gb
+nodes=1:ppn=12:gpus=2:vis
+-----------------------
+Resources used:
+cput=00:00:25
+walltime=00:02:16
+mem=0.637 GB
+vmem=8.210 GB
+-----------------------
+Resource units charged (estimate):
+0.045 RUs
+-----------------------

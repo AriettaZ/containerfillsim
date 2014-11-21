@@ -1,0 +1,172 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.1.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+Build  : 2.1.0-bd7367f93311
+Exec   : changeDictionary
+Date   : Sep 27 2014
+Time   : 19:28:49
+Host   : "n0136.ten.osc.edu"
+PID    : 6844
+Case   : /nfs/05/ndem0010/crimson_files/ContainerFill/8
+nProcs : 1
+sigFpe : Enabling floating point exception trapping (FOAM_SIGFPE).
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster
+allowSystemOperations : Disallowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Create mesh for time = 0
+
+// using new solver syntax:
+U
+{
+    solver          PBiCG;
+    preconditioner  DILU;
+    tolerance       0.001;
+    relTol          0.01;
+}
+
+// using new solver syntax:
+k
+{
+    solver          PBiCG;
+    preconditioner  DILU;
+    tolerance       0.001;
+    relTol          0.01;
+}
+
+// using new solver syntax:
+epsilon
+{
+    solver          PBiCG;
+    preconditioner  DILU;
+    tolerance       0.001;
+    relTol          0.01;
+}
+
+// using new solver syntax:
+omega
+{
+    solver          PBiCG;
+    preconditioner  DILU;
+    tolerance       1;
+    relTol          1;
+}
+
+// using new solver syntax:
+nuTilda
+{
+    solver          PBiCG;
+    preconditioner  DILU;
+    tolerance       1;
+    relTol          1;
+}
+
+// using new solver syntax:
+UFinal
+{
+    solver          PBiCG;
+    preconditioner  DILU;
+    tolerance       0.001;
+    relTol          0.01;
+}
+
+// using new solver syntax:
+kFinal
+{
+    solver          PBiCG;
+    preconditioner  DILU;
+    tolerance       0.001;
+    relTol          0.01;
+}
+
+// using new solver syntax:
+epsilonFinal
+{
+    solver          PBiCG;
+    preconditioner  DILU;
+    tolerance       0.001;
+    relTol          0.01;
+}
+
+// using new solver syntax:
+omegaFinal
+{
+    solver          PBiCG;
+    preconditioner  DILU;
+    tolerance       1;
+    relTol          1;
+}
+
+// using new solver syntax:
+nuTildaFinal
+{
+    solver          PBiCG;
+    preconditioner  DILU;
+    tolerance       1;
+    relTol          1;
+}
+
+Read dictionary changeDictionaryDict with replacements for dictionaries 
+1
+(
+boundary
+)
+
+Replacing entries in dictionary boundary
+Special handling of boundary as polyMesh/boundary file.
+Loaded dictionary boundary with entries 
+4
+(
+inlet1_inlet1
+inlet2_inlet2
+outlet1_outlet1
+walls_wall
+)
+
+Merging entries from 
+4
+(
+walls_.*
+outlet1_.*
+inlet1_.*
+inlet2_.*
+)
+
+fieldDict:
+{
+    inlet1_inlet1
+    {
+        type            patch;
+        nFaces          80;
+        startFace       944376;
+    }
+    inlet2_inlet2
+    {
+        type            patch;
+        nFaces          52;
+        startFace       944456;
+    }
+    outlet1_outlet1
+    {
+        type            patch;
+        nFaces          250;
+        startFace       944508;
+    }
+    walls_wall
+    {
+        type            wall;
+        nFaces          23066;
+        startFace       944758;
+    }
+}
+
+Writing modified fieldDict boundary
+
+End
+
