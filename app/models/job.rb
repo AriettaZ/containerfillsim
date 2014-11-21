@@ -24,11 +24,32 @@ class Job < ActiveRecord::Base
     
     raise "No validation method for job with script: #{script_name}"
   end
-
+  
+  # timesteps value should not be off from the request steps
+  # by more than 0.001
   def solver_results_valid?
-    # check LOG-iF
-    # UNIT TESTS ARE GOOD FOR THIS
-    true
+    (container.steps - final_timestep_for_log).abs <= 0.001
+  end
+  
+  # the LOG-iF file contains lines in the form:
+  # Time = 4.99853
+  # Time = 4.99902
+  #
+  # returns the final timestemp value in the file, or 0.0 if non available
+  def final_timestep_for_log
+    path = Pathname.new(Pathname.new(self.job_path).join("LOG-iF"))
+    timestep=0.0
+    
+    if path.exist? && path.readable?
+      path.each_line do |line|
+        # iterate through each line in order; assume final match is the largest
+        if /^Time = (\d+(\.\d+)?)$/.match(line)
+          timestep = $1.to_f # $1 matches the first parens which is the number
+        end
+      end
+    end
+    
+    timestep
   end
 
   def post_results_valid?
