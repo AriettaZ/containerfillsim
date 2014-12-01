@@ -9,10 +9,14 @@
   <%= javascript_include_tag "stl" %>
 <% end %>
 
-<div id="canvas-container">
-    <div id="canvas"></div>
-    <div id="canvas-menu"></div>
-</div>
+<p>
+  <div id="canvas-container">
+      <div id="canvas"></div>
+      <div id="canvas-menu"></div>
+  </div>
+</p>
+
+<%= link_to 'Back', container_path, class: 'btn btn-default' %>
 
 <script>
     // create parent stl object
