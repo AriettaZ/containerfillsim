@@ -1,0 +1,50 @@
+/* Styles go here */
+
+#canvas-container {
+
+    width: 350px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+
+}
+
+#canvas {
+
+    height: 350px;
+
+}
+
+#canvas-menu {
+
+    padding: 5px;
+
+}
+
+#canvas-menu ul {
+
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 20px;
+
+}
+
+#canvas-menu li {
+
+    margin: 5px;
+
+}
+
+.stl-color-bar {
+
+    height: 10px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 10px;
+
+}

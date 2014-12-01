@@ -3,6 +3,7 @@ ContainerFillSim::Application.routes.draw do
     member do
       put 'submit'
       get 'results'
+      get 'stl'
     end
   end
   

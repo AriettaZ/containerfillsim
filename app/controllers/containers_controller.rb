@@ -1,5 +1,5 @@
 class ContainersController < ApplicationController
-  before_action :set_container, only: [:show, :edit, :update, :destroy, :submit, :results]
+  before_action :set_container, only: [:show, :edit, :update, :destroy, :submit, :results, :stl]
 
   # GET /containers
   # GET /containers.json
@@ -86,6 +86,10 @@ class ContainersController < ApplicationController
   
   # GET /containers/1/results
   def results
+  end
+
+  # GET /containers/1/stl
+  def stl
   end
 
   private
