@@ -1,6 +1,4 @@
-/* Styles go here */
-
-#canvas-container {
+.astl-viewer {
 
     width: 350px;
     border-width: 1px;
@@ -9,42 +7,65 @@
 
 }
 
-#canvas {
+.astl-canvas {
 
     height: 350px;
 
 }
 
-#canvas-menu {
-
-    padding: 5px;
-
-}
-
-#canvas-menu ul {
+.astl-files {
 
     list-style-type: none;
     padding: 0;
-    margin: 0;
-    margin-bottom: 20px;
+    margin: 35px;
+    margin-top: 0px;
 
 }
 
-#canvas-menu li {
+.astl-files li > div {
 
-    margin: 5px;
+    margin: 2px;
 
 }
 
-.stl-color-bar {
+.astl-name {
+
+}
+
+.astl-loading {
+
+    font-weight: bold;
+
+}
+
+.astl-color-bar {
 
     height: 10px;
-    width: 100%;
+    width: 90%;
     margin-left: auto;
     margin-right: auto;
     border-width: 1px;
     border-style: solid;
     border-color: black;
     border-radius: 10px;
+
+}
+
+.astl-color {
+
+    display: inline-block;
+    padding-right: 10px;
+
+}
+
+.astl-color label {
+
+    margin-right: 2px;
+
+}
+
+.astl-toggle {
+
+    display: inline-block;
 
 }

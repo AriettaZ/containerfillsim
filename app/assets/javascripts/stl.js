@@ -4,7 +4,7 @@
 
 /* global THREE:false */
 
-var ASTL = { REVISION: '1' };
+var ASTL = { REVISION: '2' };
 
 //----------------------------//
 
@@ -19,16 +19,38 @@ ASTL.renderer;
 
 //----------------------------//
 
-ASTL.STLObject = function ( name, file, color ) {
+// Define loaders here
+
+ASTL.newLoader = function ( type ) {
+
+    switch ( type ) {
+
+        case "stl":
+            return new THREE.STLLoader();
+        case "vtk":
+            return new THREE.VTKLoader();
+        default:
+            return new THREE.STLLoader();
+
+    }
+
+};
+
+//----------------------------//
+
+ASTL.STLObject = function ( parent_node, child_nodes ) {
+
+    // Root <li> node of this <a href> node
+    this.root_node = parent_node.parentNode;
 
     // Name of STL object
-    this.name = name;
+    this.name = parent_node.textContent;
 
     // Filename of STL mesh
-    this.file = file;
+    this.file = parent_node.href;
 
-    // Initial color (note: this can't be used to change color later)
-    this.color = color;
+    // Initial color
+    this.init_color = parent_node.dataset.color || "#ffffff";
 
     // Mesh object
     this.mesh = undefined;
@@ -39,8 +61,24 @@ ASTL.STLObject = function ( name, file, color ) {
     // Hash of children stl objects
     this.children = {};
 
-    // Node id in canvas-menu
-    this.node_id = "stl-object|" + name;
+    // Remove <a href> node
+    this.root_node.removeChild( parent_node );
+
+    // Display HTML menu for this object
+    this.addHTML();
+
+    // Add children if they exist
+    if ( child_nodes !== undefined ) {
+
+        for ( var i = 0; i < child_nodes.length; i++ ) {
+
+            var name = child_nodes[i].textContent;
+
+            this.children[ name ] = new ASTL.STLObject( child_nodes[i] );
+
+        }
+
+    }
 
 };
 
@@ -48,20 +86,18 @@ ASTL.STLObject.prototype = {
 
     constructor: ASTL.STLObject,
 
-    add: function ( name, file, color ) {
+    load: function ( loader ) {
 
-        // Add child stl object to this parent
-        this.children[ name ] = new ASTL.STLObject( name, file, color );
+        // Load geometry from file using specified loader
+        // then call meshLoader when done
+        loader.load( this.file, this.meshLoader() );
 
-    },
+        // Repeat for children
+        for ( var key in this.children ) {
 
-    find: function ( name ) {
+            this.children[ key ].load( loader );
 
-        // It is either a child of parent or the parent
-        if ( name in this.children )
-            return this.children[ name ];
-        else
-            return this;
+        }
 
     },
 
@@ -73,8 +109,8 @@ ASTL.STLObject.prototype = {
 
             // Create STL mesh
             var material = new THREE.MeshPhongMaterial({
-                ambient: _this.color,
-                color: _this.color,
+                ambient: _this.init_color,
+                color: _this.init_color,
                 specular: 0x111111,
                 shininess: 200,
                 side: THREE.DoubleSide
@@ -86,8 +122,9 @@ ASTL.STLObject.prototype = {
             ASTL.scene.add( _this.mesh );
             ASTL.render();
 
-            // Add this item to the canvas-menu
-            _this.addHTML();
+            // Remove "Loading..." HTML
+            var loading_node = _this.root_node.querySelector( ".astl-loading" );
+            _this.root_node.removeChild( loading_node );
 
             // Store that this mesh is loaded
             _this.loaded = true;
@@ -101,62 +138,116 @@ ASTL.STLObject.prototype = {
 
     addHTML: function () {
 
-        var info = document.querySelector( '#canvas-menu' );
-
-        var content = "";
-        content += "<ul id=\"" + this.node_id + "\">";
-        content += "<li>";
-        content += "<strong>" + this.name + ":</strong>&nbsp;";
-        content += "</li><li>";
-        content += this.getColorBarHTML();
-        content += "</li><li>";
-        content += this.getColorHTML();
-        content += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-        content += this.getTransparentHTML();
-        content += "</li>";
-        content += "</ul>";
-
-        info.insertAdjacentHTML( 'beforeend', content );
+        // HTML view
+        this.addNameHTML();
+        this.addLoadingHTML();
+        this.addColorBarHTML();
+        this.addColorHTML();
+        this.addToggleHTML();
 
     },
 
-    getColorBarHTML: function () {
+    addNameHTML: function () {
 
-        return "<div class=\"stl-color-bar\" style=\"background-color:" + this.color + ";\"></div>";
+        var elem = document.createElement( "h3" );
+        elem.className = "astl-name";
+        elem.textContent = this.name;
 
-    },
-
-    getColorHTML: function () {
-
-        var content = "";
-        content += "Color: ";
-        content += "<input type=\"color\" name=\"color\" value=\"" + this.color + "\" ";
-        content += "onchange=\"ASTL.changeColor(this, \'" + this.name + "\')\"";
-        content += ">";
-        return content;
+        this.root_node.appendChild( elem );
 
     },
 
-    getTransparentHTML: function () {
+    addLoadingHTML: function () {
 
-        var content = "";
-        content += "<input type=\"checkbox\" name=\"transparent\" ";
-        content += "onclick=\"ASTL.changeTransparency(this, \'" + this.name + "\')\"";
-        content += ">";
-        content += "Hide";
-        return content;
+        var elem = document.createElement( "div" );
+        elem.className = "astl-loading";
+        elem.textContent = "Loading...";
+
+        this.root_node.appendChild( elem );
 
     },
 
-    setColorBar: function ( css_color ) {
+    addColorBarHTML: function () {
 
-        // Get color bar node using css styling
-        // e.g.: "stl-object|name" => "#stl-object\\|name .stl-color-bar"
-        var css_id = "#" + this.node_id.replace( /(:|\.|\[|\]|\|)/g, "\\$1" ) + " .stl-color-bar";
-        var colorbar_node = document.querySelector( css_id );
+        var elem = document.createElement( "div" );
+        elem.className = "astl-color-bar";
+        elem.style.backgroundColor = this.init_color;
 
-        // Change color of color bar
-        colorbar_node.style.backgroundColor = css_color;
+        this.root_node.appendChild( elem );
+
+    },
+
+    addColorHTML: function () {
+
+        var elem = document.createElement( "div" );
+        elem.className = "astl-color";
+
+        var label = document.createElement( "label" );
+        label.htmlFor = "astl-color_" + this.name;
+        label.textContent = "Color:";
+
+        var input = document.createElement( "input" );
+        input.id = label.htmlFor;
+        input.type = "color";
+        input.value = this.init_color;
+
+        var _this = this;
+        input.onchange = function () {
+            _this.changeColor( input );
+        };
+
+        elem.appendChild( label );
+        elem.appendChild( input );
+        this.root_node.appendChild( elem );
+
+        return;
+
+    },
+
+    addToggleHTML: function () {
+
+        var elem = document.createElement( "div" );
+        elem.className = "astl-toggle";
+
+        var label = document.createElement( "label" );
+        label.htmlFor = "astl-toggle_" + this.name;
+        label.textContent = "Hide";
+
+        var input = document.createElement( "input" );
+        input.id = label.htmlFor;
+        input.type = "checkbox";
+
+        var _this = this;
+        input.onclick = function () {
+            _this.changeToggle( input );
+        };
+
+        elem.appendChild( input );
+        elem.appendChild( label );
+        this.root_node.appendChild( elem );
+
+    },
+
+    changeColor: function ( dom_element ) {
+
+        var color = dom_element.value;
+
+        // Change color of mesh and color bar
+        this.setColor( color );
+        this.setColorBar( color );
+
+        ASTL.render();
+
+    },
+
+    changeToggle: function ( dom_element ) {
+
+        var checked = dom_element.checked;
+
+        // Set this mesh visible or not
+        this.setVisible( !checked );
+
+        ASTL.render();
 
     },
 
@@ -167,6 +258,14 @@ ASTL.STLObject.prototype = {
         // Change the color of the material for this mesh
         this.mesh.material.color = color;
         this.mesh.material.ambient = color;
+
+    },
+
+    setColorBar: function ( css_color ) {
+
+        // Change color of color bar node
+        var colorbar_node = this.root_node.querySelector( ".astl-color-bar" );
+        colorbar_node.style.backgroundColor = css_color;
 
     },
 
@@ -201,17 +300,29 @@ ASTL.STLObject.prototype = {
 
     },
 
-    isDoneLoading: function () {
+    applyMatrix: function( matrix ) {
 
-        // Check if this object and all of its children are done loading
+        // Apply matrix to mesh
+        this.mesh.applyMatrix( matrix );
 
-        if ( !this.loaded ) return false;
-
+        // Repeat for children
         for ( var key in this.children ) {
 
-            var child = this.children[ key ];
+            this.children[ key ].applyMatrix( matrix );
 
-            if ( !child.isDoneLoading() ) return false;
+        }
+
+    },
+
+    isDoneLoading: function () {
+
+        // Check if done loading
+        if ( !this.loaded ) return false;
+
+        // Repeat check for children
+        for ( var key in this.children ) {
+
+            if ( !this.children[ key ].isDoneLoading() ) return false;
 
         }
 
@@ -223,18 +334,15 @@ ASTL.STLObject.prototype = {
 
 //----------------------------//
 
-// Change color of stl object
+// This function runs when all meshes are done loading
 
-ASTL.changeColor = function ( dom_element, stl_name ) {
+ASTL.doneLoading = function () {
 
-    var color = dom_element.value;
+    // Get transformation matrix that centers parent stl object
+    var m = ASTL.parent_stl.getCenteringMatrix();
 
-    // Change color of the mesh
-    var stl_object = ASTL.parent_stl.find( stl_name );
-    stl_object.setColor( color );
-
-    // Change background color for color bar of this mesh
-    stl_object.setColorBar( color );
+    // Center the entire scene using this matrix
+    ASTL.parent_stl.applyMatrix(m);
 
     ASTL.render();
 
@@ -242,33 +350,42 @@ ASTL.changeColor = function ( dom_element, stl_name ) {
 
 //----------------------------//
 
-// Checkbox to turn on/off transparency for base material
+ASTL.animate = function () {
 
-ASTL.changeTransparency = function ( dom_element, stl_name ) {
-
-    var checked = dom_element.checked;
-
-    // Toggle visibility of this mesh
-    var stl_object = ASTL.parent_stl.find( stl_name );
-    stl_object.setVisible( !checked );
-
-    ASTL.render();
+    window.requestAnimationFrame( ASTL.animate );
+    ASTL.controls.update();
 
 };
 
 //----------------------------//
 
-ASTL.startLoading = function ( parent_stl_object, loader ) {
+ASTL.render = function () {
 
-    // set parent stl object as global variable
+    ASTL.renderer.render( ASTL.scene, ASTL.camera );
 
-    ASTL.parent_stl = parent_stl_object;
+};
 
+//----------------------------//
+
+// Initialization
+
+window.onload = function () {
+
+    // Get stl viewer and the canvas and file list corresponding
+    // to the viewer
+    var stl_viewer = document.querySelector( '.astl-viewer' );
+    var stl_canvas = stl_viewer.querySelector( '.astl-canvas' );
+    var stl_parent_node = stl_viewer.querySelector( 'a.astl-parent' );
+    var stl_child_nodes = stl_viewer.querySelectorAll( '.astl-files > li a:not(.astl-parent)' );
+
+    // make objects
+
+    ASTL.parent_stl = new ASTL.STLObject( stl_parent_node, stl_child_nodes );
 
     // canvas dimensions
 
-    var canvas_width = document.querySelector( '#canvas' ).offsetWidth;
-    var canvas_height = document.querySelector( '#canvas' ).offsetHeight;
+    var canvas_width = stl_canvas.offsetWidth;
+    var canvas_height = stl_canvas.offsetHeight;
 
     // camera
 
@@ -282,7 +399,7 @@ ASTL.startLoading = function ( parent_stl_object, loader ) {
     ASTL.renderer = new THREE.WebGLRenderer({ antialias: true });
     ASTL.renderer.setSize( canvas_width, canvas_height );
 
-    var container = document.querySelector( '#canvas' );
+    var container = stl_canvas;
     container.appendChild( ASTL.renderer.domElement );
 
     // trackball controls
@@ -329,11 +446,9 @@ ASTL.startLoading = function ( parent_stl_object, loader ) {
 
     // stl loader
 
-    loader.load( ASTL.parent_stl.file, ASTL.parent_stl.meshLoader() );
-    for ( var key in ASTL.parent_stl.children ) {
-        var stl_object = ASTL.parent_stl.children[ key ];
-        loader.load( stl_object.file, stl_object.meshLoader() );
-    }
+    var loader = ASTL.newLoader( stl_viewer.dataset.type );
+
+    ASTL.parent_stl.load( loader );
 
     // axis
 
@@ -343,38 +458,5 @@ ASTL.startLoading = function ( parent_stl_object, loader ) {
     // animate
 
     ASTL.animate();
-
-};
-
-//----------------------------//
-
-// This function runs when all meshes are done loading
-
-ASTL.doneLoading = function () {
-
-    // Get transformation matrix that centers parent stl object
-    var m = ASTL.parent_stl.getCenteringMatrix();
-
-    // Center the entire scene using this matrix
-    ASTL.scene.applyMatrix(m);
-
-    ASTL.render();
-
-};
-
-//----------------------------//
-
-ASTL.animate = function () {
-
-    window.requestAnimationFrame( ASTL.animate );
-    ASTL.controls.update();
-
-};
-
-//----------------------------//
-
-ASTL.render = function () {
-
-    ASTL.renderer.render( ASTL.scene, ASTL.camera );
 
 };
