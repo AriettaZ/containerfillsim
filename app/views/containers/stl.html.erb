@@ -25,24 +25,3 @@
     </ul>
   </div>
 </p>
-
-<p>
-  <div id="canvas-container">
-      <div id="canvas"></div>
-      <div id="canvas-menu"></div>
-  </div>
-</p>
-
-<%= link_to 'Back', container_path, class: 'btn btn-default' %>
-
-<script>
-    // create parent stl object
-    stl_parent = new ASTL.STLObject( 'walls', '<%= @container.walls.url %>', '#444444' );
-    
-    // add children objects to parent
-    stl_parent.add( 'inlet1', '<%= @container.inlet.url %>', '#ff0000' );
-    stl_parent.add( 'outlet1', '<%= @container.outlet.url %>', '#0000ff' );
-    
-    // load these stl objects in #canvas
-    ASTL.startLoading( stl_parent, new THREE.STLLoader() );
-</script>

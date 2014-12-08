@@ -21,18 +21,30 @@ ASTL.renderer;
 
 // Define loaders here
 
+ASTL.Loaders = {
+
+    "stl": THREE.STLLoader,
+    "vtk": THREE.VTKLoader
+
+};
+
 ASTL.newLoader = function ( type ) {
 
-    switch ( type ) {
+    if ( type in ASTL.Loaders ) {
 
-        case "stl":
-            return new THREE.STLLoader();
-        case "vtk":
-            return new THREE.VTKLoader();
-        default:
-            return new THREE.STLLoader();
+        return new ASTL.Loaders[ type ]();
+
+    } else {
+
+        return new THREE.STLLoader();
 
     }
+
+};
+
+ASTL.addLoader = function ( type, object ) {
+
+    ASTL.Loaders[ type ] = object;
 
 };
 
@@ -123,8 +135,8 @@ ASTL.STLObject.prototype = {
             ASTL.render();
 
             // Remove "Loading..." HTML
-            var loading_node = _this.root_node.querySelector( ".astl-loading" );
-            _this.root_node.removeChild( loading_node );
+            var loading_node = _this.root_node.querySelector( ".astl-loading-color-bar" );
+            loading_node.classList.remove( "astl-loading-color-bar" );
 
             // Store that this mesh is loaded
             _this.loaded = true;
@@ -139,29 +151,17 @@ ASTL.STLObject.prototype = {
     addHTML: function () {
 
         // HTML view
-        this.addNameHTML();
-        this.addLoadingHTML();
         this.addColorBarHTML();
-        this.addColorHTML();
-        this.addToggleHTML();
-
-    },
-
-    addNameHTML: function () {
-
-        var elem = document.createElement( "h3" );
-        elem.className = "astl-name";
-        elem.textContent = this.name;
-
-        this.root_node.appendChild( elem );
-
-    },
-
-    addLoadingHTML: function () {
 
         var elem = document.createElement( "div" );
-        elem.className = "astl-loading";
-        elem.textContent = "Loading...";
+        elem.className = "astl-item";
+
+        elem.appendChild( this.addName() );
+        elem.appendChild( this.addColor() );
+        elem.appendChild( this.addToggle() );
+        //this.addNameHTML();
+        //this.addColorHTML();
+        //this.addToggleHTML();
 
         this.root_node.appendChild( elem );
 
@@ -170,21 +170,31 @@ ASTL.STLObject.prototype = {
     addColorBarHTML: function () {
 
         var elem = document.createElement( "div" );
-        elem.className = "astl-color-bar";
+        elem.className = "astl-color-bar astl-loading-color-bar";
         elem.style.backgroundColor = this.init_color;
 
         this.root_node.appendChild( elem );
 
     },
 
-    addColorHTML: function () {
+    addName: function () {
+
+        var elem = document.createElement( "div" );
+        elem.className = "astl-name";
+        elem.textContent = this.name;
+
+        return elem;
+
+    },
+
+    addColor: function () {
 
         var elem = document.createElement( "div" );
         elem.className = "astl-color";
 
         var label = document.createElement( "label" );
         label.htmlFor = "astl-color_" + this.name;
-        label.textContent = "Color:";
+        //label.textContent = "color:";
 
         var input = document.createElement( "input" );
         input.id = label.htmlFor;
@@ -198,24 +208,23 @@ ASTL.STLObject.prototype = {
 
         elem.appendChild( label );
         elem.appendChild( input );
-        this.root_node.appendChild( elem );
 
-        return;
+        return elem;
 
     },
 
-    addToggleHTML: function () {
+    addToggle: function () {
 
         var elem = document.createElement( "div" );
         elem.className = "astl-toggle";
 
         var label = document.createElement( "label" );
         label.htmlFor = "astl-toggle_" + this.name;
-        label.textContent = "Hide";
 
         var input = document.createElement( "input" );
         input.id = label.htmlFor;
         input.type = "checkbox";
+        input.checked = true;
 
         var _this = this;
         input.onclick = function () {
@@ -224,7 +233,8 @@ ASTL.STLObject.prototype = {
 
         elem.appendChild( input );
         elem.appendChild( label );
-        this.root_node.appendChild( elem );
+
+        return elem;
 
     },
 
@@ -245,7 +255,7 @@ ASTL.STLObject.prototype = {
         var checked = dom_element.checked;
 
         // Set this mesh visible or not
-        this.setVisible( !checked );
+        this.setVisible( checked );
 
         ASTL.render();
 
