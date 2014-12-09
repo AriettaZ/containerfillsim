@@ -1,28 +1,22 @@
 .astl-viewer {
-    height: 350px;
-}
-
-.astl-canvas {
-    display: inline-block;
-    height: 100%;
     width: 350px;
 }
 
+.astl-canvas {
+    height: 350px;
+    width: 100%;
+}
+
 .astl-files {
-    display: inline-block;
     list-style-type: none;
-    width: 250px;
+    width: 100%;
     padding: 0;
     margin: 0;
-    height: 100%;
-    overflow: auto;
-    border-width: 1px;
-    border-style: solid;
-    border-color: black;
 }
 
 .astl-files li {
     margin: 15px;
+    text-align: center;
 }
 
 .astl-item {

@@ -200,6 +200,7 @@ ASTL.STLObject.prototype = {
         input.id = label.htmlFor;
         input.type = "color";
         input.value = this.init_color;
+        input.size = 8;
 
         var _this = this;
         input.onchange = function () {
