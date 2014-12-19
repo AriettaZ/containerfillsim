@@ -46,5 +46,6 @@ gem 'bootstrap-sass', '~> 3.3.1'
 gem 'autoprefixer-rails'
 gem 'simple_form', '~> 3.0.2'
 
-gem 'osc-machete', :path => "/nfs/17/efranz/prod/osc-machete-0.2.3"
+# gem 'osc-machete', :git => "git@github.com:AweSim-OSC/osc-machete.git"
+gem 'osc-machete', '~> 0.2.1'
 gem 'mocha', :require => false, group: [:test]
