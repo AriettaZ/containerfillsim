@@ -1,8 +1,4 @@
-== WARNING: THIS CURRENTLY USES GEMS NOT INSTALLED ON GLENN
-
-To run, you must do 
-
-    bundle install --path vendor/bundle
+**Should readme files for Rails apps remain in rdoc so we can do rake doc:app?**
 
 
 == README
