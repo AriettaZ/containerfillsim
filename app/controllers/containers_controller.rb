@@ -92,6 +92,15 @@ class ContainersController < ApplicationController
   def stl
   end
 
+  # GET /containers/1/paraview
+  def paraview
+    outdir = OSC::Machete::Crimson.new("#{Rails.application.class.parent_name}/vnc/paraview").files_path
+    xdir = Rails.root.join("jobs", "vnc", "paraview")
+    jnlp = OSC::VNC::Session.new(outdir: outdir, xdir: xdir, cluster: 'glenn').run.to_jnlp
+
+    send_data jnlp.force_encoding('binary'), type: :jnlp, disposition: "attachment", filename: "paraview.jnlp"
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_container

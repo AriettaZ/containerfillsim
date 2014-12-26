@@ -48,4 +48,5 @@ gem 'simple_form', '~> 3.0.2'
 
 # gem 'osc-machete', :git => "git@github.com:AweSim-OSC/osc-machete.git"
 gem 'osc-machete', '~> 0.2.1'
+gem 'osc-vnc', '~> 0.0.1'
 gem 'mocha', :require => false, group: [:test]
