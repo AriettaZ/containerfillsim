@@ -49,3 +49,5 @@ gem 'simple_form', '~> 3.0.2'
 # gem 'osc-machete', :git => "git@github.com:AweSim-OSC/osc-machete.git"
 gem 'osc-machete', '~> 0.2.1'
 gem 'mocha', :require => false, group: [:test]
+
+gem 'bootstrap_form', git: 'https://github.com/bootstrap-ruby/rails-bootstrap-forms.git'

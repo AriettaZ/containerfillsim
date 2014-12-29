@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/bootstrap-ruby/rails-bootstrap-forms.git
+  revision: 5e498df2a3e0cd25afe8743f01d69015b78f1e27
+  specs:
+    bootstrap_form (2.2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -139,6 +145,7 @@ PLATFORMS
 DEPENDENCIES
   autoprefixer-rails
   bootstrap-sass (~> 3.3.1)
+  bootstrap_form!
   coffee-rails (~> 4.0.0)
   jbuilder (~> 1.2)
   jquery-rails
