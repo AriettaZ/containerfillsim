@@ -5,7 +5,21 @@
   <%= f.text_field :name, placeholder: "New Simulation" %>
 
   <%= f.file_field :inlet %>
+  <div class="row">
+    <div class="col-sm-4">
+      <%= f.number_field :inlet_vx, append: 'm/s', step: 'any' %>
+    </div>
+    <div class="col-sm-4">
+      <%= f.number_field :inlet_vy, append: 'm/s', step: 'any' %>
+    </div>
+    <div class="col-sm-4">
+      <%= f.number_field :inlet_vz, append: 'm/s', step: 'any' %>
+    </div>
+  </div>
+
   <%= f.file_field :outlet %>
+  <%= f.number_field :outlet_pressure, append: 'Pa', min: 0.0, step: 'any' %>
+
   <%= f.file_field :walls %>
 
   <%= f.select :measurement_scale, Container::MEASUREMENT_SCALES.to_a %>
@@ -19,20 +33,6 @@
     </div>
     <div class="col-sm-6">
       <%= f.number_field :density, append: 'kg/m&sup3;'.html_safe, min: 0.0, step: 'any' %>
-    </div>
-  </div>
-
-  <%= f.number_field :outlet_pressure, append: 'Pa', min: 0.0, step: 'any' %>
-
-  <div class="row">
-    <div class="col-sm-4">
-      <%= f.number_field :inlet_vx, append: 'm/s', step: 'any' %>
-    </div>
-    <div class="col-sm-4">
-      <%= f.number_field :inlet_vy, append: 'm/s', step: 'any' %>
-    </div>
-    <div class="col-sm-4">
-      <%= f.number_field :inlet_vz, append: 'm/s', step: 'any' %>
     </div>
   </div>
 
