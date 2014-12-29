@@ -10,7 +10,7 @@
 
   <%= f.select :measurement_scale, Container::MEASUREMENT_SCALES.to_a %>
 
-  <%= f.select :fluid_type, Container::FLUID_TYPES %>
+  <%= f.select :fluid_type, Container::FLUID_TYPES, include_blank: true %>
   <%= f.number_field :kinematic_viscosity, min: 0.0, step: 'any' %>
   <%= f.number_field :density, min: 0.0, step: 'any' %>
 
