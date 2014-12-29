@@ -11,13 +11,13 @@
   <%= f.select :measurement_scale, Container::MEASUREMENT_SCALES.to_a %>
 
   <%= f.select :fluid_type, Container::FLUID_TYPES %>
-  <%= f.number_field :kinematic_viscosity %>
-  <%= f.number_field :density %>
+  <%= f.number_field :kinematic_viscosity, min: 0.0, step: 'any' %>
+  <%= f.number_field :density, min: 0.0, step: 'any' %>
 
-  <%= f.number_field :outlet_pressure %>
-  <%= f.number_field :inlet_vx %>
-  <%= f.number_field :inlet_vy %>
-  <%= f.number_field :inlet_vz %>
+  <%= f.number_field :outlet_pressure, min: 0.0, step: 'any' %>
+  <%= f.number_field :inlet_vx, step: 'any' %>
+  <%= f.number_field :inlet_vy, step: 'any' %>
+  <%= f.number_field :inlet_vz, step: 'any' %>
 
   <%= f.submit "Save", class: "btn btn-primary" %>
   <%= button_tag "Reset", type: :reset, class: 'btn btn-default' %>
