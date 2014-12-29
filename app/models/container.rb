@@ -12,8 +12,6 @@ class Container < ActiveRecord::Base
     inches: "(0.254 0.254 0.254)"
   }
   
-  FLUID_TYPES = [:water, :oil]
-  
   [:inlet, :outlet, :walls].each do |f|
     has_attached_file f
     do_not_validate_attachment_file_type f
