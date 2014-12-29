@@ -24,7 +24,7 @@
 
   <%= f.select :measurement_scale, Container::MEASUREMENT_SCALES.to_a %>
 
-  <%= f.text_field :fluid_type, list: 'fluid_list' %>
+  <%= f.text_field :fluid_type, icon: 'tint', list: 'fluid_list' %>
   <datalist id="fluid_list">
   </datalist>
   <div class="row">
