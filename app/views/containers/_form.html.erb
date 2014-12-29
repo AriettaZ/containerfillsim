@@ -13,14 +13,14 @@
   <%= f.text_field :fluid_type, list: 'fluid_list' %>
   <datalist id="fluid_list">
   </datalist>
-  <%= f.number_field :kinematic_viscosity, min: 0.0, step: 'any' %>
-  <%= f.number_field :density, min: 0.0, step: 'any' %>
+  <%= f.number_field :kinematic_viscosity, append: 'm&sup2;/s'.html_safe, min: 0.0, step: 'any' %>
+  <%= f.number_field :density, append: 'kg/m&sup3;'.html_safe, min: 0.0, step: 'any' %>
 
-  <%= f.number_field :outlet_pressure, min: 0.0, step: 'any' %>
-  <%= f.number_field :inlet_vx, step: 'any' %>
-  <%= f.number_field :inlet_vy, step: 'any' %>
-  <%= f.number_field :inlet_vz, step: 'any' %>
+  <%= f.number_field :outlet_pressure, append: 'Pa', min: 0.0, step: 'any' %>
+  <%= f.number_field :inlet_vx, append: 'm/s', step: 'any' %>
+  <%= f.number_field :inlet_vy, append: 'm/s', step: 'any' %>
+  <%= f.number_field :inlet_vz, append: 'm/s', step: 'any' %>
 
-  <%= f.submit "Save", class: "btn btn-primary" %>
-  <%= button_tag "Reset", type: :reset, class: 'btn btn-default' %>
+  <%= f.submit 'Save', class: 'btn btn-primary' %>
+  <%= button_tag 'Reset', type: :reset, class: 'btn btn-default' %>
 <% end %>
