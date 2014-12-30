@@ -19,7 +19,7 @@
     <div class="item <%= 'active' if i == 0 %>">
       <%= image_tag "/files/containers/#{@container.job_dir_name}/images/t#{sprintf '%02d', i}.png" %>
     </div>
-  
+
   <% end %>
   </div>
 
@@ -44,6 +44,6 @@
 </div>
 
 <p>
-<%= link_to 'Launch Paraview', paraview_container_path(@container), class: 'btn btn-success', id: 'paraviewBtn', data: { :'loading-text' => "Loading..." } %>
+  <%= link_to 'Launch Paraview', paraview_container_path(@container), class: 'btn btn-success', id: 'paraviewBtn', data: { :'loading-text' => "Loading..." } %>
 </p>
 
