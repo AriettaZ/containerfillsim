@@ -1,3 +1,8 @@
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+
+<h1><%= title %></h1>
+
 <%= bootstrap_form_for(@container) do |f| %>
 
   <%= f.alert_message "Please fix the errors below." %>
@@ -38,4 +43,10 @@
 
   <%= f.submit 'Save', class: 'btn btn-primary' %>
   <%= button_tag 'Reset', type: :reset, class: 'btn btn-default' %>
+  |
+  <%= link_to '<span class="glyphicon glyphicon-arrow-left"></span>'.html_safe, containers_path, class: 'btn btn-default', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Back' %>
+  <%= link_to '<span class="glyphicon glyphicon-eye-open"></span>'.html_safe, f.object, class: 'btn btn-primary', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'View Container' unless f.object.new_record? %>
 <% end %>
+
+  </div>
+</div>
