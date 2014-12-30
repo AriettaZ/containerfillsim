@@ -31,6 +31,11 @@ fluid_list["mercury"] =
 $ ->
   $('[data-toggle="tooltip"]').tooltip()
 
+  # Only allow user to click "Launch Paraview" button once
+  $('#paraviewBtn').on 'click', ->
+    $(this).button('loading')
+    return
+
   # Add list of fluids to container form
   for key of fluid_list
     new_option = document.createElement("option")
