@@ -4,6 +4,7 @@ ContainerFillSim::Application.routes.draw do
       put 'submit'
       get 'results'
       get 'stl'
+      get 'paraview'
     end
   end
   
