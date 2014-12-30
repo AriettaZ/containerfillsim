@@ -24,6 +24,10 @@ fluid_list["milk"] =
   viscosity: 0.00000113
   density: 1035
 
+fluid_list["mercury"] =
+  viscosity: 0.000000118
+  density: 13590
+
 $ ->
   $('[data-toggle="tooltip"]').tooltip()
 
