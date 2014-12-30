@@ -1,7 +1,7 @@
 <% content_for :head_css do %>
   <%= stylesheet_link_tag "stl", media: "all" %>
 <% end %>
-  
+
 <% content_for :head_js do %>
   <%= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/three.js/r69/three.min.js" %>
   <%= javascript_include_tag "threejs/TrackballControls" %>
@@ -25,3 +25,5 @@
     </ul>
   </div>
 </p>
+
+<%= link_to '<span class="glyphicon glyphicon-arrow-left"></span>'.html_safe, @container, class: 'btn btn-default', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Back' %>

@@ -62,10 +62,6 @@
   <%= link_to @container.walls_file_name, @container.walls.url if @container.walls %>
 </p>
 
-<p>
-  <%= link_to 'STL Viewer', stl_container_path(@container), class: 'btn btn-success' %>
-</p>
-
-
-<%= link_to 'Edit', edit_container_path(@container), class: 'btn btn-primary' %> |
-<%= link_to 'Back', containers_path, class: 'btn btn-default' %>
+<%= link_to '<span class="glyphicon glyphicon-arrow-left"></span>'.html_safe, containers_path, class: 'btn btn-default', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Back' %>
+<%= link_to '<span class="glyphicon glyphicon-edit"></span>'.html_safe, edit_container_path(@container), class: 'btn btn-primary', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Edit' %>
+<%= link_to '<span class="glyphicon glyphicon-globe"></span>'.html_safe, stl_container_path(@container), class: 'btn btn-success', data: { toggle: 'tooltip', placement: 'bottom' }, title: '3D Viewer' %>

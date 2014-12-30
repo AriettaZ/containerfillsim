@@ -19,8 +19,7 @@
     <div class="item <%= 'active' if i == 0 %>">
       <%= image_tag "/files/containers/#{@container.job_dir_name}/images/t#{sprintf '%02d', i}.png" %>
     </div>
-
-  <% end %>
+    <% end %>
   </div>
 
   <!-- Controls -->
@@ -43,7 +42,8 @@
   </div>
 </div>
 
-<p>
-  <%= link_to 'Launch Paraview', paraview_container_path(@container), class: 'btn btn-success', id: 'paraviewBtn', data: { :'loading-text' => "Loading..." } %>
-</p>
+<p>&nbsp;</p>
 
+<%= link_to '<span class="glyphicon glyphicon-arrow-left"></span>'.html_safe, containers_path, class: 'btn btn-default', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Back' %>
+<%= link_to '<span class="glyphicon glyphicon-eye-open"></span>'.html_safe, @container, class: 'btn btn-primary', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'View Container' %>
+<%= link_to '<span class="glyphicon glyphicon-record"></span>'.html_safe, paraview_container_path(@container), class: 'btn btn-success', id: 'paraviewBtn', data: { :'loading-text' => "Loading...", :toggle => 'tooltip', :placement => 'bottom' }, title: 'Launch Paraview' %>
