@@ -29,7 +29,7 @@ fluid_list["mercury"] =
   density: 13590
 
 $ ->
-  $('[data-toggle="tooltip"]').tooltip()
+  $('[data-toggle="tooltip"]').tooltip container: "body"
 
   # Only allow user to click "Launch Paraview" button once
   $('#paraviewBtn').on 'click', ->
