@@ -1,66 +1,84 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @container.name %>
-</p>
+<div class="row">
+  <div class="col-md-8">
 
-<p>
-  <strong>Measurement Scale:</strong>
-  <%= @container.measurement_scale_name %>
-</p>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3><%= @container.name %></h3>
+  </div>
 
-<p>
-  <strong>Fluid type:</strong>
-  <%= @container.fluid_type %>
-</p>
+  <table class="table table-striped">
+    <tr>
+      <td class="col-md-3"><strong>Inlet File:</strong></td>
+      <td class="col-md-9"><%= link_to @container.inlet_file_name, @container.inlet.url if @container.inlet %></td>
+    </tr>
 
-<p>
-  <strong>Kinematic viscosity:</strong>
-  <%= @container.kinematic_viscosity %>
-</p>
+    <tr>
+      <td colspan="2">
+        <div class="row">
+          <div class="col-sm-4">
+            <strong>Inlet v<sub>x</sub>:</strong>
+            <%= @container.inlet_vx %> m/s
+          </div>
+          <div class="col-sm-4">
+            <strong>Inlet v<sub>y</sub>:</strong>
+            <%= @container.inlet_vy %> m/s
+          </div>
+          <div class="col-sm-4">
+            <strong>Inlet v<sub>z</sub>:</strong>
+            <%= @container.inlet_vz %> m/s
+          </div>
+        </div>
+      </td>
+    </tr>
 
-<p>
-  <strong>Density:</strong>
-  <%= @container.density %>
-</p>
+    <tr>
+      <td><strong>Outlet File:</strong></td>
+      <td><%= link_to @container.outlet_file_name, @container.outlet.url if @container.outlet %></td>
+    </tr>
 
-<p>
-  <strong>Outlet pressure:</strong>
-  <%= @container.outlet_pressure %>
-</p>
+    <tr>
+      <td colspan="2">
+        <strong>Outlet pressure:</strong>
+        <%= @container.outlet_pressure %> Pa
+      </td>
+    </tr>
 
-<p>
-  <strong>Inlet vx:</strong>
-  <%= @container.inlet_vx %>
-</p>
+    <tr>
+      <td><strong>Walls File:</strong></td>
+      <td><%= link_to @container.walls_file_name, @container.walls.url if @container.walls %></td>
+    </tr>
 
-<p>
-  <strong>Inlet vy:</strong>
-  <%= @container.inlet_vy %>
-</p>
+    <tr>
+      <td><strong>Measurement Scale:</strong></td>
+      <td><%= @container.measurement_scale_name %></td>
+    </tr>
 
-<p>
-  <strong>Inlet vz:</strong>
-  <%= @container.inlet_vz %>
-</p>
+    <tr>
+      <td><strong>Fluid type:</strong></td>
+      <td><%= @container.fluid_type %></td>
+    </tr>
 
-<p>
-  <strong>Inlet File:</strong>
-  <%= link_to @container.inlet_file_name, @container.inlet.url if @container.inlet %>
-</p>
+    <tr>
+      <td colspan="2">
+        <div class="row">
+          <div class="col-sm-6">
+            <strong>Kinematic viscosity:</strong>
+            <%= @container.kinematic_viscosity %> m&sup2;/s
+          </div>
+          <div class="col-sm-6">
+            <strong>Density:</strong>
+            <%= @container.density %> kg/m&sup3;
+          </div>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
 
-
-<p>
-  <strong>Outlet File:</strong>
-  <%= link_to @container.outlet_file_name, @container.outlet.url if @container.outlet %>
-</p>
-
-
-<p>
-  <strong>Walls File:</strong>
-  <%= link_to @container.walls_file_name, @container.walls.url if @container.walls %>
-</p>
+  </div>
+</div>
 
 <%= link_to '<span class="glyphicon glyphicon-arrow-left"></span>'.html_safe, containers_path, class: 'btn btn-default', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Back' %>
 <%= link_to '<span class="glyphicon glyphicon-edit"></span>'.html_safe, edit_container_path(@container), class: 'btn btn-primary', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Edit' %>
