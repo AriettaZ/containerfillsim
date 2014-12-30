@@ -12,6 +12,18 @@ fluid_list["oil"] =
   viscosity: 0.00025
   density: 800
 
+fluid_list["honey"] =
+  viscosity: 0.0000736
+  density: 1420
+
+fluid_list["beer"] =
+  viscosity: 0.0000018
+  density: 1010
+
+fluid_list["milk"] =
+  viscosity: 0.00000113
+  density: 1035
+
 $ ->
   $('[data-toggle="tooltip"]').tooltip()
 
