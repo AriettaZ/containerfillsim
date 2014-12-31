@@ -10,10 +10,6 @@
       <th>Fluid type</th>
       <th>Kinematic viscosity</th>
       <th>Density</th>
-      <th>Outlet pressure</th>
-      <th>Inlet vx</th>
-      <th>Inlet vy</th>
-      <th>Inlet vz</th>
       <th></th>
       <th></th>
       <th></th>
@@ -32,10 +28,6 @@
         <td><%= container.fluid_type %></td>
         <td><%= container.kinematic_viscosity %></td>
         <td><%= container.density %></td>
-        <td><%= container.outlet_pressure %></td>
-        <td><%= container.inlet_vx %></td>
-        <td><%= container.inlet_vy %></td>
-        <td><%= container.inlet_vz %></td>
 
         <td><%= link_to '<span class="glyphicon glyphicon-eye-open"></span>'.html_safe, container, class: 'btn btn-primary btn-sm', role: 'button', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'View Container' %></td>
         <td><%= link_to '<span class="glyphicon glyphicon-edit"></span>'.html_safe, edit_container_path(container), class: 'btn btn-default btn-sm', role: 'button', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Edit Container' %></td>

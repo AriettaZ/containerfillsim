@@ -9,21 +9,33 @@
 
   <%= f.text_field :name, placeholder: "New Simulation" %>
 
-  <%= f.file_field :inlet %>
-  <div class="row">
-    <div class="col-sm-4">
-      <%= f.number_field :inlet_vx, append: 'm/s', step: 'any' %>
+  <%= f.nested_fields_for :inlets, wrapper_tag: :span do |inlet| %>
+    <%= inlet.file_field :stl, label: 'Inlet' %>
+    <div class="row">
+      <div class="col-sm-4">
+        <%= inlet.number_field :vx, label: 'v<sub>x</sub>'.html_safe, append: 'm/s', step: 'any' %>
+      </div>
+      <div class="col-sm-4">
+        <%= inlet.number_field :vy, label: 'v<sub>y</sub>'.html_safe, append: 'm/s', step: 'any' %>
+      </div>
+      <div class="col-sm-4">
+        <%= inlet.number_field :vz, label: 'v<sub>z</sub>'.html_safe, append: 'm/s', step: 'any' %>
+      </div>
     </div>
-    <div class="col-sm-4">
-      <%= f.number_field :inlet_vy, append: 'm/s', step: 'any' %>
-    </div>
-    <div class="col-sm-4">
-      <%= f.number_field :inlet_vz, append: 'm/s', step: 'any' %>
-    </div>
-  </div>
+    <%= inlet.remove_nested_fields_link '<span class="glyphicon glyphicon-trash"></span>'.html_safe, class: 'btn btn-danger' %>
+  <% end %>
+  <%= f.add_nested_fields_link :inlets, '<span class="glyphicon glyphicon-plus"></span>'.html_safe, class: 'btn btn-primary' %>
 
-  <%= f.file_field :outlet %>
-  <%= f.number_field :outlet_pressure, append: 'Pa', min: 0.0, step: 'any' %>
+  <hr>
+
+  <%= f.nested_fields_for :outlets, wrapper_tag: :span do |outlet| %>
+    <%= outlet.file_field :stl, label: 'Outlet' %>
+    <%= outlet.number_field :pressure, append: 'Pa', min: 0.0, step: 'any' %>
+    <%= outlet.remove_nested_fields_link '<span class="glyphicon glyphicon-trash"></span>'.html_safe, class: 'btn btn-danger' %>
+  <% end %>
+  <%= f.add_nested_fields_link :outlets, '<span class="glyphicon glyphicon-plus"></span>'.html_safe, class: 'btn btn-primary' %>
+
+  <hr>
 
   <%= f.file_field :walls %>
 

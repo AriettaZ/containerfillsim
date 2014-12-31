@@ -1,6 +1,15 @@
 class Container < ActiveRecord::Base
   include OSC::Machete::SimpleJob::Submittable
   has_many :jobs, dependent: :destroy
+  has_many :inlets, dependent: :destroy
+  has_many :outlets, dependent: :destroy
+
+  accepts_nested_attributes_for :inlets, allow_destroy: true
+  accepts_nested_attributes_for :outlets, allow_destroy: true
+
+  has_attached_file :walls
+  do_not_validate_attachment_file_type :walls
+  validates_presence_of :walls
   
   SOLVE_SCRIPT_NAME="main.sh"
   POST_SCRIPT_NAME="post.sh"
@@ -11,12 +20,6 @@ class Container < ActiveRecord::Base
     meters: "(1.0 1.0 1.0)",
     inches: "(0.254 0.254 0.254)"
   }
-  
-  [:inlet, :outlet, :walls].each do |f|
-    has_attached_file f
-    do_not_validate_attachment_file_type f
-    validates_presence_of f
-  end
   
   # default to 5 steps
   def steps

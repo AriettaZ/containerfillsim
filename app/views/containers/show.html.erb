@@ -19,12 +19,14 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td><%= link_to @container.inlet_file_name, @container.inlet.url if @container.inlet %></td>
-            <td><%= @container.inlet_vx %></td>
-            <td><%= @container.inlet_vy %></td>
-            <td><%= @container.inlet_vz %></td>
-          </tr>
+          <% @container.inlets.each do |inlet| %>
+            <tr>
+              <td><%= link_to inlet.stl_file_name, inlet.stl.url %></td>
+              <td><%= inlet.vx %></td>
+              <td><%= inlet.vy %></td>
+              <td><%= inlet.vz %></td>
+            </tr>
+          <% end %>
         </tbody>
       </table>
     </div><!-- /panel -->
@@ -41,10 +43,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td><%= link_to @container.outlet_file_name, @container.outlet.url if @container.outlet %></td>
-            <td><%= @container.outlet_pressure %></td>
-          </tr>
+          <% @container.outlets.each do |outlet| %>
+            <tr>
+              <td><%= link_to outlet.stl_file_name, outlet.stl.url %></td>
+              <td><%= outlet.pressure %></td>
+            </tr>
+          <% end %>
         </tbody>
       </table>
     </div><!-- /panel -->
@@ -58,7 +62,7 @@
       </div>
       <ul class="list-group">
         <li class="list-group-item">
-          <%= link_to @container.walls_file_name, @container.walls.url if @container.walls %>
+          <%= link_to @container.walls_file_name, @container.walls.url %>
         </li>
       </ul>
     </div><!-- /panel -->

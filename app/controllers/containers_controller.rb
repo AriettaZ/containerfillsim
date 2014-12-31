@@ -20,6 +20,8 @@ class ContainersController < ApplicationController
   # GET /containers/new
   def new
     @container = Container.new
+    @container.inlets.build
+    @container.outlets.build
   end
 
   # GET /containers/1/edit
