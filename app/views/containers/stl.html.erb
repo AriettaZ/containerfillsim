@@ -13,14 +13,18 @@
   <div class="astl-viewer" data-type="stl">
     <div class="astl-canvas"></div>
     <ul class="astl-files">
+      <% @container.inlets.each do |inlet| %>
+        <li>
+          <%= link_to inlet.stl_file_name, inlet.stl.url, data: { :color => '#ff0000' } %>
+        </li>
+      <% end %>
+      <% @container.outlets.each do |outlet| %>
+        <li>
+          <%= link_to outlet.stl_file_name, outlet.stl.url, data: { :color => '#0000ff' } %>
+        </li>
+      <% end %>
       <li>
-        <%= link_to @container.inlet_file_name, @container.inlet.url, data: { :color => '#ff0000' } if @container.inlet %>
-      </li>
-      <li>
-        <%= link_to @container.outlet_file_name, @container.outlet.url, data: { :color => '#0000ff' } if @container.inlet %>
-      </li>
-      <li>
-        <%= link_to @container.walls_file_name, @container.walls.url, :class => 'astl-parent', data: { :color => '#444444' } if @container.inlet %>
+        <%= link_to @container.walls_file_name, @container.walls.url, :class => 'astl-parent', data: { :color => '#444444' } %>
       </li>
     </ul>
   </div>
