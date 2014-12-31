@@ -1,84 +1,103 @@
 <p id="notice"><%= notice %></p>
 
+<h1><%= @container.name %></h1>
+
 <div class="row">
-  <div class="col-md-8">
+  <div class="col-md-6">
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3><%= @container.name %></h3>
-  </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <strong>Inlets</strong>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>File</th>
+            <th>v<sub>x</sub> (m/s)</th>
+            <th>v<sub>y</sub> (m/s)</th>
+            <th>v<sub>z</sub> (m/s)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= link_to @container.inlet_file_name, @container.inlet.url if @container.inlet %></td>
+            <td><%= @container.inlet_vx %></td>
+            <td><%= @container.inlet_vy %></td>
+            <td><%= @container.inlet_vz %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div><!-- /panel -->
 
-  <table class="table table-striped">
-    <tr>
-      <td class="col-md-3"><strong>Inlet File:</strong></td>
-      <td class="col-md-9"><%= link_to @container.inlet_file_name, @container.inlet.url if @container.inlet %></td>
-    </tr>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <strong>Outlets</strong>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>File</th>
+            <th>Pressure (Pa)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= link_to @container.outlet_file_name, @container.outlet.url if @container.outlet %></td>
+            <td><%= @container.outlet_pressure %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div><!-- /panel -->
 
-    <tr>
-      <td colspan="2">
-        <div class="row">
-          <div class="col-sm-4">
-            <strong>Inlet v<sub>x</sub>:</strong>
-            <%= @container.inlet_vx %> m/s
-          </div>
-          <div class="col-sm-4">
-            <strong>Inlet v<sub>y</sub>:</strong>
-            <%= @container.inlet_vy %> m/s
-          </div>
-          <div class="col-sm-4">
-            <strong>Inlet v<sub>z</sub>:</strong>
-            <%= @container.inlet_vz %> m/s
-          </div>
-        </div>
-      </td>
-    </tr>
+  </div><!-- /col -->
+  <div class="col-md-6">
 
-    <tr>
-      <td><strong>Outlet File:</strong></td>
-      <td><%= link_to @container.outlet_file_name, @container.outlet.url if @container.outlet %></td>
-    </tr>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <strong>Walls</strong>
+      </div>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <%= link_to @container.walls_file_name, @container.walls.url if @container.walls %>
+        </li>
+      </ul>
+    </div><!-- /panel -->
 
-    <tr>
-      <td colspan="2">
-        <strong>Outlet pressure:</strong>
-        <%= @container.outlet_pressure %> Pa
-      </td>
-    </tr>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <strong>Measurement Scale</strong>
+      </div>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <%= @container.measurement_scale_name %>
+        </li>
+      </ul>
+    </div><!-- /panel -->
 
-    <tr>
-      <td><strong>Walls File:</strong></td>
-      <td><%= link_to @container.walls_file_name, @container.walls.url if @container.walls %></td>
-    </tr>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <strong>Fluid</strong>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Kinematic Viscosity (m&sup2;/s)</th>
+            <th>Density (kg/m&sup3;)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= @container.fluid_type %></td>
+            <td><%= @container.kinematic_viscosity %></td>
+            <td><%= @container.density %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div><!-- /panel -->
 
-    <tr>
-      <td><strong>Measurement Scale:</strong></td>
-      <td><%= @container.measurement_scale_name %></td>
-    </tr>
-
-    <tr>
-      <td><strong>Fluid type:</strong></td>
-      <td><%= @container.fluid_type %></td>
-    </tr>
-
-    <tr>
-      <td colspan="2">
-        <div class="row">
-          <div class="col-sm-6">
-            <strong>Kinematic viscosity:</strong>
-            <%= @container.kinematic_viscosity %> m&sup2;/s
-          </div>
-          <div class="col-sm-6">
-            <strong>Density:</strong>
-            <%= @container.density %> kg/m&sup3;
-          </div>
-        </div>
-      </td>
-    </tr>
-  </table>
-</div>
-
-  </div>
-</div>
+  </div><!-- /col -->
+</div><!-- /row -->
 
 <%= link_to '<span class="glyphicon glyphicon-arrow-left"></span>'.html_safe, containers_path, class: 'btn btn-default', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Back' %>
 <%= link_to '<span class="glyphicon glyphicon-edit"></span>'.html_safe, edit_container_path(@container), class: 'btn btn-primary', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Edit' %>
