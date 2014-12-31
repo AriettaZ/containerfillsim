@@ -39,7 +39,7 @@ class Container < ActiveRecord::Base
     job = staging.new_job self
     
     # copy files
-    target = job.path.join("constant/triSurface")
+    target = job.path.join("constant", "triSurface")
     
     FileUtils.cp inlet.path, target
     FileUtils.cp outlet.path, target
