@@ -35,23 +35,27 @@ addLayers       false;
 // - to 'snap' the mesh boundary to the surface
 geometry
 {
-    inlet1.stl
+    {{#inlet_list}}
+    {{stl_file_name}}
     {
         type    triSurfaceMesh;
 	gap	0;
-	name	inlet1;
+	name	{{name}};
     }
-    outlet1.stl
+    {{/inlet_list}}
+    {{#outlet_list}}
+    {{stl_file_name}}
     {
         type	triSurfaceMesh;
 	gap	0;
-	name	outlet1;
+	name	{{name}};
     }
-    walls.stl
+    {{/outlet_list}}
+    {{walls_file_name}}
     {
        	type	triSurfaceMesh;
 	gap	0;
-	name	walls;
+	name	{{walls_name}};
     }
 };
 
@@ -103,15 +107,19 @@ castellatedMeshControls
     // angle > resolveFeatureAngle get refined up to the maximum level.
     refinementSurfaces
     {
-        inlet1
+	{{#inlet_list}}
+        {{name}}
         {
      	 level (1 1);
         }
-       	outlet1
+	{{/inlet_list}}
+	{{#outlet_list}}
+       	{{name}}
        	{
          level (1 1);
        	}
-       	walls
+	{{/outlet_list}}
+       	{{walls_name}}
        	{
 	 level (0 1);
        	}
@@ -165,18 +173,22 @@ globalFeatureEdges true;
 	
 featureEdges
 {
-	walls
+	{{walls_name}}
 	{
 		featureEdges	true;
 	}
-	outlet1
+	{{#outlet_list}}
+	{{name}}
 	{
 		featureEdges	true;
 	}
-	inlet1
+	{{/outlet_list}}
+	{{#inlet_list}}
+	{{name}}
 	{
 		featureEdges	true;
 	}
+	{{/inlet_list}}
 }
 	
     //- Number of patch smoothing iterations before finding correspondence

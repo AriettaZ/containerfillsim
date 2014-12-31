@@ -21,17 +21,21 @@ internalField   uniform 1.0;
 
 boundaryField
 {
-    "inlet1_.*"
+    {{#inlet_list}}
+    "{{name}}_.*"
     {
         type            turbulentMixingLengthDissipationRateInlet;
         mixingLength    0.003;
         value           uniform 1.0;
     }
-    "outlet1_.*"
+    {{/inlet_list}}
+    {{#outlet_list}}
+    "{{name}}_.*"
     {
         type            zeroGradient;
     }
-    "walls_.*"
+    {{/outlet_list}}
+    "{{walls_name}}_.*"
     {
         type            zeroGradient;
     }

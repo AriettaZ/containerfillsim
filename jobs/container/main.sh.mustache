@@ -16,7 +16,7 @@ cd $PBS_O_WORKDIR
 
 export MV2_ON_DEMAND_THRESHOLD=96 
 
-surfaceCheck -blockMesh ./constant/triSurface/walls.stl >> LOG-surfaceCheck
+surfaceCheck -blockMesh ./constant/triSurface/{{walls_file_name}} >> LOG-surfaceCheck
 
 python boundingbox.py
 

@@ -25,6 +25,18 @@ class Container < ActiveRecord::Base
   def steps
     @steps || 5
   end
+
+  def inlet_list
+    inlets.to_a
+  end
+
+  def outlet_list
+    outlets.to_a
+  end
+
+  def walls_name
+    File.basename(self.walls_file_name, '.*')
+  end
   
   def measurement_scale_name
     Container::MEASUREMENT_SCALES.invert[measurement_scale]
@@ -44,8 +56,12 @@ class Container < ActiveRecord::Base
     # copy files
     target = job.path.join("constant", "triSurface")
     
-    FileUtils.cp inlet.path, target
-    FileUtils.cp outlet.path, target
+    self.inlets.each do |inlet|
+      FileUtils.cp inlet.stl.path, target
+    end
+    self.outlets.each do |outlet|
+      FileUtils.cp outlet.stl.path, target
+    end
     FileUtils.cp walls.path, target
     
     job

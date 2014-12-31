@@ -20,18 +20,22 @@ dictionaryReplacement
 {
     boundary
     {
-     	"walls_.*"
+     	"{{walls_name}}_.*"
     	{
         	type            wall;
    	}
-	"outlet1_.*"
+	{{#outlet_list}}
+	"{{name}}_.*"
     	{
         	type            patch;
    	}
-	"inlet1_.*"
+	{{/outlet_list}}
+	{{#inlet_list}}
+	"{{name}}_.*"
     	{
         	type            patch;
    	}
+	{{/inlet_list}}
    }
 }
 

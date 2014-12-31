@@ -15,7 +15,7 @@ test_foam = OpenFOAMReader( FileName='out.foam' )
 AnimationScene1 = GetAnimationScene()
 test_foam.CellArrays = ['U', 'alpha1', 'ccx', 'ccy', 'ccz', 'cellLevel', 'epsilon', 'k', 'nut', 'p', 'p_rgh']
 test_foam.LagrangianArrays = []
-test_foam.MeshRegions = ['walls_wall']
+test_foam.MeshRegions = ['{{walls_name}}_wall']
 test_foam.PointArrays = ['pointLevel']
 
 AnimationScene1.EndTime = {{steps}} 

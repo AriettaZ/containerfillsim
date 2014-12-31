@@ -21,16 +21,20 @@ internalField   uniform 0;
 
 boundaryField
 {
-    "inlet1_.*"
+    {{#inlet_list}}
+    "{{name}}_.*"
     {
         type            zeroGradient;
     }
-    "outlet1_.*"
+    {{/inlet_list}}
+    {{#outlet_list}}
+    "{{name}}_.*"
     {
         type            fixedValue;
         value           uniform 0;
     }
-    "walls_.*"
+    {{/outlet_list}}
+    "{{walls_name}}_.*"
     {
         type            zeroGradient;
     }
