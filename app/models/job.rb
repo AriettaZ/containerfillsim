@@ -37,7 +37,7 @@ class Job < ActiveRecord::Base
   #
   # returns the final timestemp value in the file, or 0.0 if non available
   def final_timestep_for_log
-    path = Pathname.new(Pathname.new(self.job_path).join("LOG-iF"))
+    path = Pathname.new(self.job_path).join("LOG-iF")
     timestep=0.0
     
     if path.exist? && path.readable?
