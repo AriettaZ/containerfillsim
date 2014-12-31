@@ -2,8 +2,8 @@ class Container < ActiveRecord::Base
   include OSC::Machete::SimpleJob::Submittable
   has_many :jobs, dependent: :destroy
   
-  SOLVE_SCRIPT_NAME="runScript.txt"
-  POST_SCRIPT_NAME="gpuRenderScript.txt"
+  SOLVE_SCRIPT_NAME="main.sh"
+  POST_SCRIPT_NAME="post.sh"
   
   MEASUREMENT_SCALES = {
     mm: "(0.001 0.001 0.001)",
@@ -29,9 +29,6 @@ class Container < ActiveRecord::Base
   
   # FIXME: configuration by overriding methods is not as good
   # as configuration by custom objects
-  # 
-  # FIXME: change job template so runScript.txt is main.sh
-  # and gpuRenderScript.txt is post.sh
   def staging_script_name
     Container::SOLVE_SCRIPT_NAME
   end
