@@ -31,7 +31,7 @@
           </td><td>
             <%= inlet.number_field :vz, hide_label: true, class: 'input-sm', append: 'm/s', required: true, step: 'any' %>
           </td><td>
-            <%= inlet.remove_nested_fields_link '<span aria-hidden="true">&times;</span>'.html_safe, class: 'close' %>
+            <%= inlet.remove_nested_fields_link '<span aria-hidden="true">&times;</span>'.html_safe, class: 'close', :'aria-label' => "Close", role: 'button' %>
           </td>
         <% end %>
       </tbody>
@@ -60,7 +60,7 @@
           </td><td>
             <%= outlet.number_field :pressure, hide_label: true, class: 'input-sm', append: 'Pa', required: true, min: 0.0, step: 'any' %>
           </td><td>
-            <%= outlet.remove_nested_fields_link '<span aria-hidden="true">&times;</span>'.html_safe, class: 'close' %>
+            <%= outlet.remove_nested_fields_link '<span aria-hidden="true">&times;</span>'.html_safe, class: 'close', :'aria-label' => 'close', role: 'button' %>
           </td>
         <% end %>
       </tbody>
