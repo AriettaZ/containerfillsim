@@ -1,10 +1,4 @@
 GIT
-  remote: https://github.com/bootstrap-ruby/rails-bootstrap-forms.git
-  revision: 5e498df2a3e0cd25afe8743f01d69015b78f1e27
-  specs:
-    bootstrap_form (2.2.0)
-
-GIT
   remote: https://github.com/ncri/nested_form_fields.git
   revision: 8a8b62a37fec57a08c81fab9338dc5a43e631596
   specs:
@@ -44,6 +38,7 @@ GEM
       execjs
     bootstrap-sass (3.3.1.0)
       sass (~> 3.2)
+    bootstrap_form (2.2.0)
     builder (3.1.4)
     climate_control (0.0.3)
       activesupport (>= 3.0)
@@ -154,7 +149,7 @@ PLATFORMS
 DEPENDENCIES
   autoprefixer-rails
   bootstrap-sass (~> 3.3.1)
-  bootstrap_form!
+  bootstrap_form (~> 2.2.0)
   coffee-rails (~> 4.0.0)
   jbuilder (~> 1.2)
   jquery-rails

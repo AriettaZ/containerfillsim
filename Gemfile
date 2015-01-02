@@ -50,5 +50,5 @@ gem 'osc-machete', '~> 0.2.1'
 gem 'osc-vnc', '~> 0.0.1'
 gem 'mocha', :require => false, group: [:test]
 
-gem 'bootstrap_form', git: 'https://github.com/bootstrap-ruby/rails-bootstrap-forms.git'
+gem 'bootstrap_form', '~> 2.2.0'
 gem 'nested_form_fields', git: 'https://github.com/ncri/nested_form_fields.git'
