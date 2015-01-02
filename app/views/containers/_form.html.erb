@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-6 col-md-offset-3">
+  <div class="col-md-8 col-md-offset-2">
 
 <h1><%= title %></h1>
 
@@ -9,33 +9,69 @@
 
   <%= f.text_field :name, placeholder: "New Simulation", required: true %>
 
-  <%= f.nested_fields_for :inlets, wrapper_tag: :span do |inlet| %>
-    <%= inlet.file_field :stl, label: 'Inlet' %>
-    <div class="row">
-      <div class="col-sm-4">
-        <%= inlet.number_field :vx, label: 'v<sub>x</sub>'.html_safe, append: 'm/s', required: true, step: 'any' %>
-      </div>
-      <div class="col-sm-4">
-        <%= inlet.number_field :vy, label: 'v<sub>y</sub>'.html_safe, append: 'm/s', required: true, step: 'any' %>
-      </div>
-      <div class="col-sm-4">
-        <%= inlet.number_field :vz, label: 'v<sub>z</sub>'.html_safe, append: 'm/s', required: true, step: 'any' %>
-      </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <strong>Inlets</strong>
     </div>
-    <%= inlet.remove_nested_fields_link '<span class="glyphicon glyphicon-trash"></span>'.html_safe, class: 'btn btn-danger' %>
-  <% end %>
-  <%= f.add_nested_fields_link :inlets, '<span class="glyphicon glyphicon-plus"></span>'.html_safe, class: 'btn btn-primary' %>
+    <table class="table table-condensed">
+      <thead>
+        <tr>
+          <th>File</th>
+          <th>v<sub>x</sub></th>
+          <th>v<sub>y</sub></th>
+          <th>v<sub>z</sub></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= f.nested_fields_for :inlets, wrapper_tag: :tr do |inlet| %>
+          <td>
+            <%= inlet.file_field :stl, hide_label: true, class: 'input-sm' %>
+          </td><td>  
+            <%= inlet.number_field :vx, hide_label: true, class: 'input-sm', append: 'm/s', required: true, step: 'any' %>
+          </td><td>
+            <%= inlet.number_field :vy, hide_label: true, class: 'input-sm', append: 'm/s', required: true, step: 'any' %>
+          </td><td>
+            <%= inlet.number_field :vz, hide_label: true, class: 'input-sm', append: 'm/s', required: true, step: 'any' %>
+          </td><td>
+            <%= inlet.remove_nested_fields_link '<span aria-hidden="true">&times;</span>'.html_safe, class: 'close' %>
+          </td>
+        <% end %>
+      </tbody>
+    </table>
+    <div class="panel-footer">
+      <%= f.add_nested_fields_link :inlets, 'Add Inlet', class: 'btn btn-primary btn-xs' %>
+    </div>
+  </div>
 
-  <hr>
-
-  <%= f.nested_fields_for :outlets, wrapper_tag: :span do |outlet| %>
-    <%= outlet.file_field :stl, label: 'Outlet' %>
-    <%= outlet.number_field :pressure, placeholder: 101325, append: 'Pa', required: true, min: 0.0, step: 'any' %>
-    <%= outlet.remove_nested_fields_link '<span class="glyphicon glyphicon-trash"></span>'.html_safe, class: 'btn btn-danger' %>
-  <% end %>
-  <%= f.add_nested_fields_link :outlets, '<span class="glyphicon glyphicon-plus"></span>'.html_safe, class: 'btn btn-primary' %>
-
-  <hr>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <strong>Outlets</strong>
+    </div>
+    <table class="table table-condensed">
+      <thead>
+        <tr>
+          <th>File</th>
+          <th>Pressure</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= f.nested_fields_for :outlets, wrapper_tag: :tr do |outlet| %>
+          <td>
+            <%= outlet.file_field :stl, hide_label: true, class: 'input-sm' %>
+          </td><td>  
+            <%= outlet.number_field :pressure, hide_label: true, class: 'input-sm', append: 'Pa', required: true, min: 0.0, step: 'any' %>
+          </td><td>
+            <%= outlet.remove_nested_fields_link '<span aria-hidden="true">&times;</span>'.html_safe, class: 'close' %>
+          </td>
+        <% end %>
+      </tbody>
+    </table>
+    <div class="panel-footer">
+      <%= f.add_nested_fields_link :outlets, 'Add Outlet', class: 'btn btn-primary btn-xs' %>
+    </div>
+  </div>
 
   <%= f.file_field :walls %>
 
