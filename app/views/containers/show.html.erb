@@ -105,4 +105,8 @@
 
 <%= link_to '<span class="glyphicon glyphicon-arrow-left"></span>'.html_safe, containers_path, class: 'btn btn-default', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Back' %>
 <%= link_to '<span class="glyphicon glyphicon-edit"></span>'.html_safe, edit_container_path(@container), class: 'btn btn-primary', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Edit' %>
-<%= link_to '<span class="glyphicon glyphicon-globe"></span>'.html_safe, stl_container_path(@container), class: 'btn btn-success', data: { toggle: 'tooltip', placement: 'bottom' }, title: '3D Viewer' %>
+<%= link_to '<span class="glyphicon glyphicon-globe"></span>'.html_safe, stl_container_path(@container), class: 'btn btn-info', data: { toggle: 'tooltip', placement: 'bottom' }, title: '3D Viewer' %>
+|
+<%= link_to '<span class="glyphicon glyphicon-play"></span>'.html_safe, submit_container_path(@container), method: :put, class: 'btn btn-success', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Submit' unless @container.submitted? %>
+<%= link_to '<span class="glyphicon glyphicon-file"></span>'.html_safe, results_container_path(@container), class: 'btn btn-success', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'View Results' if @container.completed? %>
+<%= link_to '<span class="glyphicon glyphicon-trash"></span>'.html_safe, @container, method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?', toggle: 'tooltip', placement: 'bottom' }, title: 'Delete Container' %>

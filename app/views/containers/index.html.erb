@@ -33,7 +33,7 @@
         <td><%= link_to '<span class="glyphicon glyphicon-edit"></span>'.html_safe, edit_container_path(container), class: 'btn btn-default btn-sm', role: 'button', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Edit Container' %></td>
         <td><%= link_to '<span class="glyphicon glyphicon-play"></span>'.html_safe, submit_container_path(container), method: :put, class: 'btn btn-success btn-sm', role: 'button', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Submit' unless container.submitted? %></td>
         <td><%= link_to '<span class="glyphicon glyphicon-file"></span>'.html_safe, results_container_path(container), class: 'btn btn-success btn-sm', role: 'button', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'View Results' if container.completed? %></td>
-        <td><%= link_to '<span class="glyphicon glyphicon-trash"></span>'.html_safe, container, method: :delete, data: { confirm: 'Are you sure?'}, class: 'btn btn-danger btn-sm pull-right', role: 'button', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Delete Container' %></td>
+        <td><%= link_to '<span class="glyphicon glyphicon-trash"></span>'.html_safe, container, method: :delete, class: 'btn btn-danger btn-sm pull-right', role: 'button', data: { confirm: 'Are you sure?', toggle: 'tooltip', placement: 'bottom' }, title: 'Delete Container' %></td>
       </tr>
     <% end %>
   </tbody>
