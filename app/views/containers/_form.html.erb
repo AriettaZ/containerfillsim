@@ -30,7 +30,7 @@
 
   <%= f.nested_fields_for :outlets, wrapper_tag: :span do |outlet| %>
     <%= outlet.file_field :stl, label: 'Outlet' %>
-    <%= outlet.number_field :pressure, append: 'Pa', min: 0.0, step: 'any' %>
+    <%= outlet.number_field :pressure, placeholder: 101325, append: 'Pa', min: 0.0, step: 'any' %>
     <%= outlet.remove_nested_fields_link '<span class="glyphicon glyphicon-trash"></span>'.html_safe, class: 'btn btn-danger' %>
   <% end %>
   <%= f.add_nested_fields_link :outlets, '<span class="glyphicon glyphicon-plus"></span>'.html_safe, class: 'btn btn-primary' %>
