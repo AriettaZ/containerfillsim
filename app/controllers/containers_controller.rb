@@ -1,5 +1,5 @@
 class ContainersController < ApplicationController
-  before_action :set_container, only: [:show, :edit, :update, :destroy, :submit, :results, :stl]
+  before_action :set_container, only: [:show, :edit, :update, :destroy, :submit, :results, :stl, :paraview]
 
   # GET /containers
   # GET /containers.json
@@ -67,7 +67,7 @@ class ContainersController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
   # PUT /containers/1/submit
   def submit
     if @container.submitted?
@@ -78,14 +78,14 @@ class ContainersController < ApplicationController
     else
       #TODO: add error handling
       @container.submit
-      
+
       respond_to do |format|
         format.html { redirect_to containers_url, notice: 'Container simulation submitted.' }
         format.json { head :no_content }
       end
     end
   end
-  
+
   # GET /containers/1/results
   def results
   end
@@ -96,9 +96,11 @@ class ContainersController < ApplicationController
 
   # GET /containers/1/paraview
   def paraview
+    foam_file = "#{@container.jobs.first.job_path}/out.foam"
+
     outdir = OSC::Machete::Crimson.new("#{Rails.application.class.parent_name}/vnc/paraview").files_path
     xdir = Rails.root.join("jobs", "vnc", "paraview")
-    jnlp = OSC::VNC::Session.new(outdir: outdir, xdir: xdir, cluster: 'glenn').run.to_jnlp
+    jnlp = OSC::VNC::Session.new(outdir: outdir, xdir: xdir, cluster: 'glenn', datafile: foam_file).run.to_jnlp
 
     send_data jnlp.force_encoding('binary'), type: :jnlp, disposition: "attachment", filename: "paraview.jnlp"
   end

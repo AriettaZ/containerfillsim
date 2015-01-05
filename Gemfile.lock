@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/ncri/nested_form_fields.git
-  revision: 8a8b62a37fec57a08c81fab9338dc5a43e631596
+  revision: ab212a90148c825cd844f73e1ae04a8fb9e8618f
   specs:
     nested_form_fields (0.6)
       rails (>= 3.2.0)
@@ -80,7 +80,7 @@ GEM
     osc-machete (0.2.4)
       mustache
       nokogiri
-    osc-vnc (0.0.2)
+    osc-vnc (0.0.3)
       pbs
     paperclip (4.2.0)
       activemodel (>= 3.0.0)
