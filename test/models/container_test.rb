@@ -9,14 +9,11 @@ class ContainerTest < ActiveSupport::TestCase
       fluid_type: "water",
       kinematic_viscosity: 0.000001,
       density: 998.23,
-      outlet_pressure: 101325,
-      inlet_vx: 0,
-      inlet_vy: -1,
-      inlet_vz: 0,
-      inlet: File.new("test/fixtures/control/constant/triSurface/inlet1.stl"),
-      outlet: File.new("test/fixtures/control/constant/triSurface/outlet1.stl"),
       walls: File.new("test/fixtures/control/constant/triSurface/walls.stl"),
     )
+    
+    @container.inlets.create(stl: File.new("test/fixtures/control/constant/triSurface/inlet1.stl"), vx: 0, vy: -1, vz: 0)
+    @container.outlets.create(stl: File.new("test/fixtures/control/constant/triSurface/outlet1.stl"), pressure: 101325)
     
     # we render instances of simulations in tmpdir for testing purposes
     @target = Dir.mktmpdir
@@ -32,8 +29,8 @@ class ContainerTest < ActiveSupport::TestCase
   end
   
   test "paperclip file set works" do
-    assert_equal "inlet1.stl", @container.inlet_file_name
-    assert_equal "outlet1.stl", @container.outlet_file_name
+    assert_equal "inlet1.stl", @container.inlets.first.stl_file_name
+    assert_equal "outlet1.stl", @container.outlets.first.stl_file_name
     assert_equal "walls.stl", @container.walls_file_name
   end
   
