@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150106171020) do
+ActiveRecord::Schema.define(version: 20150106175355) do
 
   create_table "containers", force: true do |t|
     t.string   "name"
@@ -19,20 +19,8 @@ ActiveRecord::Schema.define(version: 20150106171020) do
     t.string   "fluid_type"
     t.float    "kinematic_viscosity"
     t.float    "density"
-    t.float    "outlet_pressure"
-    t.float    "inlet_vx"
-    t.float    "inlet_vy"
-    t.float    "inlet_vz"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "inlet_file_name"
-    t.string   "inlet_content_type"
-    t.integer  "inlet_file_size"
-    t.datetime "inlet_updated_at"
-    t.string   "outlet_file_name"
-    t.string   "outlet_content_type"
-    t.integer  "outlet_file_size"
-    t.datetime "outlet_updated_at"
     t.string   "walls_file_name"
     t.string   "walls_content_type"
     t.integer  "walls_file_size"
