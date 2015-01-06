@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141120150950) do
+ActiveRecord::Schema.define(version: 20150106161341) do
 
   create_table "containers", force: true do |t|
     t.string   "name"
@@ -40,6 +40,21 @@ ActiveRecord::Schema.define(version: 20141120150950) do
     t.integer  "steps"
   end
 
+  create_table "inlets", force: true do |t|
+    t.float    "vx"
+    t.float    "vy"
+    t.float    "vz"
+    t.string   "stl_file_name"
+    t.string   "stl_content_type"
+    t.integer  "stl_file_size"
+    t.datetime "stl_updated_at"
+    t.integer  "container_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "inlets", ["container_id"], name: "index_inlets_on_container_id"
+
   create_table "jobs", force: true do |t|
     t.string   "status"
     t.string   "pbsid"
@@ -51,5 +66,18 @@ ActiveRecord::Schema.define(version: 20141120150950) do
   end
 
   add_index "jobs", ["container_id"], name: "index_jobs_on_container_id"
+
+  create_table "outlets", force: true do |t|
+    t.float    "pressure"
+    t.string   "stl_file_name"
+    t.string   "stl_content_type"
+    t.integer  "stl_file_size"
+    t.datetime "stl_updated_at"
+    t.integer  "container_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "outlets", ["container_id"], name: "index_outlets_on_container_id"
 
 end
