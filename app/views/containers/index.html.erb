@@ -30,12 +30,12 @@
         <td><%= container.kinematic_viscosity %></td>
         <td><%= container.density %></td>
 
-        <td><%= link_to '<span class="glyphicon glyphicon-eye-open"></span>'.html_safe, container, class: 'btn btn-primary btn-sm', role: 'button', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'View Container' %></td>
-        <td><%= link_to '<span class="glyphicon glyphicon-edit"></span>'.html_safe, edit_container_path(container), class: 'btn btn-default btn-sm', role: 'button', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Edit Container' %></td>
-        <td><%= link_to '<span class="glyphicon glyphicon-folder-open"></span>'.html_safe, copy_container_path(container), method: :put, class: 'btn btn-default btn-sm', role: 'button', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Copy Container' %></td>
-        <td><%= link_to '<span class="glyphicon glyphicon-play"></span>'.html_safe, submit_container_path(container), method: :put, class: 'btn btn-success btn-sm', role: 'button', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Submit' unless container.submitted? %></td>
-        <td><%= link_to '<span class="glyphicon glyphicon-file"></span>'.html_safe, results_container_path(container), class: 'btn btn-success btn-sm', role: 'button', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'View Results' if container.completed? %></td>
-        <td><%= link_to '<span class="glyphicon glyphicon-trash"></span>'.html_safe, container, method: :delete, class: 'btn btn-danger btn-sm pull-right', role: 'button', data: { confirm: 'Are you sure?', toggle: 'tooltip', placement: 'bottom' }, title: 'Delete Container' %></td>
+        <td><%= link_to '<span class="glyphicon glyphicon-eye-open"></span>'.html_safe, container, class: 'btn btn-primary btn-sm', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'View Container' %></td>
+        <td><%= link_to '<span class="glyphicon glyphicon-edit"></span>'.html_safe, edit_container_path(container), class: 'btn btn-default btn-sm', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Edit Container' %></td>
+        <td><%= link_to '<span class="glyphicon glyphicon-folder-open"></span>'.html_safe, copy_container_path(container), method: :put, class: 'btn btn-default btn-sm', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Copy Container' %></td>
+        <td><%= link_to '<span class="glyphicon glyphicon-play"></span>'.html_safe, submit_container_path(container), method: :put, class: 'btn btn-success btn-sm', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Submit' unless container.submitted? %></td>
+        <td><%= link_to '<span class="glyphicon glyphicon-file"></span>'.html_safe, results_container_path(container), class: 'btn btn-success btn-sm', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'View Results' if container.completed? %></td>
+        <td><%= link_to '<span class="glyphicon glyphicon-trash"></span>'.html_safe, container, method: :delete, class: 'btn btn-danger btn-sm pull-right', data: { confirm: 'Are you sure?', toggle: 'tooltip', placement: 'bottom' }, title: 'Delete Container' %></td>
       </tr>
     <% end %>
   </tbody>
