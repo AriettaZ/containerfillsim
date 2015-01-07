@@ -1,5 +1,5 @@
 class ContainersController < ApplicationController
-  before_action :set_container, only: [:show, :edit, :update, :destroy, :submit, :results, :stl, :paraview]
+  before_action :set_container, only: [:show, :edit, :update, :destroy, :submit, :copy, :results, :stl, :paraview]
 
   # GET /containers
   # GET /containers.json
@@ -81,6 +81,21 @@ class ContainersController < ApplicationController
 
       respond_to do |format|
         format.html { redirect_to containers_url, notice: 'Container simulation submitted.' }
+        format.json { head :no_content }
+      end
+    end
+  end
+
+  # PUT /containers/1/copy
+  def copy
+    @new_container = @container.copy
+
+    respond_to do |format|
+      if @new_container.save
+        format.html { redirect_to @new_container, notice: 'Container was successfully copied.' }
+        format.json { render action: 'show', status: :created, location: @new_container }
+      else
+        format.html { redirect_to containers_url, alert: 'Failed to copy container!' }
         format.json { head :no_content }
       end
     end

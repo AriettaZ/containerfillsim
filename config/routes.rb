@@ -2,12 +2,13 @@ ContainerFillSim::Application.routes.draw do
   resources :containers do
     member do
       put 'submit'
+      put 'copy'
       get 'results'
       get 'stl'
       get 'paraview'
     end
   end
-  
+
   root 'containers#index'
 
   #FIXME: add as a separate object that we can mount in osc-machete-rails
@@ -53,7 +54,7 @@ ContainerFillSim::Application.routes.draw do
   #       get 'recent', on: :collection
   #     end
   #   end
-  
+
   # Example resource route with concerns:
   #   concern :toggleable do
   #     post 'toggle'
