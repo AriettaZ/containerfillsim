@@ -7,19 +7,19 @@
 
   <%= f.alert_message "Please fix the errors below." %>
 
-  <%= f.text_field :name, placeholder: "New Simulation" %>
+  <%= f.text_field :name, placeholder: "New Simulation", required: true %>
 
   <%= f.nested_fields_for :inlets, wrapper_tag: :span do |inlet| %>
     <%= inlet.file_field :stl, label: 'Inlet' %>
     <div class="row">
       <div class="col-sm-4">
-        <%= inlet.number_field :vx, label: 'v<sub>x</sub>'.html_safe, append: 'm/s', step: 'any' %>
+        <%= inlet.number_field :vx, label: 'v<sub>x</sub>'.html_safe, append: 'm/s', required: true, step: 'any' %>
       </div>
       <div class="col-sm-4">
-        <%= inlet.number_field :vy, label: 'v<sub>y</sub>'.html_safe, append: 'm/s', step: 'any' %>
+        <%= inlet.number_field :vy, label: 'v<sub>y</sub>'.html_safe, append: 'm/s', required: true, step: 'any' %>
       </div>
       <div class="col-sm-4">
-        <%= inlet.number_field :vz, label: 'v<sub>z</sub>'.html_safe, append: 'm/s', step: 'any' %>
+        <%= inlet.number_field :vz, label: 'v<sub>z</sub>'.html_safe, append: 'm/s', required: true, step: 'any' %>
       </div>
     </div>
     <%= inlet.remove_nested_fields_link '<span class="glyphicon glyphicon-trash"></span>'.html_safe, class: 'btn btn-danger' %>
@@ -30,7 +30,7 @@
 
   <%= f.nested_fields_for :outlets, wrapper_tag: :span do |outlet| %>
     <%= outlet.file_field :stl, label: 'Outlet' %>
-    <%= outlet.number_field :pressure, placeholder: 101325, append: 'Pa', min: 0.0, step: 'any' %>
+    <%= outlet.number_field :pressure, placeholder: 101325, append: 'Pa', required: true, min: 0.0, step: 'any' %>
     <%= outlet.remove_nested_fields_link '<span class="glyphicon glyphicon-trash"></span>'.html_safe, class: 'btn btn-danger' %>
   <% end %>
   <%= f.add_nested_fields_link :outlets, '<span class="glyphicon glyphicon-plus"></span>'.html_safe, class: 'btn btn-primary' %>
@@ -41,15 +41,15 @@
 
   <%= f.select :measurement_scale, Container::MEASUREMENT_SCALES.to_a %>
 
-  <%= f.text_field :fluid_type, icon: 'tint', list: 'fluid_list' %>
+  <%= f.text_field :fluid_type, required: true, icon: 'tint', list: 'fluid_list' %>
   <datalist id="fluid_list">
   </datalist>
   <div class="row">
     <div class="col-sm-6">
-      <%= f.number_field :kinematic_viscosity, append: 'm&sup2;/s'.html_safe, min: 0.0, step: 'any' %>
+      <%= f.number_field :kinematic_viscosity, append: 'm&sup2;/s'.html_safe, required: true, min: 0.0, step: 'any' %>
     </div>
     <div class="col-sm-6">
-      <%= f.number_field :density, append: 'kg/m&sup3;'.html_safe, min: 0.0, step: 'any' %>
+      <%= f.number_field :density, append: 'kg/m&sup3;'.html_safe, required: true, min: 0.0, step: 'any' %>
     </div>
   </div>
 

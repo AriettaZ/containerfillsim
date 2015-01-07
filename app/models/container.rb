@@ -1,11 +1,17 @@
 class Container < ActiveRecord::Base
   include OSC::Machete::SimpleJob::Submittable
   has_many :jobs, dependent: :destroy
-  has_many :inlets, dependent: :destroy
-  has_many :outlets, dependent: :destroy
+  has_many :inlets, dependent: :destroy, inverse_of: :container
+  has_many :outlets, dependent: :destroy, inverse_of: :container
 
   accepts_nested_attributes_for :inlets, allow_destroy: true
   accepts_nested_attributes_for :outlets, allow_destroy: true
+
+  validates :name, presence: true
+  validates :measurement_scale, presence: true
+  validates :fluid_type, presence: true
+  validates :kinematic_viscosity, presence: true
+  validates :density, presence: true
 
   has_attached_file :walls
   do_not_validate_attachment_file_type :walls
@@ -21,11 +27,6 @@ class Container < ActiveRecord::Base
     inches: "(0.254 0.254 0.254)"
   }
   
-  # default to 5 steps
-  def steps
-    @steps || 5
-  end
-
   def inlet_list
     inlets.to_a
   end

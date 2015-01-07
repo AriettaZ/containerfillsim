@@ -1,5 +1,8 @@
 class Outlet < ActiveRecord::Base
-  belongs_to :container
+  belongs_to :container, inverse_of: :outlets
+
+  validates :pressure, presence: true
+  validates_presence_of :container
 
   has_attached_file :stl
   do_not_validate_attachment_file_type :stl
