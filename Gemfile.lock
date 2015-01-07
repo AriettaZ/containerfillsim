@@ -80,7 +80,7 @@ GEM
     osc-machete (0.2.4)
       mustache
       nokogiri
-    osc-vnc (0.0.3)
+    osc-vnc (0.0.4)
       pbs
     paperclip (4.2.0)
       activemodel (>= 3.0.0)
