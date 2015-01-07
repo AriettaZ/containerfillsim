@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150106175355) do
+ActiveRecord::Schema.define(version: 20150107021742) do
 
   create_table "containers", force: true do |t|
     t.string   "name"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20150106175355) do
     t.string   "walls_content_type"
     t.integer  "walls_file_size"
     t.datetime "walls_updated_at"
-    t.integer  "steps"
+    t.integer  "steps",               default: 5
   end
 
   create_table "inlets", force: true do |t|
