@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150107021742) do
+ActiveRecord::Schema.define(version: 20150107191341) do
 
   create_table "containers", force: true do |t|
     t.string   "name"
@@ -56,7 +56,6 @@ ActiveRecord::Schema.define(version: 20150107021742) do
   add_index "jobs", ["container_id"], name: "index_jobs_on_container_id"
 
   create_table "outlets", force: true do |t|
-    t.float    "pressure"
     t.string   "stl_file_name"
     t.string   "stl_content_type"
     t.integer  "stl_file_size"

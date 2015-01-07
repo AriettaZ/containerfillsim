@@ -37,14 +37,12 @@
         <thead>
           <tr>
             <th>File</th>
-            <th>Pressure (Pa)</th>
           </tr>
         </thead>
         <tbody>
           <% @container.outlets.each do |outlet| %>
             <tr>
               <td><%= link_to outlet.stl_file_name, outlet.stl.url %></td>
-              <td><%= outlet.pressure %></td>
             </tr>
           <% end %>
         </tbody>

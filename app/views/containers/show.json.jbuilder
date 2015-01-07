@@ -3,5 +3,5 @@ json.inlets @container.inlets do |inlet|
   json.extract! inlet, :stl_file_name, :vx, :vy, :vz
 end
 json.outlets @container.outlets do |outlet|
-  json.extract! outlet, :stl_file_name, :pressure
+  json.extract! outlet, :stl_file_name
 end

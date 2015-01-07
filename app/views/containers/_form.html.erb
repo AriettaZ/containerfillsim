@@ -49,7 +49,6 @@
       <thead>
         <tr>
           <th>File</th>
-          <th>Pressure</th>
           <th></th>
         </tr>
       </thead>
@@ -57,8 +56,6 @@
         <%= f.nested_fields_for :outlets, wrapper_tag: :tr do |outlet| %>
           <td>
             <%= outlet.file_field :stl, hide_label: true, class: 'input-sm' %>
-          </td><td>
-            <%= outlet.number_field :pressure, hide_label: true, class: 'input-sm', append: 'Pa', required: true, min: 0.0, step: 'any' %>
           </td><td>
             <%= outlet.remove_nested_fields_link '<span aria-hidden="true">&times;</span>'.html_safe, class: 'close', :'aria-label' => 'close', role: 'button' %>
           </td>
