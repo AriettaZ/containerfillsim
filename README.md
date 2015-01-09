@@ -9,3 +9,16 @@ Before installing this app, you need to be an AweSim developer in the `awsmdev` 
 5. cd into the new rails directory and run `bundle install --local` and `rake db:schema:load`
 
 You should now be able to access the app through devapps catalog: https://apps.awesim.org/devapps/
+
+### Updating ContainerFill Sim
+
+1. ssh into `glenn.osc.edu`
+2. cd into the `awesim_dev/rails1` directory
+3. Pull down any updates into the app directory using `git`
+4. If there is a database update you will need to run
+
+```
+rake db:migrate
+```
+
+You should now have an up-to-date copy of the app.
