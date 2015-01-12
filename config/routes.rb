@@ -1,4 +1,6 @@
 ContainerFillSim::Application.routes.draw do
+  get "tutorial" => "pages#tutorial"
+
   resources :containers do
     member do
       put 'submit'
