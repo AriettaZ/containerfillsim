@@ -24,7 +24,7 @@ class Container < ActiveRecord::Base
     mm: "(0.001 0.001 0.001)",
     cm: "(0.01 0.01 0.01)",
     meters: "(1.0 1.0 1.0)",
-    inches: "(0.254 0.254 0.254)"
+    inches: "(0.0254 0.0254 0.0254)"
   }
 
   def inlet_list
