@@ -5,6 +5,13 @@ GIT
     nested_form_fields (0.6)
       rails (>= 3.2.0)
 
+PATH
+  remote: /nfs/17/efranz/dev/osc-machete
+  specs:
+    osc-machete (0.2.4)
+      mustache
+      nokogiri
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -77,9 +84,6 @@ GEM
     mustache (0.99.5)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
-    osc-machete (0.2.4)
-      mustache
-      nokogiri
     osc-vnc (0.0.4)
       pbs
     paperclip (4.2.0)
@@ -155,7 +159,7 @@ DEPENDENCIES
   jquery-rails
   mocha
   nested_form_fields!
-  osc-machete (~> 0.2.1)
+  osc-machete!
   osc-vnc (~> 0.0.1)
   paperclip (~> 4.2)
   rails (= 4.0.0)
