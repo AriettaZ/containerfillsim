@@ -52,3 +52,5 @@ gem 'mocha', :require => false, group: [:test]
 
 gem 'bootstrap_form', '~> 2.2.0'
 gem 'nested_form_fields', git: 'https://github.com/ncri/nested_form_fields.git'
+
+gem 'redcarpet', '~> 3.2.2'
