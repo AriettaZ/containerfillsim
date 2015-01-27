@@ -54,4 +54,12 @@ $ ->
   # viscosity/density accordingly
   document.querySelector("#container_fluid_type").addEventListener "input", update_fluid
 
+  # Load polyfills if browser doesn't have datalist
+  Modernizr.load
+    test: Modernizr.datalistelem
+    nope: [
+      '/awesim_dev/rails9/assets/polyfill/jquery.datalist.js'
+      '/awesim_dev/rails9/assets/polyfill/load.datalist.js'
+    ]
+
   return

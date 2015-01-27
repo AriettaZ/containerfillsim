@@ -22,3 +22,28 @@ rake db:migrate
 ```
 
 You should now have an up-to-date copy of the app.
+
+### Modernizr and Old Browser Support
+
+Currently it is recommended to use Modernizr for feature detection. If a feature in the browser is not detected, then you should have a polyfill to fall back on. Modernizr facilitates detecting the feature and calling the polyfill you supply.
+
+Safari doesn't support HTML5 Datalist (big surprise). A slightly modified polyfill is added to
+
+```
+lib/assets/javascripts/polyfill
+```
+
+In order to add HTML5 Datalist feature detection a production Modernizr was built with the following options at: http://modernizr.com/download/#-input-addtest-elem_datalist-load
+
+* **Input Attributes** under the HTML5 section
+* **Modernizr.addTest** under the Extensibility section
+* **Modernizr.load** under the Extra section
+* **elem-datalist** under the Non-core detects
+
+This `modernizr.js` was placed in
+
+```
+vendor/assets/javascripts/
+```
+
+If you would like to add a polyfill for a future feature, please don't forget to also include the previous Modernizr options as well or you may break HTML5 Datalist feature detection.
