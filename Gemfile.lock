@@ -1,12 +1,4 @@
 GIT
-  remote: git@github.com:AweSim-OSC/osc-machete.git
-  revision: 098d5974d3110197f08609fd8e3f39e9c49f8a49
-  specs:
-    osc-machete (0.2.4)
-      mustache
-      nokogiri
-
-GIT
   remote: https://github.com/ncri/nested_form_fields.git
   revision: ab212a90148c825cd844f73e1ae04a8fb9e8618f
   specs:
@@ -85,6 +77,9 @@ GEM
     mustache (0.99.5)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
+    osc-machete (0.3.0)
+      mustache
+      nokogiri
     osc-vnc (0.0.4)
       pbs
     paperclip (4.2.0)
@@ -160,7 +155,7 @@ DEPENDENCIES
   jquery-rails
   mocha
   nested_form_fields!
-  osc-machete!
+  osc-machete (~> 0.3.0)
   osc-vnc (~> 0.0.1)
   paperclip (~> 4.2)
   rails (= 4.0.0)
