@@ -17,7 +17,8 @@ class ContainerTest < ActiveSupport::TestCase
 
     # we render instances of simulations in tmpdir for testing purposes
     @target = Dir.mktmpdir
-
+    
+    # how do we stub where the 
     @container.stubs(:staging_target_dir).returns(Pathname.new(@target).cleanpath)
 
     # the control is what we want to generate
@@ -38,15 +39,19 @@ class ContainerTest < ActiveSupport::TestCase
   end
 
   test "staging" do
-    job = @container.stage
-
-    assert_equal "", `diff -r #{job.path}/0_orig #{@expected}/0_orig`
-    assert_equal "", `diff -r #{job.path}/system/controlDict #{@expected}/system/controlDict`, "system/controlDict render failed"
-    assert_equal "", `diff -r #{job.path}/main.sh #{@expected}/main.sh`, "main.sh render failed"
+    # now if we test staging, it is separated into three parts
+    # because we switched to using OSC::Machete::SimpleJob::Workflow
+    jobpath = @container.stage
+    @container.render_mustache_files(jobpath, @container)
+    @container.after_stage(jobpath)
+    
+    assert_equal "", `diff -r #{jobpath}/0_orig #{@expected}/0_orig`
+    assert_equal "", `diff -r #{jobpath}/system/controlDict #{@expected}/system/controlDict`, "system/controlDict render failed"
+    assert_equal "", `diff -r #{jobpath}/main.sh #{@expected}/main.sh`, "main.sh render failed"
     # assert_equal "", `diff -r #{job.path}/image.py #{@expected}/image.py`, "image.py render failed"
-    assert_equal "", `diff -r #{job.path}/constant/transportProperties #{@expected}/constant/transportProperties`
+    assert_equal "", `diff -r #{jobpath}/constant/transportProperties #{@expected}/constant/transportProperties`
     # assert_equal "", `diff -rq #{job.path} #{@expected}`
 
-    assert_equal "", `diff -rq #{job.path}/constant/triSurface #{@expected}/constant/triSurface`, "input files not copied to constant/triSurface/"
+    assert_equal "", `diff -rq #{jobpath}/constant/triSurface #{@expected}/constant/triSurface`, "input files not copied to constant/triSurface/"
   end
 end

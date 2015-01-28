@@ -6,7 +6,7 @@ module ContainersHelper
       label_class = "label-danger"
     elsif sim.completed?
       label_class = "label-success"
-    elsif sim.running?
+    elsif sim.running_queued_or_hold?
       label_class = "label-primary"
     end
     

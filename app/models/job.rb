@@ -17,17 +17,9 @@ class Job < ActiveRecord::Base
     self.status = new_job.status
   end
   
-  def results_valid?
-    # FIXME: magic strings here and in Container.rb!!!
-    return solver_results_valid? if script_name == Container::SOLVE_SCRIPT_NAME
-    return post_results_valid? if script_name == Container::POST_SCRIPT_NAME
-    
-    raise "No validation method for job with script: #{script_name}"
-  end
-  
   # timesteps value should not be off from the request steps
   # by more than 0.001
-  def solver_results_valid?
+  def main_results_valid?
     (container.steps - final_timestep_for_log).abs <= 0.001
   end
   
