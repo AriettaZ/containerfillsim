@@ -1,16 +1,17 @@
 GIT
+  remote: git@github.com:AweSim-OSC/osc-machete.git
+  revision: 098d5974d3110197f08609fd8e3f39e9c49f8a49
+  specs:
+    osc-machete (0.2.4)
+      mustache
+      nokogiri
+
+GIT
   remote: https://github.com/ncri/nested_form_fields.git
   revision: ab212a90148c825cd844f73e1ae04a8fb9e8618f
   specs:
     nested_form_fields (0.6)
       rails (>= 3.2.0)
-
-PATH
-  remote: /nfs/17/efranz/dev/osc-machete
-  specs:
-    osc-machete (0.2.4)
-      mustache
-      nokogiri
 
 GEM
   remote: https://rubygems.org/
