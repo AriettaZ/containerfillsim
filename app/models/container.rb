@@ -1,7 +1,7 @@
 class Container < ActiveRecord::Base
   has_many :jobs, dependent: :destroy
   has_machete_workflow_of :jobs
-  
+
   has_many :inlets, dependent: :destroy, inverse_of: :container
   has_many :outlets, dependent: :destroy, inverse_of: :container
 
@@ -49,7 +49,7 @@ class Container < ActiveRecord::Base
   def staging_script_name
     Container::SOLVE_SCRIPT_NAME
   end
-  
+
   def after_stage(staged_dir)
     target = staged_dir.join("constant", "triSurface")
 
@@ -61,13 +61,13 @@ class Container < ActiveRecord::Base
     end
     FileUtils.cp walls.path, target
   end
-  
+
   def build_jobs(staged_dir, jobs = [])
     jobs << OSC::Machete::Job.new(script: staged_dir.join(Container::SOLVE_SCRIPT_NAME))
     jobs << OSC::Machete::Job.new(script: staged_dir.join(Container::POST_SCRIPT_NAME)).afterok(jobs.last)
   end
-  
-  
+
+
 
   def copy
     new_container = self.dup
@@ -86,9 +86,8 @@ class Container < ActiveRecord::Base
     new_container
   end
 
-
   def job_dir_name
-    Pathname.new(jobs.first.job_path).basename.to_s unless jobs.count == 0
+    Pathname.new(staged_dir).basename.to_s
   end
 
   # copy all the files I specify to triSurface/

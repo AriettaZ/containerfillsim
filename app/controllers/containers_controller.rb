@@ -111,7 +111,7 @@ class ContainersController < ApplicationController
 
   # GET /containers/1/paraview
   def paraview
-    foam_file = "#{@container.jobs.first.job_path}/out.foam"
+    foam_file = "#{@container.staged_dir}/out.foam"
 
     outdir = OSC::Machete::Crimson.new("#{Rails.application.class.parent_name}/vnc/paraview").files_path
     xdir = Rails.root.join("jobs", "vnc", "paraview")
