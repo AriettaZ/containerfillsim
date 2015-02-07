@@ -63,8 +63,16 @@ class Container < ActiveRecord::Base
   end
 
   def build_jobs(staged_dir, jobs = [])
-    jobs << OSC::Machete::Job.new(script: staged_dir.join(Container::SOLVE_SCRIPT_NAME))
-    jobs << OSC::Machete::Job.new(script: staged_dir.join(Container::POST_SCRIPT_NAME)).afterok(jobs.last)
+    # create solve_job and post_job Job objects, given the path to their scripts
+    solve_job = OSC::Machete::Job.new(script: staged_dir.join(Container::SOLVE_SCRIPT_NAME))
+    post_job = OSC::Machete::Job.new(script: staged_dir.join(Container::POST_SCRIPT_NAME))
+    
+    # setup dependency so post_job runs after solve_job completes
+    post_job.afterany(solve_job)
+
+    # add them to the array and return the array 
+    jobs << solve_job
+    jobs << post_job
   end
 
 
