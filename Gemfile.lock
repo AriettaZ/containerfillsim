@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/ncri/nested_form_fields.git
-  revision: ab212a90148c825cd844f73e1ae04a8fb9e8618f
+  revision: a1e9562b601f2e53de176c5e5b9116fefc959ff1
   specs:
-    nested_form_fields (0.6)
+    nested_form_fields (0.6.1)
       rails (>= 3.2.0)
 
 GEM
@@ -77,10 +77,10 @@ GEM
     mustache (0.99.5)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
-    osc-machete (0.3.1)
+    osc-machete (0.4.0)
       mustache
       nokogiri
-    osc-vnc (0.0.5)
+    osc-vnc (0.0.6)
       pbs
     paperclip (4.2.0)
       activemodel (>= 3.0.0)
@@ -155,7 +155,7 @@ DEPENDENCIES
   jquery-rails
   mocha
   nested_form_fields!
-  osc-machete (~> 0.3.1)
+  osc-machete (~> 0.4.0)
   osc-vnc (~> 0.0.1)
   paperclip (~> 4.2)
   rails (= 4.0.0)

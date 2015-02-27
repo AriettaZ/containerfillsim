@@ -4,7 +4,9 @@
   <thead>
     <tr>
       <th>#</th>
-      <th>Status</th>
+      <th>Status - Overall</th>
+      <th>Status - Main</th>
+      <th>Status - Post</th>
       <th>Name</th>
       <th>Measurement Scale</th>
       <th>Fluid type</th>
@@ -24,6 +26,8 @@
       <tr>
         <td><%= container.id %></td>
         <td><%= job_status_label(container) %></td>
+        <td><%= job_status_label(container.jobs.first) %></td>
+        <td><%= job_status_label(container.jobs.last) %></td>
         <td><%= container.name %></td>
         <td><%= container.measurement_scale_name %></td>
         <td><%= container.fluid_type %></td>
