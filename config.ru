@@ -5,8 +5,5 @@
 ENV['RAILS_DATAROOT'] = "#{ENV['HOME']}/awesim/ContainerFillSim"
 ENV['RAILS_DATABASE'] = "#{ENV['HOME']}/awesim/ContainerFillSim"
 
-# Create dataroot if doesn't already exist
-FileUtils.mkdir_p ENV['RAILS_DATAROOT']
-
 require ::File.expand_path('../config/environment',  __FILE__)
 run Rails.application
