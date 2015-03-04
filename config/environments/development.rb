@@ -31,5 +31,12 @@ ContainerFillSim::Application.configure do
   if ENV['RAILS_DATAROOT']
     config.paths["log"] = "#{ENV['RAILS_DATAROOT']}/log/development.log"
     config.paths["tmp"] = "#{ENV['RAILS_DATAROOT']}/tmp/#{ENV['USER']}"
+    config.paths["public"] = "#{ENV['RAILS_DATAROOT']}/public"
+    config.paths["public/javascripts"] = "#{ENV['RAILS_DATAROOT']}/public/javascripts"
+    config.paths["public/stylesheets"] = "#{ENV['RAILS_DATAROOT']}/public/stylesheets"
+  end
+  
+  config.assets.configure do |env|
+    env.cache = ActiveSupport::Cache::FileStore.new("#{ENV['RAILS_DATAROOT']}/tmp/#{ENV['USER']}/cache")
   end
 end
