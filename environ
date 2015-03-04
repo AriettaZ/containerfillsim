@@ -1,8 +1,0 @@
-#!/bin/bash
-
-export RAILS_DATAROOT=$HOME/awesim/ContainerFillSim
-export RAILS_DATABASE=$HOME/awesim/ContainerFillSim/db/production.sqlite3
-
-mkdir -p `dirname $RAILS_DATABASE`
-mkdir -p $RAILS_DATAROOT/tmp $RAILS_DATAROOT/log
-

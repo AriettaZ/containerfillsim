@@ -53,4 +53,6 @@ gem 'osc-vnc', '~> 0.0.1'
 gem 'mocha', :require => false, group: [:test]
 
 gem 'bootstrap_form', '~> 2.2.0'
-gem 'nested_form_fields', git: 'https://github.com/ncri/nested_form_fields.git'
+gem 'nested_form_fields', '~> 0.6.1'
+
+gem 'dotenv-rails', '~> 1.0.2'
