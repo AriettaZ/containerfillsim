@@ -113,7 +113,7 @@ class ContainersController < ApplicationController
   def paraview
     foam_file = "#{@container.staged_dir}/out.foam"
 
-    outdir = OSC::Machete::Crimson.new("#{Rails.application.class.parent_name}/vnc/paraview").files_path
+    outdir = File.join(ENV["RAILS_DATAROOT"], "vnc", "paraview")
     xdir = Rails.root.join("jobs", "vnc", "paraview")
     jnlp = OSC::VNC::Session.new(outdir: outdir, xdir: xdir, cluster: 'glenn', walltime: '00:30:00', datafile: foam_file).run.to_jnlp
 
