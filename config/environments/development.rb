@@ -26,4 +26,10 @@ ContainerFillSim::Application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
+
+  # change tmp/ and development.log locations if RAILS_DATAROOT set
+  if ENV['RAILS_DATAROOT']
+    config.paths["log"] = "#{ENV['RAILS_DATAROOT']}/log/development.log"
+    config.paths["tmp"] = "#{ENV['RAILS_DATAROOT']}/tmp/#{ENV['USER']}"
+  end
 end
