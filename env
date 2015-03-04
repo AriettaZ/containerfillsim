@@ -1,0 +1,2 @@
+RAILS_DATAROOT=$HOME/awesim/ContainerFillSim
+RAILS_DATABASE=$HOME/awesim/ContainerFillSim/db/production.sqlite3
