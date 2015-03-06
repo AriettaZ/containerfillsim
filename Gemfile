@@ -55,4 +55,4 @@ gem 'mocha', :require => false, group: [:test]
 gem 'bootstrap_form', '~> 2.2.0'
 gem 'nested_form_fields', '~> 0.6.1'
 
-gem 'dotenv-rails', '~> 1.0.2'
+gem 'dotenv-rails', '~> 2.0.0'
