@@ -52,5 +52,5 @@ if [ -e "${RAILS_DATABASE}" ]; then
   echo ""
 else
   cd ${DIR}
-  rake db:setup
+  RAILS_ENV=deployment rake db:setup
 fi
