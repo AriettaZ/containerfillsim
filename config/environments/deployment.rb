@@ -26,4 +26,14 @@ ContainerFillSim::Application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
+
+  # change tmp/, tmp/cache/ and log file location to be under RAILS_DATAROOT
+  if ENV['RAILS_DATAROOT']
+    config.paths["log"] = "#{ENV['RAILS_DATAROOT']}/log/#{ENV['USER']}.log"
+    config.paths["tmp"] = "#{ENV['RAILS_DATAROOT']}/tmp/#{ENV['USER']}"
+    
+    config.assets.configure do |env|
+      env.cache = ActiveSupport::Cache::FileStore.new("#{ENV['RAILS_DATAROOT']}/tmp/#{ENV['USER']}/cache")
+    end
+  end
 end
