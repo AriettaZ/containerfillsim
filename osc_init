@@ -35,7 +35,7 @@ if [ -e "${FINAL_DIR}" ]; then
 fi
 
 # Read in environment variables
-source ${DIR}/.env
+source ${DIR}/.env.deployment
 
 # Create symlink to this project
 ln -s ${DIR} ${FINAL_DIR}
