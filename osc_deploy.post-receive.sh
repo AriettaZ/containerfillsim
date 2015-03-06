@@ -10,7 +10,8 @@
 
 if [ $GIT_DIR = "." ]; then
   GIT_WORK_TREE="${PWD%.*}"
-  
+  NAME=`basename $GIT_WORK_TREE`
+ 
   if [ ! -d $GIT_WORK_TREE ]; then
     mkdir $GIT_WORK_TREE
   fi
@@ -29,7 +30,12 @@ if [ $GIT_DIR = "." ]; then
   # inside directory do fun stuff
   # bundle install --local
   echo "RailsEnv deployment" > .htaccess
-  #
+
+  # FIXME: currently only the release engineer pushing the deployment
+  # owns the deployment; we want $GROUP/$NAME
+  echo "RAILS_DATAROOT=\$HOME/awesim/$USER/$NAME" > .env.deployment
+  echo "RAILS_DATABASE=\$HOME/awesim/$USER/$NAME/deployment.sqlite3" >> .env.deployment
+
   popd
   
   # kill write permissions
