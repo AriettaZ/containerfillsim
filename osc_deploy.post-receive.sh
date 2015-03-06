@@ -16,7 +16,7 @@ if [ $GIT_DIR = "." ]; then
   fi
   
   # temporary make it writable
-  chmod -R g+w $GIT_WORK_TREE
+  chmod -R ug+w $GIT_WORK_TREE
   
   GIT_WORK_TREE=$GIT_WORK_TREE git checkout -f
   GIT_WORK_TREE=$GIT_WORK_TREE git clean -f
@@ -24,16 +24,16 @@ if [ $GIT_DIR = "." ]; then
   # copy files to $GIT_WORK_TREE/
   # cd into $GIT_WORK_TREE and run bundle install etc.
   
-  # pushd $GIT_WORK_TREE
+  pushd $GIT_WORK_TREE
   #
   # inside directory do fun stuff
   # bundle install --local
-  # echo `date` >> README.rdoc
+  echo "RailsEnv deployment" > .htaccess
   #
-  # popd
+  popd
   
   # kill write permissions
-  chmod -R g-w $GIT_WORK_TREE
+  chmod -R a-w $GIT_WORK_TREE
 fi
 
 # DOES NOT WORK SO GREAT
