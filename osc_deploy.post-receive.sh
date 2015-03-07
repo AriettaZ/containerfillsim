@@ -29,12 +29,69 @@ if [ $GIT_DIR = "." ]; then
   #
   # inside directory do fun stuff
   # bundle install --local
+
+  # force deployment for RailsEnv for passenger apps
   echo "RailsEnv deployment" > .htaccess
 
   # FIXME: currently only the release engineer pushing the deployment
   # owns the deployment; we want $GROUP/$NAME
+  # create deployment env file for database and dataroot 
   echo "RAILS_DATAROOT=\$HOME/awesim/$USER/$NAME" > .env.deployment
   echo "RAILS_DATABASE=\$HOME/awesim/$USER/$NAME/deployment.sqlite3" >> .env.deployment
+
+
+  # overwrite database.yml
+  cat << END_OF_DB_YML > config/database.yml
+deployment:
+  adapter: sqlite3
+  database: <%= ENV["RAILS_DATABASE"] %>
+  pool: 5
+  timeout: 5000
+END_OF_DB_YML
+
+  # add deployment.rb to environments
+  cat << END_OF_DEPLOYMENT_ENV_FILE > config/environments/deployment.rb
+Rails.application.class.configure do
+  # Settings specified here will take precedence over those in config/application.rb.
+
+  # In the development environment your application's code is reloaded on
+  # every request. This slows down response time but is perfect for development
+  # since you don't have to restart the web server when you make code changes.
+  config.cache_classes = false
+
+  # Do not eager load code on boot.
+  config.eager_load = false
+
+  # Show full error reports and disable caching.
+  config.consider_all_requests_local       = true
+  config.action_controller.perform_caching = false
+
+  # Don't care if the mailer can't send.
+  config.action_mailer.raise_delivery_errors = false
+
+  # Print deprecation notices to the Rails logger.
+  config.active_support.deprecation = :log
+
+  # Raise an error on page load if there are pending migrations
+  config.active_record.migration_error = :page_load
+
+  # Debug mode disables concatenation and preprocessing of assets.
+  # This option may cause significant delays in view rendering with a large
+  # number of complex assets.
+  config.assets.debug = true
+
+  # change tmp/, tmp/cache/ and log file location to be under RAILS_DATAROOT
+  if ENV['RAILS_DATAROOT']
+    config.paths["log"] = "#{ENV['RAILS_DATAROOT']}/log/#{ENV['USER']}.log"
+    config.paths["tmp"] = "#{ENV['RAILS_DATAROOT']}/tmp/#{ENV['USER']}"
+    
+    config.assets.configure do |env|
+      env.cache = ActiveSupport::Cache::FileStore.new("#{ENV['RAILS_DATAROOT']}/tmp/#{ENV['USER']}/cache")
+    end
+  end
+end
+
+END_OF_DEPLOYMENT_ENV_FILE
 
   popd
   
@@ -42,16 +99,3 @@ if [ $GIT_DIR = "." ]; then
   chmod -R a-w $GIT_WORK_TREE
 fi
 
-# DOES NOT WORK SO GREAT
-# if [ $GIT_DIR = "." ]; then
-#   DEST="${PWD%.*}"
-#   
-#   if [ ! -d $DEST ]; then
-#     git clone . $DEST
-#   else
-#     pushd $DEST
-#     git checkout -f
-#     git clean -f
-#     popd
-#   fi
-# fi
