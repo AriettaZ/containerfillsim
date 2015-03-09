@@ -97,5 +97,14 @@ END_OF_DEPLOYMENT_ENV_FILE
   
   # kill write permissions
   chmod -R a-w $GIT_WORK_TREE
+
+
+  echo ""
+  echo "To access this app, initialize access to this app with this command: "
+  echo ""
+  echo "    $GIT_WORK_TREE/osc_init rails9"
+  echo ""
+  echo "Where rails9 is the name of an open rails app that you can use for symlink."
+  echo ""
 fi
 
