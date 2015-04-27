@@ -50,9 +50,13 @@ gem 'autoprefixer-rails'
 # gem 'osc-machete', :git => "git@github.com:AweSim-OSC/osc-machete.git", :tag => "v0.3.2" # tag
 gem 'osc-machete', '~> 0.4.0'
 gem 'osc-vnc', '~> 0.0.1'
+gem 'pbs', '~> 0.0.1'
 gem 'mocha', :require => false, group: [:test]
 
 gem 'bootstrap_form', '~> 2.2.0'
 gem 'nested_form_fields', '~> 0.6.1'
 
 gem 'dotenv-rails', '~> 2.0.0'
+
+# Use 12factor for production
+gem 'rails_12factor', group: :production

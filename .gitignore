@@ -20,3 +20,16 @@
 
 # Ignore vim files
 *.swp
+
+# Development data root
+/data
+
+# .htaccess and .env should not be committed
+/.htaccess
+/.env
+
+# Ignore any user pre-compiled assets
+/public/assets
+
+# Ignore weird mac file
+.DS_Store

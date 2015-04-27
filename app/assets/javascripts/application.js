@@ -14,5 +14,11 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require modernizr
+//= require polyfill/jquery.datalist
+//= require polyfill/load.datalist
 //= require nested_form_fields
+//= require three
+//= require TrackballControls
+//= require STLLoader
+//= require stl
 //= require_tree .
