@@ -25,9 +25,7 @@
 /data
 
 # .htaccess and .env should not be committed
-/.htaccess
-/.htaccess.production
-/.env
+/public/.htaccess
 /.env.production
 
 # Ignore any user pre-compiled assets
