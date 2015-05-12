@@ -22,6 +22,47 @@ body {
   background-repeat: no-repeat;
 }
 
+// custom fonts
+@font-face {
+    font-family: 'Montreal-Light';
+    src: font-url('Montreal-Light.otf') format('opentype');
+}
+@font-face {
+    font-family: 'Montreal-DemiBold';
+    src: font-url('Montreal-DemiBold.otf') format('opentype');
+}
+$header-font: Montreal-Light;
+$header-inverse-font: Montreal-DemiBold;
+
+// backup fonts
+$font_1: HelveticaNeue-Light;
+$font_2: Helvetica Neue Light;
+$font_3: Helvetica Neue;
+$font_4: Helvetica;
+$font_5: Arial;
+$font_6: Lucida Grande;
+$font_7: sans-serif;
+
+// header colors
+$header-color: #6e6f72;
+$header-inverse-color: #be0037;
+
+// banner title
+h1.banner-title {
+  color: $header-color;
+  font-family: $header-font, $font_1, $font_2, $font_3, $font_4, $font_5, $font_6, $font_7;
+  font-size: 35px;
+  margin-top: 0;
+  padding-top: 0;
+  white-space: nowrap;
+  position: absolute;
+  left: 106px;
+  top: 20px;
+  span {
+    color: $header-inverse-color;
+    font-family: $header-inverse-font, $font_3, $font_4, $font_5, $font_6, $font_7;
+  }
+}
 
 // Your custom css styles below (must be manually added)
 @import "rails_bootstrap_forms";
