@@ -34,7 +34,3 @@
 
 # Ignore weird mac file
 .DS_Store
-
-# Ignore apache access files
-.htaccess
-
