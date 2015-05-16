@@ -62,3 +62,7 @@ gem 'redcarpet', '~> 3.2.2'
 
 # Use 12factor for production
 gem 'rails_12factor', group: :production
+
+gem 'awesim_rails', '~> 0.1.0'
+gem 'awesim_rails_logging', '~> 0.0.3'
+

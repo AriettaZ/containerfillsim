@@ -14,7 +14,7 @@ ContainerFillSim::Application.routes.draw do
   root 'containers#index'
 
   #FIXME: add as a separate object that we can mount in osc-machete-rails
-  mount proc { |env| Rack::Directory.new(ENV["RAILS_DATAROOT"]).call(env) } => "/files"
+  mount proc { |env| Rack::Directory.new(AwesimRails.dataroot).call(env) } => "/files"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

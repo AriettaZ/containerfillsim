@@ -5,7 +5,7 @@ class OSC::Machete::Crimson
     @portal = portal
     @user = user || OSC::Machete::User.new
 
-    @files_path = Pathname.new(ENV["RAILS_DATAROOT"])
-    @config_path = Pathname.new(ENV["RAILS_DATAROOT"]).join(".cfg")
+    @files_path = Pathname.new(AwesimRails.dataroot)
+    @config_path = Pathname.new(AwesimRails.dataroot).join(".cfg")
   end
 end
