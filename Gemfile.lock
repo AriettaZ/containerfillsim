@@ -29,7 +29,7 @@ GEM
     atomic (1.1.14)
     autoprefixer-rails (4.0.0)
       execjs
-    awesim_rails (0.1.0)
+    awesim_rails (0.2.0)
       rails (~> 4.0.0)
     awesim_rails_logging (0.0.3)
       rails (~> 4.0.0)
@@ -156,7 +156,7 @@ PLATFORMS
 
 DEPENDENCIES
   autoprefixer-rails
-  awesim_rails (~> 0.1.0)
+  awesim_rails (~> 0.2.0)
   awesim_rails_logging (~> 0.0.3)
   bootstrap-sass (~> 3.3.1)
   bootstrap_form (~> 2.2.0)
