@@ -2,31 +2,37 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-fluid_list = {}
+@FluidLister =
+  fluid_list:
+    water:
+      viscosity: 0.000001
+      density: 998.23
+    oil:
+      viscosity: 0.00025
+      density: 800
+    honey:
+      viscosity: 0.0000736
+      density: 1420
+    beer:
+      viscosity: 0.0000018
+      density: 1010
+    milk:
+      viscosity: 0.00000113
+      density: 1035
+    mercury:
+      viscosity: 0.000000118
+      density: 13590
 
-fluid_list["water"] =
-  viscosity: 0.000001
-  density: 998.23
+  # Create list of fluids as options to choose
+  setup: ->
+    for key of @fluid_list
+      $("#fluid_list").append($('<option>').val(key))
 
-fluid_list["oil"] =
-  viscosity: 0.00025
-  density: 800
-
-fluid_list["honey"] =
-  viscosity: 0.0000736
-  density: 1420
-
-fluid_list["beer"] =
-  viscosity: 0.0000018
-  density: 1010
-
-fluid_list["milk"] =
-  viscosity: 0.00000113
-  density: 1035
-
-fluid_list["mercury"] =
-  viscosity: 0.000000118
-  density: 13590
+  update: ->
+    fluid = $("#container_fluid_type").val()
+    if fluid of @fluid_list
+      $("#container_kinematic_viscosity").val @fluid_list[fluid].viscosity
+      $("#container_density").val @fluid_list[fluid].density
 
 $ ->
   # Must opt-in to use Bootstrap tooltips
@@ -37,23 +43,13 @@ $ ->
     $(this).button('loading')
     return
 
-  # Add list of fluids to container form
-  for key of fluid_list
-    new_option = document.createElement("option")
-    new_option.value = key
-    document.querySelector("#fluid_list").appendChild(new_option)
+  # List fluids when making new container
+  if $("#fluid_list").length > 0
+    FluidLister.setup()
 
-  # Update viscosity/density for chosen fluid
-  update_fluid = (event) ->
-    key = event.target.value
-    if key of fluid_list
-      document.querySelector("#container_kinematic_viscosity").value = fluid_list[key].viscosity
-      document.querySelector("#container_density").value = fluid_list[key].density
-    return
-
-  # Add event listener on fluid type input and update
-  # viscosity/density accordingly
-  document.querySelector("#container_fluid_type").addEventListener "input", update_fluid
+  # Update viscosity/density when fluid is changed
+  $("#container_fluid_type").on 'input', (e) ->
+    FluidLister.update()
 
   # Load polyfills if browser doesn't have datalist
   Modernizr.load
