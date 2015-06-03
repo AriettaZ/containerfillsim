@@ -29,6 +29,7 @@ fluid_list["mercury"] =
   density: 13590
 
 $ ->
+  # Must opt-in to use Bootstrap tooltips
   $('[data-toggle="tooltip"]').tooltip container: "body"
 
   # Only allow user to click "Launch Paraview" button once
