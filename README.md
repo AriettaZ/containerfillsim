@@ -6,7 +6,7 @@ Before installing this app, you need to be an AweSim developer in the `awsmdev` 
 2. cd into the `awesim_dev` directory
 3. Clone https://github.com/AweSim-OSC/containerfillsim into an available app dir (rails1, rails2, ...)
 4. `module load` the correct ruby version (currently `module load ruby-2.0.0-p247`)
-5. cd into the new rails directory and run `bundle install --local` and `rake db:schema:load`
+5. cd into the new rails directory and run `bundle install --local`
 6. create the `public/.htaccess` file via
 
         cat public/.htaccess.development public/.htaccess.passenger_fix > public/.htaccess
