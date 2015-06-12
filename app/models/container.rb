@@ -14,7 +14,7 @@ class Container < ActiveRecord::Base
   validates :kinematic_viscosity, presence: true
   validates :density, presence: true
 
-  has_attached_file :walls
+  has_attached_file :walls, validate_media_type: false
   do_not_validate_attachment_file_type :walls
   validates_presence_of :walls
 

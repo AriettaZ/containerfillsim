@@ -1,9 +1,3 @@
-# http://robots.thoughtbot.com/prevent-spoofing-with-paperclip
-# allow stl files to be uploaded
-Paperclip.options[:content_type_mappings] = {
-  :stl => "text/plain"
-}
-
 # We use ":class/:id/:created_at/" to specify path uniqueness
 Paperclip::Attachment.default_options[:path] = "#{AwesimRails.dataroot}/uploads/:class/:id/:created_at/:attachment/:filename"
 

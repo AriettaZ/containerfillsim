@@ -84,7 +84,7 @@ GEM
       nokogiri
     osc-vnc (0.0.6)
       pbs
-    paperclip (4.2.0)
+    paperclip (4.2.2)
       activemodel (>= 3.0.0)
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.3)
@@ -168,7 +168,7 @@ DEPENDENCIES
   nested_form_fields (~> 0.6.1)
   osc-machete (~> 0.4.0)
   osc-vnc (~> 0.0.1)
-  paperclip (~> 4.2)
+  paperclip (~> 4.2.2)
   pbs (~> 0.0.1)
   rails (= 4.0.0)
   rails_12factor

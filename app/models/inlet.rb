@@ -6,7 +6,7 @@ class Inlet < ActiveRecord::Base
   validates :vz, presence: true
   validates_presence_of :container
 
-  has_attached_file :stl
+  has_attached_file :stl, validate_media_type: false
   do_not_validate_attachment_file_type :stl
   validates_presence_of :stl
 
