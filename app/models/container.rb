@@ -29,7 +29,7 @@ class Container < ActiveRecord::Base
   }
 
   def walltime
-    "12:00:00"
+    "4:00:00"
   end
 
   def num_nodes
