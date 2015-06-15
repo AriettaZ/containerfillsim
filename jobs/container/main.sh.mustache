@@ -1,11 +1,11 @@
 #PBS -N ContainerFill
-#PBS -l nodes=8:ppn=12
-#PBS -l walltime=65:00:00
+#PBS -l nodes={{num_nodes}}:ppn=12
+#PBS -l walltime={{walltime}}
 #PBS -q @oak-batch.osc.edu
 #PBS -j oe
 #PBS -S /bin/bash
 
-echo "---Job started at:" 
+echo "---Job started at:"
 date
 
 #Initialize OpenFOAM-2.1.0
@@ -14,7 +14,7 @@ date
 #Move to the case directory, where the 0, constant and system directories reside
 cd $PBS_O_WORKDIR
 
-export MV2_ON_DEMAND_THRESHOLD=96 
+export MV2_ON_DEMAND_THRESHOLD={{num_cores}}
 
 surfaceCheck -blockMesh ./constant/triSurface/{{walls_file_name}} >> LOG-surfaceCheck
 
@@ -42,11 +42,11 @@ cp 0_orig/* 0/
 
 decomposePar < /dev/null >>  LOG-decomp
 
-mpiexec -n 96 interFoam -parallel < /dev/null >>  LOG-iF
+mpiexec -n {{num_cores}} interFoam -parallel < /dev/null >>  LOG-iF
 
 #reconstructPar < /dev/null >> LOG-rP
- 
+
 touch out.foam
 
-echo "---Job finished at:" 
+echo "---Job finished at:"
 date

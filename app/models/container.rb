@@ -28,6 +28,31 @@ class Container < ActiveRecord::Base
     inches: "(0.0254 0.0254 0.0254)"
   }
 
+  def walltime
+    "12:00:00"
+  end
+
+  def num_nodes
+    1
+  end
+
+  def num_cores
+    num_nodes * 12
+  end
+
+  # nx * ny * nz = num_cores
+  def nx
+    2
+  end
+
+  def ny
+    3
+  end
+
+  def nz
+    2
+  end
+
   def inlet_list
     inlets.to_a
   end
@@ -66,7 +91,7 @@ class Container < ActiveRecord::Base
     # create solve_job and post_job Job objects, given the path to their scripts
     solve_job = OSC::Machete::Job.new(script: staged_dir.join(Container::SOLVE_SCRIPT_NAME))
     post_job = OSC::Machete::Job.new(script: staged_dir.join(Container::POST_SCRIPT_NAME))
-    
+
     # setup dependency so post_job runs after solve_job completes
     post_job.afterany(solve_job)
 
