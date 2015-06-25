@@ -123,5 +123,29 @@ class Container < ActiveRecord::Base
     Pathname.new(staged_dir).basename.to_s
   end
 
+  def to_jnlp
+    headers = {
+      PBS::ATTR[:N] => "FillSim-Paraview",
+    }
+
+    resources = {
+      nodes: "1:ppn=1:oakley",
+      walltime: "24:00:00",
+    }
+
+    envvars = {
+      DATAFILE: "#{staged_dir}/out.foam",
+    }
+
+    outdir = File.join(AwesimRails.dataroot, "vnc", "paraview")
+    xstartup = Rails.root.join("jobs", "vnc", "paraview", "xstartup")
+
+    session = OSC::VNC::Session.new batch: 'oxymoron', cluster: 'oakley',
+      xstartup: xstartup, outdir: outdir, headers: headers, resources: resources,
+      envvars: envvars, options: {}
+
+    OSC::VNC::ConnView.new(session: session.run).to_jnlp
+  end
+
   # copy all the files I specify to triSurface/
 end

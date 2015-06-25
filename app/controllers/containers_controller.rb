@@ -111,13 +111,7 @@ class ContainersController < ApplicationController
 
   # GET /containers/1/paraview
   def paraview
-    foam_file = "#{@container.staged_dir}/out.foam"
-
-    outdir = File.join(AwesimRails.dataroot, "vnc", "paraview")
-    xdir = Rails.root.join("jobs", "vnc", "paraview")
-    jnlp = OSC::VNC::Session.new(outdir: outdir, xdir: xdir, cluster: 'glenn', walltime: '00:30:00', datafile: foam_file).run.to_jnlp
-
-    send_data jnlp.force_encoding('binary'), type: :jnlp, disposition: "attachment", filename: "paraview.jnlp"
+    send_data @container.to_jnlp, type: :jnlp, filename: "paraview.jnlp"
   end
 
   private

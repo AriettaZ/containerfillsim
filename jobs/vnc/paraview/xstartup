@@ -1,11 +1,16 @@
 #!/bin/bash
 
-XDIR=${XDIR} /usr/bin/fvwm -f ${XDIR}/fvwm/fvwmrc &
+if [ -e $HOME/.Xresources ]; then
+  xrdb $HOME/.Xresources
+fi
+xsetroot -solid grey
 
+XDIR=${XSTARTUP_DIR} /usr/bin/fvwm -f ${XSTARTUP_DIR}/fvwm/fvwmrc &
 
-. /etc/profile.d/modules-env.sh
-module load VirtualGL-2.3
-module load paraview-3.8.0
-vglrun paraview --data=$DATAFILE
+. /etc/profile.d/lmod.sh
+module load virtualgl/2.3
+module load paraview/3.14.1
 
-vncserver -kill $DISPLAY
+vglrun paraview --data=${DATAFILE}
+
+vncserver -kill ${DISPLAY}
