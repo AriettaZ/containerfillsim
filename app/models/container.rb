@@ -127,12 +127,9 @@ class Container < ActiveRecord::Base
     headers = {
       PBS::ATTR[:N] => "FillSim-Paraview",
     }
-
     resources = {
-      nodes: "1:ppn=1:oakley",
       walltime: "24:00:00",
     }
-
     envvars = {
       DATAFILE: "#{staged_dir}/out.foam",
     }
@@ -142,7 +139,7 @@ class Container < ActiveRecord::Base
 
     session = OSC::VNC::Session.new batch: 'oxymoron', cluster: 'oakley',
       xstartup: xstartup, outdir: outdir, headers: headers, resources: resources,
-      envvars: envvars, options: {}
+      envvars: envvars
 
     OSC::VNC::ConnView.new(session: session.run).to_jnlp
   end
