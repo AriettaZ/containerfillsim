@@ -12,6 +12,7 @@
 
     <h3>
       <%=raw '<span class="label label-danger">Failed</span>' if @container.jobs.last.failed? %>
+      <%# FIXME: this link is broken because it doesn't have the base URI - better if we used a route helper for files %>
       <%= link_to "Post simulation output:", "/files/#{@container.jobs.last.output_file_relative_path}" %>
     </h3>
     <pre><%= @container.jobs.last.output_file_contents %></pre>
