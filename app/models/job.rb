@@ -17,19 +17,24 @@ class Job < ActiveRecord::Base
     self.status = new_job.status
   end
 
-  # return string "3950166" whether the pbsid
-  # is "3950166" or "3960166.oak-batch.osc.edu"
+  # return string "3950166" whether the is "3950166" or "3960166.oak-batch.osc.edu"
   def pbsid_number
     pbsid =~ /(\d+)(\..*)?/
     $1
   end
 
+  # return first path found for the given filename/path or glob pattern relative
+  # to the job's directory
+  def job_file_path(file)
+    Pathname.glob("#{job_path}/#{file}").first
+  end
+
   def output_file_path
-    Pathname.glob("#{job_path}/*.o#{pbsid_number}").first
+    job_file_path "*.o#{pbsid_number}"
   end
 
   def error_file_path
-    Pathname.glob("#{job_path}/*.e#{pbsid_number}").first
+    job_file_path "*.e#{pbsid_number}"
   end
 
   # path relative to dataroot
