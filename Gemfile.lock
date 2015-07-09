@@ -28,7 +28,7 @@ GEM
     arel (4.0.0)
     autoprefixer-rails (4.0.0)
       execjs
-    awesim_rails (0.2.1)
+    awesim_rails (0.5.1)
       rails (~> 4.0.0)
     awesim_rails_logging (0.0.3)
       rails (~> 4.0.0)
@@ -78,7 +78,7 @@ GEM
       rails (>= 3.2.0)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
-    osc-machete (0.4.0)
+    osc-machete (0.5.0)
       mustache
       nokogiri
     osc-vnc (0.1.8)
@@ -155,7 +155,7 @@ PLATFORMS
 
 DEPENDENCIES
   autoprefixer-rails
-  awesim_rails (~> 0.2.1)
+  awesim_rails (~> 0.5.1)
   awesim_rails_logging (~> 0.0.3)
   bootstrap-sass (~> 3.3.1)
   bootstrap_form (~> 2.2.0)
@@ -165,7 +165,7 @@ DEPENDENCIES
   jquery-rails
   mocha
   nested_form_fields (~> 0.6.1)
-  osc-machete (~> 0.4.0)
+  osc-machete (~> 0.5.0)
   osc-vnc (~> 0.1.8)
   paperclip (~> 4.2)
   rails (= 4.0.0)
