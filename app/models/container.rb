@@ -143,6 +143,4 @@ class Container < ActiveRecord::Base
 
     OSC::VNC::ConnView.new(session: session.run).to_jnlp
   end
-
-  # copy all the files I specify to triSurface/
 end
