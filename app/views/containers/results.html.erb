@@ -1,46 +1,62 @@
 <h1>Results</h1>
 
+<% if @container.failed? %>
+
+<div class="row">
+  <div class="col-md-8">
+    <h3>
+      <%=raw '<span class="label label-danger">Failed</span>' if @container.jobs.first.failed? %>
+      <%= link_to "Main simulation output:", "/files/#{@container.jobs.first.output_file_relative_path}" %>
+    </h3>
+    <pre><%= @container.jobs.first.output_file_contents %></pre>
+
+    <h3>
+      <%=raw '<span class="label label-danger">Failed</span>' if @container.jobs.last.failed? %>
+      <%= link_to "Post simulation output:", "/files/#{@container.jobs.last.output_file_relative_path}" %>
+    </h3>
+    <pre><%= @container.jobs.last.output_file_contents %></pre>
+  </div>
+</div>
+
+<% else %>
 
 <div class="row">
   <div class="col-md-4">
+    <div id="carousel-example-generic" class="results carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <% (0..@container.steps).each do |i| %>
+        <li data-target="#carousel-example-generic" data-slide-to="<%= i %>" <%= 'class="active"' if i == 0 %> ></li>
+        <% end %>
+      </ol>
 
+      <!-- Wrapper for slides -->
+      <div class="carousel-inner" role="listbox">
+        <% (0..@container.steps).each do |i| %>
+        <div class="item <%= 'active' if i == 0 %>">
+          <%= image_tag "/files/containers/#{@container.job_dir_name}/images/t#{sprintf '%02d', i}.png" %>
+        </div>
+        <% end %>
+      </div>
 
-<div id="carousel-example-generic" class="results carousel slide" data-ride="carousel">
-  <!-- Indicators -->
-  <ol class="carousel-indicators">
-    <% (0..@container.steps).each do |i| %>
-    <li data-target="#carousel-example-generic" data-slide-to="<%= i %>" <%= 'class="active"' if i == 0 %> ></li>
-    <% end %>
-  </ol>
-
-  <!-- Wrapper for slides -->
-  <div class="carousel-inner" role="listbox">
-    <% (0..@container.steps).each do |i| %>
-    <div class="item <%= 'active' if i == 0 %>">
-      <%= image_tag "/files/containers/#{@container.job_dir_name}/images/t#{sprintf '%02d', i}.png" %>
+      <!-- Controls -->
+      <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
     </div>
-    <% end %>
-  </div>
-
-  <!-- Controls -->
-  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
-</div>
-
-
-
   </div>
   <div class="col-md-offset-1 col-md-4">
-
     <%= image_tag "/files/containers/#{@container.job_dir_name}/movies/filling.gif" %>
   </div>
 </div>
+
+<% end %>
+
 
 <p>&nbsp;</p>
 
