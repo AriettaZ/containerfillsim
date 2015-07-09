@@ -24,37 +24,30 @@ class Job < ActiveRecord::Base
     $1
   end
 
-  # FIXME: a useful method for any file relative to the job dir path?
-  # FIXME: a null path object would be useful so
-  # calling read on it doesn't throw an error
   def output_file_path
-    path = Pathname.new(job_path).join("*.o#{pbsid_number}")
-    Pathname.glob(path).first # || Pathname.new("")
+    Pathname.glob("#{job_path}/*.o#{pbsid_number}").first
   end
 
   def error_file_path
-    path = Pathname.new(job_path).join("*.e#{pbsid_number}")
-    Pathname.glob(path).first
+    Pathname.glob("#{job_path}/*.e#{pbsid_number}").first
   end
 
   # path relative to dataroot
   def output_file_relative_path
-    output_file_path.relative_path_from(AwesimRails.dataroot)
+    output_file_path.relative_path_from(AwesimRails.dataroot) if output_file_path
   end
 
   # path relative to dataroot
   def error_file_relative_path
-    error_file_path.relative_path_from(AwesimRails.dataroot)
+    error_file_path.relative_path_from(AwesimRails.dataroot) if error_file_path
   end
 
   def output_file_contents
-    path = output_file_path
-    path ? path.read : ""
+    output_file_path ? output_file_path.read : ""
   end
 
   def error_file_contents
-    path = error_file_path
-    path ? path.read : ""
+    error_file_path ? error_file_path.read : ""
   end
 
   # timesteps value should not be off from the request steps
