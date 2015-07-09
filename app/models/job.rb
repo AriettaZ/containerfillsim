@@ -37,6 +37,16 @@ class Job < ActiveRecord::Base
     Pathname.glob(path).first
   end
 
+  # path relative to dataroot
+  def output_file_relative_path
+    output_file_path.relative_path_from(AwesimRails.dataroot)
+  end
+
+  # path relative to dataroot
+  def error_file_relative_path
+    error_file_path.relative_path_from(AwesimRails.dataroot)
+  end
+
   def output_file_contents
     path = output_file_path
     path ? path.read : ""
