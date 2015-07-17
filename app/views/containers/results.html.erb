@@ -6,14 +6,14 @@
   <div class="col-md-8">
     <h3>
       <%=raw '<span class="label label-danger">Failed</span>' if @container.jobs.first.failed? %>
-      <%= link_to "Main simulation output:", "#{Rails.application.config.action_controller.relative_url_root}/files/#{@container.jobs.first.output_file_relative_path}" %>
+      <%= link_to "Main simulation output:", "#{files_path}/#{@container.jobs.first.output_file_relative_path}" %>
     </h3>
     <pre><%= @container.jobs.first.output_file_contents %></pre>
 
     <h3>
       <%=raw '<span class="label label-danger">Failed</span>' if @container.jobs.last.failed? %>
       <%# FIXME: better if we used a route helper for files %>
-      <%= link_to "Post simulation output:", "#{Rails.application.config.action_controller.relative_url_root}/files/#{@container.jobs.last.output_file_relative_path}" %>
+      <%= link_to "Post simulation output:", "#{files_path}/#{@container.jobs.last.output_file_relative_path}" %>
     </h3>
     <pre><%= @container.jobs.last.output_file_contents %></pre>
   </div>
