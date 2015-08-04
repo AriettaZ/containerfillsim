@@ -119,7 +119,7 @@ class Container < ActiveRecord::Base
     new_container
   end
 
-  def job_dir_name
+  def staged_dir_name
     Pathname.new(staged_dir).basename.to_s
   end
 

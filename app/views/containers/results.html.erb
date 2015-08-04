@@ -35,7 +35,7 @@
       <div class="carousel-inner" role="listbox">
         <% (0..@container.steps).each do |i| %>
         <div class="item <%= 'active' if i == 0 %>">
-          <%= image_tag "/files/containers/#{@container.job_dir_name}/images/t#{sprintf '%02d', i}.png" %>
+          <%= image_tag container_results_path(@container, "images/t#{sprintf '%02d', i}.png") %>
         </div>
         <% end %>
       </div>
@@ -52,7 +52,7 @@
     </div>
   </div>
   <div class="col-md-offset-1 col-md-4">
-    <%= image_tag "/files/containers/#{@container.job_dir_name}/movies/filling.gif" %>
+    <%= image_tag container_results_path(@container, "movies/filling.gif") %>
   </div>
 </div>
 
