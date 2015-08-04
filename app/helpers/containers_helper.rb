@@ -2,7 +2,7 @@ module ContainersHelper
 
   # URL path helper
   def container_results_path(container, path)
-    Pathname.new("#{files_path}/containers/#{container.staged_dir_name}").join(path).to_s
+    Pathname.new(files_path).join(container.staged_dir_relative_path, path).to_s
   end
 
   def job_status_label(job)

@@ -100,7 +100,19 @@ class Container < ActiveRecord::Base
     jobs << post_job
   end
 
-
+  # Get path to staged simulation directory relative to dataroot
+  # i.e. given staged_dir of
+  #
+  #     /path/to/dataroot/containers/12
+  #
+  # this method returns
+  #
+  #     containers/12
+  #
+  # WARNING: Assumes staged_dir is inside dataroot!
+  def staged_dir_relative_path
+    Pathname.new(staged_dir).relative_path_from(AwesimRails.dataroot)
+  end
 
   def copy
     new_container = self.dup
@@ -117,10 +129,6 @@ class Container < ActiveRecord::Base
     end
 
     new_container
-  end
-
-  def staged_dir_name
-    Pathname.new(staged_dir).basename.to_s
   end
 
   def to_jnlp
