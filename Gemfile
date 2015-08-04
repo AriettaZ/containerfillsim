@@ -48,7 +48,7 @@ gem 'autoprefixer-rails'
 # gem 'osc-machete', :path => "/nfs/17/efranz/dev/osc-machete" # local
 # gem 'osc-machete', :git => "git@github.com:AweSim-OSC/osc-machete.git", :branch => "master" # master
 # gem 'osc-machete', :git => "git@github.com:AweSim-OSC/osc-machete.git", :tag => "v0.3.2" # tag
-gem 'osc-machete', '~> 0.5.0'
+gem 'osc-machete', '~> 0.6.0'
 gem 'osc-vnc', '~> 0.1.8'
 gem 'mocha', :require => false, group: [:test]
 
