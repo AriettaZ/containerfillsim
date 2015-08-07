@@ -134,6 +134,7 @@ class Container < ActiveRecord::Base
   def to_jnlp
     headers = {
       PBS::ATTR[:N] => "FillSim-Paraview",
+      PBS::ATTR[:j] => "oe",
     }
     resources = {
       walltime: "24:00:00",
@@ -141,14 +142,17 @@ class Container < ActiveRecord::Base
     envvars = {
       DATAFILE: "#{staged_dir}/out.foam",
     }
+    options = {
+       geom: "1024x768",
+    }
 
     outdir = File.join(AwesimRails.dataroot, "vnc", "paraview")
     xstartup = Rails.root.join("jobs", "vnc", "paraview", "xstartup")
 
     session = OSC::VNC::Session.new batch: 'oxymoron', cluster: 'oakley',
       xstartup: xstartup, outdir: outdir, headers: headers, resources: resources,
-      envvars: envvars
+      envvars: envvars, options: options
 
-    OSC::VNC::ConnView.new(session: session.run).to_jnlp
+    OSC::VNC::ConnView.new(session: session.run).render(:jnlp)
   end
 end
