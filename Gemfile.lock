@@ -81,7 +81,7 @@ GEM
     osc-machete (0.6.2)
       mustache
       nokogiri
-    osc-vnc (0.4.1)
+    osc-vnc (0.4.2)
       mustache (~> 0.99, >= 0.99.5)
       pbs (~> 0.4, >= 0.4.0)
     paperclip (4.2.2)
@@ -166,7 +166,7 @@ DEPENDENCIES
   mocha
   nested_form_fields (~> 0.6.1)
   osc-machete (~> 0.6.2)
-  osc-vnc (~> 0.4.1)
+  osc-vnc (~> 0.4.2)
   paperclip (~> 4.2)
   rails (= 4.0.0)
   rails_12factor

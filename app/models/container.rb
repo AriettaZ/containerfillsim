@@ -132,24 +132,26 @@ class Container < ActiveRecord::Base
   end
 
   def to_jnlp
-    headers = {
-      PBS::ATTR[:N] => "FillSim-Paraview",
-      PBS::ATTR[:j] => "oe",
-    }
-    envvars = {
-      DATAFILE: "#{staged_dir}/out.foam",
-    }
-    options = {
-      geom: "1024x768",
-    }
+    job = PBS::Job.new(conn: PBS::Conn.batch('quick'))
+    script = OSC::VNC::ScriptView.new(
+      :vnc,
+      'oakley',
+      subtype: :shared,
+      xstartup: Rails.root.join("jobs", "vnc", "paraview", "xstartup"),
+      outdir: File.join(AwesimRails.dataroot, "vnc", "paraview"),
+      geom: "1024x768"
+    )
+    session = OSC::VNC::Session.new job, script
 
-    outdir = File.join(AwesimRails.dataroot, "vnc", "paraview")
-    xstartup = Rails.root.join("jobs", "vnc", "paraview", "xstartup")
+    session.submit(
+      headers: {
+        PBS::ATTR[:N] => "FillSim-Paraview",
+      },
+      envvars: {
+        DATAFILE: "#{staged_dir}/out.foam",
+      }
+    )
 
-    batch = OSC::VNC::Batch.new name: 'oxymoron', cluster: 'oakley'
-    session = OSC::VNC::Session.new batch: batch, xstartup: xstartup,
-      outdir: outdir, headers: headers, envvars: envvars, options: options
-
-    OSC::VNC::ConnView.new(session: session.run).render(:jnlp)
+    OSC::VNC::ConnView.new(session).render(:jnlp)
   end
 end

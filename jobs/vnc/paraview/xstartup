@@ -5,7 +5,8 @@ if [ -e $HOME/.Xresources ]; then
 fi
 xsetroot -solid grey
 
-XDIR=${XSTARTUP_DIR} /usr/bin/fvwm -f ${XSTARTUP_DIR}/fvwm/fvwmrc &
+export XSTARTUP_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+/usr/bin/fvwm -f ${XSTARTUP_DIR}/fvwm/fvwmrc &
 
 . /etc/profile.d/lmod.sh
 module load virtualgl/2.3
