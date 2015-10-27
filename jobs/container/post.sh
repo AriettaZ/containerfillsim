@@ -9,7 +9,7 @@ cd $PBS_O_WORKDIR
 
 module load turbovnc
 module load virtualgl
-#module load paraview-3.8.0
+module load paraview/4.4.0
 
 ONDEMAND=1 vncserver
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/qt/4.7.4/lib/
