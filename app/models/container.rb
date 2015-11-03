@@ -92,45 +92,4 @@ class Container < ActiveRecord::Base
   def staged_dir_relative_path
     Pathname.new(staged_dir).relative_path_from(AwesimRails.dataroot)
   end
-
-  def copy
-    new_container = self.dup
-    new_container.name = "Copy of #{self.name}"
-    new_container.walls = self.walls
-
-    self.inlets.each do |inlet|
-      new_container.inlets << inlet.dup
-      new_container.inlets.last.stl = inlet.stl
-    end
-    self.outlets.each do |outlet|
-      new_container.outlets << outlet.dup
-      new_container.outlets.last.stl = outlet.stl
-    end
-
-    new_container
-  end
-
-  def to_jnlp
-    job = PBS::Job.new(conn: PBS::Conn.batch('quick'))
-    script = OSC::VNC::ScriptView.new(
-      :vnc,
-      'oakley',
-      subtype: :shared,
-      xstartup: Rails.root.join("jobs", "vnc", "paraview", "xstartup"),
-      outdir: File.join(AwesimRails.dataroot, "vnc", "paraview"),
-      geom: "1024x768"
-    )
-    session = OSC::VNC::Session.new job, script
-
-    session.submit(
-      headers: {
-        PBS::ATTR[:N] => "FillSim-Paraview",
-      },
-      envvars: {
-        DATAFILE: "#{staged_dir}/out.foam",
-      }
-    )
-
-    OSC::VNC::ConnView.new(session).render(:jnlp)
-  end
 end
