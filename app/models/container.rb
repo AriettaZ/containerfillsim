@@ -32,27 +32,6 @@ class Container < ActiveRecord::Base
     "4:00:00"
   end
 
-  def num_nodes
-    1
-  end
-
-  def num_cores
-    num_nodes * 12
-  end
-
-  # nx * ny * nz = num_cores
-  def nx
-    2
-  end
-
-  def ny
-    3
-  end
-
-  def nz
-    2
-  end
-
   def inlet_list
     inlets.to_a
   end

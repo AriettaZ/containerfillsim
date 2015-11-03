@@ -14,7 +14,7 @@ date
 #Move to the case directory, where the 0, constant and system directories reside
 cd $PBS_O_WORKDIR
 
-export MV2_ON_DEMAND_THRESHOLD={{num_cores}}
+export MV2_ON_DEMAND_THRESHOLD=12
 
 surfaceCheck -blockMesh ./constant/triSurface/{{walls_file_name}} >> LOG-surfaceCheck
 
@@ -42,7 +42,7 @@ cp 0_orig/* 0/
 
 decomposePar < /dev/null >>  LOG-decomp
 
-mpiexec -n {{num_cores}} interFoam -parallel < /dev/null >>  LOG-iF
+mpiexec -n 12 interFoam -parallel < /dev/null >>  LOG-iF
 
 #reconstructPar < /dev/null >> LOG-rP
 
