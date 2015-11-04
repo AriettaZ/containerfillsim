@@ -34,3 +34,6 @@
 
 # Ignore weird mac file
 .DS_Store
+
+# Documentation
+/docs
