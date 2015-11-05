@@ -19,6 +19,7 @@
   <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
     <div class="container-fluid">
       <!-- Brand and toggle get grouped for better mobile display -->
+
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-responsive-collapse">
           <span class="sr-only">Toggle navigation</span>
@@ -26,6 +27,8 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
+        <%= link_to 'Home'.html_safe, 'https://apps.awesim.org/devapps/', class: 'navbar-brand', style: 'color: #999999;' %>
+        <span class='navbar-brand' style='color: #999999;'>/</span>
         <%= link_to 'Container Fill Sim', root_path, class: 'navbar-brand' %>
       </div>
 
