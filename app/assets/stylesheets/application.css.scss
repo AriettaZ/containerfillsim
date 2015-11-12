@@ -16,14 +16,14 @@ body {
 @import "stl";
 
 
-#navbar-spacer {
-  color: #999999;
+.navbar-spacer {
+  color: $navbar-inverse-link-hover-color !important;
 }
 
-#navbar-home {
-  color: #999999;
+.navbar-home {
+  color: $navbar-inverse-link-hover-color !important;
 }
 
-#navbar-home:hover {
-  color: #ffffff;
+.navbar-home:hover {
+  color: $navbar-inverse-link-color !important;
 }
