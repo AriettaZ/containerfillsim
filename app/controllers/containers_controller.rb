@@ -61,27 +61,29 @@ class ContainersController < ApplicationController
   # DELETE /containers/1
   # DELETE /containers/1.json
   def destroy
-    @container.destroy
     respond_to do |format|
-      format.html { redirect_to containers_url }
-      format.json { head :no_content }
+      if @container.destroy
+        format.html { redirect_to containers_url, notice: 'Container was successfully destroyed.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to containers_url, alert: "Container failed to be destroyed: #{@container.errors.to_a}" }
+        format.json { render json: @container.errors, status: :internal_server_error }
+      end
     end
   end
 
   # PUT /containers/1/submit
   def submit
-    if @container.submitted?
-      respond_to do |format|
-        format.html { redirect_to containers_url, alert: 'Container simulation has already been submitted!' }
+    respond_to do |format|
+      if @container.submitted?
+        format.html { redirect_to containers_url, alert: 'Container has already been submitted.' }
         format.json { head :no_content }
-      end
-    else
-      #TODO: add error handling
-      @container.submit
-
-      respond_to do |format|
-        format.html { redirect_to containers_url, notice: 'Container simulation submitted.' }
+      elsif @container.submit
+        format.html { redirect_to containers_url, notice: 'Container was successfully submitted.' }
         format.json { head :no_content }
+      else
+        format.html { redirect_to containers_url, alert: "Container failed to be submitted: #{@container.errors.to_a}" }
+        format.json { render json: @container.errors, status: :internal_server_error }
       end
     end
   end

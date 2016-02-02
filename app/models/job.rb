@@ -1,8 +1,6 @@
 class Job < ActiveRecord::Base
-  include OSC::Machete::SimpleJob::Statusable
+  include OscMacheteRails::Statusable
   belongs_to :container
-
-  before_destroy { |j| j.job.delete(rmdir: true) }
 
   # return string "3950166" whether the is "3950166" or "3960166.oak-batch.osc.edu"
   def pbsid_number

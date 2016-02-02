@@ -45,11 +45,9 @@ gem "paperclip", "~> 4.2"
 gem 'bootstrap-sass', '~> 3.3.1'
 gem 'autoprefixer-rails'
 
-# gem 'osc-machete', :path => "/nfs/17/efranz/dev/osc-machete" # local
-# gem 'osc-machete', :git => "git@github.com:AweSim-OSC/osc-machete.git", :branch => "master" # master
-# gem 'osc-machete', :git => "git@github.com:AweSim-OSC/osc-machete.git", :tag => "v0.3.2" # tag
-gem 'osc-machete', '~> 0.6.3'
-gem 'osc-vnc', '~> 0.4.2'
+gem 'osc-machete', '~> 1.0.0.rc1'
+gem 'osc_machete_rails', '~> 1.0.0.rc1'
+gem 'osc-vnc', '~> 1.0.0.rc1'
 gem 'mocha', :require => false, group: [:test]
 
 gem 'bootstrap_form', '~> 2.2.0'
@@ -62,7 +60,7 @@ gem 'redcarpet', '~> 3.2.2'
 # Use 12factor for production
 gem 'rails_12factor', group: :production
 
-gem 'awesim_rails', '~> 0.8.0'
+gem 'awesim_rails', '~> 1.0.0.rc1'
 # gem 'awesim_rails', path: '/nfs/17/efranz/dev/awesim_rails'
 gem 'awesim_rails_logging', '~> 0.0.3'
 
