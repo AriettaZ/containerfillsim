@@ -73,9 +73,8 @@ GEM
     arel (4.0.2)
     autoprefixer-rails (6.3.7)
       execjs
-    bootstrap-sass (3.3.5)
-      autoprefixer-rails (>= 5.0.0.1)
-      sass (>= 3.2.19)
+    bootstrap-sass (3.3.1.0)
+      sass (~> 3.2)
     bootstrap_form (2.2.0)
     builder (3.1.4)
     climate_control (0.0.3)
@@ -155,15 +154,15 @@ GEM
     redcarpet (3.2.3)
     ref (2.0.0)
     sass (3.2.19)
-    sass-rails (4.0.5)
+    sass-rails (4.0.2)
       railties (>= 4.0.0, < 5.0)
-      sass (~> 3.2.2)
-      sprockets (~> 2.8, < 3.0)
-      sprockets-rails (~> 2.0)
+      sass (~> 3.2.0)
+      sprockets (~> 2.8, <= 2.11.0)
+      sprockets-rails (~> 2.0.0)
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
-    sprockets (2.12.4)
+    sprockets (2.11.0)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
@@ -193,7 +192,7 @@ DEPENDENCIES
   autoprefixer-rails
   awesim_rails (~> 1.0.0)!
   awesim_rails_logging (~> 1.0.0)!
-  bootstrap-sass (~> 3.3.1)
+  bootstrap-sass (= 3.3.1.0)
   bootstrap_form (~> 2.2.0)
   coffee-rails (~> 4.0.0)
   dotenv-rails (~> 2.0.0)
@@ -208,7 +207,7 @@ DEPENDENCIES
   rails (= 4.0.0)
   rails_12factor
   redcarpet (~> 3.2.2)
-  sass-rails (~> 4.0.0)
+  sass-rails (= 4.0.2)
   sdoc
   sqlite3
   therubyracer
