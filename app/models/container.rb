@@ -95,7 +95,7 @@ class Container < ActiveRecord::Base
     # setup dependency so post_job runs after solve_job completes
     post_job.afterany(solve_job)
 
-    # add them to the array and return the array 
+    # add them to the array and return the array
     jobs << solve_job
     jobs << post_job
   end
@@ -111,7 +111,11 @@ class Container < ActiveRecord::Base
   #
   # WARNING: Assumes staged_dir is inside dataroot!
   def staged_dir_relative_path
-    Pathname.new(staged_dir).relative_path_from(AwesimRails.dataroot)
+    Pathname.new(staged_dir).realpath.relative_path_from(AwesimRails.dataroot)
+  end
+
+  def staged_dir
+    Pathname.new(self[:staged_dir]).realpath.to_s unless self[:staged_dir].nil?
   end
 
   def copy
