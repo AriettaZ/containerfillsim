@@ -132,6 +132,8 @@ class Container < ActiveRecord::Base
       new_container.outlets.last.stl = outlet.stl
     end
 
+    new_container.staged_dir = nil
+
     new_container
   end
 
