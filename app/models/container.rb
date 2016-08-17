@@ -115,7 +115,9 @@ class Container < ActiveRecord::Base
   end
 
   def staged_dir
-    Pathname.new(self[:staged_dir]).realpath.to_s unless self[:staged_dir].nil?
+    unless self[:staged_dir].nil?
+      Pathname.new(self[:staged_dir]).realpath.to_s if Dir.exists?(self[:staged_dir])
+    end
   end
 
   def copy
