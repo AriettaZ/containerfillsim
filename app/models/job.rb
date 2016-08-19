@@ -8,6 +8,17 @@ class Job < ActiveRecord::Base
     $1
   end
 
+  # this job dir is in format DATAROOT/containers/12
+  # so to get "containers/12" we can do this
+  # its safe to use relative_path_from only with the same path
+  # because if you use it with the DATAROOT we could be dealing with
+  # symlinks which can cause issues
+  # i.e. job_path is /nfs/17/efranz... and DATAROOT is /users/PZXXX/efranz...
+  def job_dir_relative_path
+    p = Pathname.new(job_path)
+    p.relative_path_from(p.parent.parent)
+  end
+
   # return first path found for the given filename/path or glob pattern relative
   # to the job's directory
   def job_file_path(file)
@@ -24,12 +35,14 @@ class Job < ActiveRecord::Base
 
   # path relative to dataroot
   def output_file_relative_path
-    output_file_path.relative_path_from(AwesimRails.dataroot) if output_file_path
+    f = output_file_path
+    job_dir_relative_path.join(output_file_path.basename) if f
   end
 
   # path relative to dataroot
   def error_file_relative_path
-    error_file_path.relative_path_from(AwesimRails.dataroot) if error_file_path
+    f = error_file_path
+    job_dir_relative_path.join(error_file_path.basename) if f
   end
 
   def output_file_contents
