@@ -111,7 +111,7 @@ class Container < ActiveRecord::Base
   #
   # WARNING: Assumes staged_dir is inside dataroot!
   def staged_dir_relative_path
-    Pathname.new(staging_target_dir_name).join(Pathname.new(staged_dir).basename)
+    Pathname.new(staging_target_dir_name).join(Pathname.new(staged_dir).basename) if staged_dir
   end
 
   def copy
