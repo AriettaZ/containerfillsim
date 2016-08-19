@@ -111,14 +111,7 @@ class Container < ActiveRecord::Base
   #
   # WARNING: Assumes staged_dir is inside dataroot!
   def staged_dir_relative_path
-
-    Pathname.new(staged_dir).realpath.relative_path_from(Pathname.new(AwesimRails.dataroot).realpath)
-  end
-
-  def staged_dir
-    unless self[:staged_dir].nil?
-      Pathname.new(self[:staged_dir]).realpath.to_s if Dir.exists?(self[:staged_dir])
-    end
+    Pathname.new(staging_target_dir_name).join(Pathname.new(staged_dir).basename)
   end
 
   def copy
