@@ -1,13 +1,4 @@
 GIT
-  remote: git@github.com:AweSim-OSC/awesim_rails.git
-  revision: babd88db4f64dd07c8393230e156120d1ea36a96
-  tag: v1.0.0
-  specs:
-    awesim_rails (1.0.0)
-      rails (~> 4.0.0)
-      redcarpet (~> 3.2.2)
-
-GIT
   remote: git@github.com:AweSim-OSC/awesim_rails_logging.git
   revision: 1b0417280df2c9b2a63af090a146322124e744fd
   tag: v1.0.0
@@ -17,31 +8,27 @@ GIT
 
 GIT
   remote: git@github.com:OSC/osc-machete.git
-  revision: 2f149a8b9361cc5198621bf4613cd23e0819360f
-  tag: v1.0.1
+  revision: 92a1237504dc2e3126ed37753924f25ab9e91431
   specs:
-    osc-machete (1.0.1)
+    osc-machete (1.2.0)
       mustache
-      pbs (~> 1.1)
+      pbs (~> 2.0)
 
 GIT
   remote: git@github.com:OSC/osc-vnc.git
-  revision: 9a242334eb45f9837a408a4d861b3bb6449ce8de
-  tag: v1.0.8
+  revision: aba503d51afedeb1b157e4643f4aca9698916f57
   specs:
-    osc-vnc (1.0.8)
-      mustache (~> 0.99, >= 0.99.5)
-      pbs (~> 1.0)
+    osc-vnc (1.1.2)
+      mustache (~> 1.0)
+      pbs (~> 2.0)
 
 GIT
   remote: git@github.com:OSC/osc_machete_rails.git
-  revision: 4124e19f32435db7e5fc1e188f5060f2abfe143a
-  tag: v1.0.1
+  revision: 48f16f9fe5d1d5f3e315d0281fca830995db5425
   specs:
-    osc_machete_rails (1.0.1)
-      awesim_rails (~> 1.0)
-      osc-machete (~> 1.0)
-      rails (~> 4.0.0)
+    osc_machete_rails (1.2.2)
+      osc-machete (~> 1.2.0)
+      rails (~> 4.0)
 
 GEM
   remote: https://rubygems.org/
@@ -71,7 +58,7 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     arel (4.0.2)
-    autoprefixer-rails (6.3.7)
+    autoprefixer-rails (6.4.1.1)
       execjs
     bootstrap-sass (3.3.1.0)
       sass (~> 3.2)
@@ -115,7 +102,7 @@ GEM
     mocha (1.1.0)
       metaclass (~> 0.0.1)
     multi_json (1.12.1)
-    mustache (0.99.8)
+    mustache (1.0.3)
     nested_form_fields (0.6.4)
       rails (>= 3.2.0)
     paperclip (4.3.7)
@@ -124,7 +111,7 @@ GEM
       cocaine (~> 0.5.5)
       mime-types
       mimemagic (= 0.3.0)
-    pbs (1.1.4)
+    pbs (2.0.2)
       ffi (~> 1.9, >= 1.9.6)
     polyglot (0.3.5)
     rack (1.5.5)
@@ -182,7 +169,7 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.51)
-    uglifier (3.0.0)
+    uglifier (3.0.2)
       execjs (>= 0.3.0, < 3)
 
 PLATFORMS
@@ -190,7 +177,6 @@ PLATFORMS
 
 DEPENDENCIES
   autoprefixer-rails
-  awesim_rails (~> 1.0.0)!
   awesim_rails_logging (~> 1.0.0)!
   bootstrap-sass (= 3.3.1.0)
   bootstrap_form (~> 2.2.0)
@@ -200,9 +186,9 @@ DEPENDENCIES
   jquery-rails
   mocha
   nested_form_fields (~> 0.6.1)
-  osc-machete (~> 1.0.0)!
-  osc-vnc (~> 1.0.0)!
-  osc_machete_rails (~> 1.0.0)!
+  osc-machete (~> 1.2.0)!
+  osc-vnc (~> 1.1.2)!
+  osc_machete_rails (~> 1.2.2)!
   paperclip (~> 4.2)
   rails (= 4.0.0)
   rails_12factor
