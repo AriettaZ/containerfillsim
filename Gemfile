@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.0'
+gem 'rails', '4.1.15'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
@@ -48,6 +48,7 @@ gem 'autoprefixer-rails'
 gem 'osc-machete', '~> 1.2.0', :git => 'git@github.com:OSC/osc-machete.git'
 gem 'osc_machete_rails', '~> 1.2.2', :git => 'git@github.com:OSC/osc_machete_rails.git'
 gem 'osc-vnc', '~> 1.1.2', :git => 'git@github.com:OSC/osc-vnc.git'
+gem 'ood_appkit', '~> 0.3.2'
 gem 'mocha', :require => false, group: [:test]
 
 gem 'bootstrap_form', '~> 2.2.0'
@@ -62,5 +63,5 @@ gem 'rails_12factor', group: :production
 
 #gem 'awesim_rails', '~> 1.0.0', :git => 'git@github.com:AweSim-OSC/awesim_rails.git', :tag => 'v1.0.0'
 # gem 'awesim_rails', path: '/nfs/17/efranz/dev/awesim_rails'
-gem 'awesim_rails_logging', '~> 1.0.0', :git => 'git@github.com:AweSim-OSC/awesim_rails_logging.git', :tag => 'v1.0.0'
+#gem 'awesim_rails_logging', '~> 1.0.0', :git => 'git@github.com:AweSim-OSC/awesim_rails_logging.git', :tag => 'v1.0.0'
 
