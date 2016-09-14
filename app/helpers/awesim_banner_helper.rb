@@ -38,7 +38,7 @@ module AwesimBannerHelper
 
   # creates the parent link with appropriate styles
   def bootstrap_nav_awesim_dashboard_link
-    bootstrap_nav_breadcrumbs_dashboard_link('Apps', AwesimRails.dashboard_url)
+    bootstrap_nav_breadcrumbs_dashboard_link('Apps', OodAppkit.dashboard.url.to_s)
   end
 
 
@@ -60,7 +60,7 @@ module AwesimBannerHelper
   end
 
   #FIXME: title and url here should be constants defined somewhere else...
-  def bootstrap_nav_breadcrumbs_dashboard_link(title=AwesimRails.ood_dashboard_title, url=AwesimRails.ood_dashboard_url)
+  def bootstrap_nav_breadcrumbs_dashboard_link(title=OodAppkit.dashboard.title, url=OodAppkit.dashboard.url.to_s)
     link_to(title, url, class: 'navbar-brand navbar-home')
   end
 
