@@ -42,7 +42,7 @@ end
 # gem 'debugger', group: [:development, :test]
 
 gem "paperclip", "~> 4.2"
-gem 'bootstrap-sass', '3.3.1.0'
+gem 'bootstrap-sass', '3.3.5.0'
 gem 'autoprefixer-rails'
 
 gem 'ood_appkit', '~> 0.3.0', :git => 'git@github.com:OSC/ood_appkit.git', :tag => 'v0.3.0'
