@@ -45,6 +45,7 @@ gem "paperclip", "~> 4.2"
 gem 'bootstrap-sass', '3.3.1.0'
 gem 'autoprefixer-rails'
 
+gem 'ood_appkit', '~> 0.3.0', :git => 'git@github.com:OSC/ood_appkit.git', :tag => 'v0.3.0'
 gem 'osc-machete', '~> 1.0.0', :git => 'git@github.com:OSC/osc-machete.git', :tag => 'v1.0.1'
 gem 'osc_machete_rails', '~> 1.0.0', :git => 'git@github.com:OSC/osc_machete_rails.git', :tag => 'v1.0.1'
 gem 'osc-vnc', '~> 1.0.0', :git => 'git@github.com:OSC/osc-vnc.git', :tag => 'v1.0.8'
