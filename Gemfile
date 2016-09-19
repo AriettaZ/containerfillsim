@@ -56,7 +56,7 @@ gem 'nested_form_fields', '~> 0.6.1'
 
 gem 'dotenv-rails', '~> 2.0.0'
 
-gem 'redcarpet', '~> 3.2.2'
+gem 'redcarpet', '~> 3.3.0'
 
 # Use 12factor for production
 gem 'rails_12factor', group: :production
