@@ -64,5 +64,5 @@ gem 'rails_12factor', group: :production
 gem 'awesim_branding', :git => 'git@github.com:AweSim-OSC/awesim_branding.git'
 # gem 'awesim_rails', '~> 1.0.0', :git => 'git@github.com:AweSim-OSC/awesim_rails.git', :tag => 'v1.0.0'
 # gem 'awesim_rails', path: '/nfs/17/efranz/dev/awesim_rails'
-gem 'awesim_rails_logging', '~> 1.0.0', :git => 'git@github.com:AweSim-OSC/awesim_rails_logging.git', :tag => 'v1.0.0'
+# gem 'awesim_rails_logging', '~> 1.0.0', :git => 'git@github.com:AweSim-OSC/awesim_rails_logging.git', :tag => 'v1.0.0'
 
