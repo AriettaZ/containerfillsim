@@ -45,11 +45,11 @@ gem "paperclip", "~> 4.2"
 gem 'bootstrap-sass', '3.3.5.0'
 gem 'autoprefixer-rails'
 
-gem 'ood_appkit', '~> 0.3.0', :git => 'git@github.com:OSC/ood_appkit.git', :tag => 'v0.3.0'
-gem 'osc-machete', '~> 1.2.0', :git => 'git@github.com:OSC/osc-machete.git', :tag => 'v1.2.0'
-gem 'pbs', '~> 2.0.2', :git => 'git@github.com:OSC/pbs-ruby.git', :tag => 'v2.0.2'
-gem 'osc_machete_rails', '~> 1.2.2', :git => 'git@github.com:OSC/osc_machete_rails.git', :tag => 'v1.2.2'
-gem 'osc-vnc', '~> 1.1.2', :git => 'git@github.com:OSC/osc-vnc.git', :tag => 'v1.1.2'
+gem 'ood_appkit', '~> 0.3.0', :git => 'git@github.com:OSC/ood_appkit.git'
+gem 'osc-machete', '~> 1.2.0', :git => 'git@github.com:OSC/osc-machete.git'
+gem 'pbs', '~> 2.0.2', :git => 'git@github.com:OSC/pbs-ruby.git'
+gem 'osc_machete_rails', '~> 1.2.2', :git => 'git@github.com:OSC/osc_machete_rails.git'
+gem 'osc-vnc', '~> 1.1.2', :git => 'git@github.com:OSC/osc-vnc.git'
 gem 'mocha', :require => false, group: [:test]
 
 gem 'bootstrap_form', '~> 2.2.0'
