@@ -26,7 +26,6 @@
 
 # .htaccess and .env should not be committed
 /public/.htaccess
-/.env.production
 /.env.local
 
 # Ignore any user pre-compiled assets
