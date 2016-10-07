@@ -54,7 +54,7 @@ gem 'mocha', :require => false, group: [:test]
 gem 'bootstrap_form', '~> 2.5'
 gem 'nested_form_fields', '~> 0.8'
 
-gem 'dotenv-rails', '~> 2.0'
+gem 'dotenv-rails', '~> 2.1', require: 'dotenv/rails-now'
 
 gem 'redcarpet', '~> 3.3'
 
