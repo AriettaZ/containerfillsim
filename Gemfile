@@ -7,13 +7,13 @@ gem 'rails', '4.2.7.1'
 gem 'sqlite3'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '5.0.3'
+gem 'sass-rails', '~> 5.0'
 
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier', '>= 1.3'
 
 # Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
+gem 'coffee-rails', '~> 4.2'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem 'therubyracer', platforms: :ruby
@@ -42,28 +42,23 @@ end
 # gem 'debugger', group: [:development, :test]
 
 gem "paperclip", "~> 4.2"
-gem 'bootstrap-sass', '3.3.5.0'
+gem 'bootstrap-sass', '~> 3.3'
 gem 'autoprefixer-rails'
 
-gem 'ood_appkit', '~> 0.3.0', :git => 'git@github.com:OSC/ood_appkit.git'
-gem 'osc-machete', '~> 1.2.0', :git => 'git@github.com:OSC/osc-machete.git'
-gem 'pbs', '~> 2.0.2', :git => 'git@github.com:OSC/pbs-ruby.git'
-gem 'osc_machete_rails', '~> 1.2.2', :git => 'git@github.com:OSC/osc_machete_rails.git'
-gem 'osc-vnc', '~> 1.1.2', :git => 'git@github.com:OSC/osc-vnc.git'
+gem 'ood_appkit', '~> 0.3.0'
+gem 'pbs', '~> 2.0'
+gem 'osc_machete_rails', '~> 1.2'
+gem 'osc-vnc', '~> 1.1'
 gem 'mocha', :require => false, group: [:test]
 
-gem 'bootstrap_form', '~> 2.2.0'
-gem 'nested_form_fields', '~> 0.6.1'
+gem 'bootstrap_form', '~> 2.5'
+gem 'nested_form_fields', '~> 0.8'
 
-gem 'dotenv-rails', '~> 2.0.0'
+gem 'dotenv-rails', '~> 2.0'
 
-gem 'redcarpet', '~> 3.3.0'
+gem 'redcarpet', '~> 3.3'
 
 # Use 12factor for production
 gem 'rails_12factor', group: :production
 
 gem 'awesim_branding', :git => 'git@github.com:AweSim-OSC/awesim_branding.git'
-# gem 'awesim_rails', '~> 1.0.0', :git => 'git@github.com:AweSim-OSC/awesim_rails.git', :tag => 'v1.0.0'
-# gem 'awesim_rails', path: '/nfs/17/efranz/dev/awesim_rails'
-# gem 'awesim_rails_logging', '~> 1.0.0', :git => 'git@github.com:AweSim-OSC/awesim_rails_logging.git', :tag => 'v1.0.0'
-
