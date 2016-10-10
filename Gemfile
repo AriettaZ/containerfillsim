@@ -60,5 +60,3 @@ gem 'redcarpet', '~> 3.3'
 
 # Use 12factor for production
 gem 'rails_12factor', group: :production
-
-gem 'awesim_branding', :git => 'git@github.com:AweSim-OSC/awesim_branding.git'
