@@ -61,5 +61,4 @@ gem 'redcarpet', '~> 3.3'
 gem 'rails_12factor', group: :production
 
 gem 'ood_appkit', '~> 0.3.0'
-gem 'awesim_branding', :git => 'git@github.com:AweSim-OSC/awesim_branding.git', :tag => 'v1.0.0'
 
