@@ -140,7 +140,7 @@ class Container < ActiveRecord::Base
       'oakley',
       subtype: :shared,
       xstartup: Rails.root.join("jobs", "vnc", "paraview", "xstartup"),
-      outdir: File.join(AwesimRails.dataroot, "vnc", "paraview"),
+      outdir: File.join(OodAppkit.dataroot, "vnc", "paraview"),
       geom: "1024x768"
     )
     session = OSC::VNC::Session.new job, script
