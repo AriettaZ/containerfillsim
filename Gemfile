@@ -46,7 +46,6 @@ gem 'bootstrap-sass', '~> 3.3'
 gem 'autoprefixer-rails'
 
 gem 'ood_appkit', '~> 0.3.0'
-gem 'pbs', '~> 2.0'
 gem 'osc_machete_rails', '~> 1.2'
 gem 'osc-vnc', '~> 1.1'
 gem 'mocha', :require => false, group: [:test]

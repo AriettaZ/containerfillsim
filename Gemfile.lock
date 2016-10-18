@@ -211,7 +211,6 @@ DEPENDENCIES
   osc-vnc (~> 1.1)
   osc_machete_rails (~> 1.2)
   paperclip (~> 4.2)
-  pbs (~> 2.0)
   rails (= 4.2.7.1)
   rails_12factor
   redcarpet (~> 3.3)
