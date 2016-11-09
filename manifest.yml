@@ -1,10 +1,7 @@
 ---
 name: Container Fill Sim
 description: |-
-  Description should go here.
+  An AweSim demonstration application that simulates filling a container with liquid.
 
-  Format using **markdown**.
+  See the in-app documentation for instructions and example inputs.
 documentation: |-
-  Links to documentation should go here, such as
-
-  * `[Website](http://http://www.ansys.org/)`
