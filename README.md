@@ -12,9 +12,9 @@ Before installing this app, you need to be an AweSim developer in the `awsmdev` 
         cat public/.htaccess.development public/.htaccess.passenger_fix > public/.htaccess
 
 7. create the database: `rake db:setup`
-8. if the wiki documentation is necessary for development then you need to clone the wiki to the `docs/` folder
+8. if the wiki documentation is necessary for development then you need to clone the wiki to the `wiki/` folder
 
-        git clone git@github.com:AweSim-OSC/containerfillsim.wiki.git docs
+        git clone git@github.com:AweSim-OSC/containerfillsim.wiki.git wiki
 
 You should now be able to access the app through devapps catalog: https://apps.awesim.org/devapps/
 
