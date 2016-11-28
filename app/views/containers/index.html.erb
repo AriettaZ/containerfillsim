@@ -1,23 +1,19 @@
-<h1>Listing containers</h1>
+<div class="page-header">
+  <h2>Listing Containers</h2>
+</div>
 
-<table class="table">
+<table class="table data-table">
   <thead>
     <tr>
       <th>#</th>
-      <th>Status - Overall</th>
-      <th>Status - Main</th>
-      <th>Status - Post</th>
+      <th>Status</th>
       <th>Name</th>
-      <th>Measurement Scale</th>
-      <th>Fluid type</th>
-      <th>Kinematic viscosity</th>
-      <th>Density</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th>Temperature</th>
+      <th class="no-sort"></th>
+      <th class="no-sort"></th>
+      <th class="no-sort"></th>
+      <th class="no-sort"></th>
+      <th class="no-sort"></th>
     </tr>
   </thead>
 
@@ -25,21 +21,14 @@
     <% @containers.each do |container| %>
       <tr>
         <td><%= container.id %></td>
-        <td><%= job_status_label(container) %></td>
-        <td><%= job_status_label(container.jobs.first) %></td>
-        <td><%= job_status_label(container.jobs.last) %></td>
+        <td><%= container.status %></td>
         <td><%= container.name %></td>
-        <td><%= container.measurement_scale_name %></td>
-        <td><%= container.fluid_type %></td>
-        <td><%= container.kinematic_viscosity %></td>
-        <td><%= container.density %></td>
-
-        <td><%= link_to '<span class="glyphicon glyphicon-eye-open"></span>'.html_safe, container, class: 'btn btn-primary btn-sm', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'View Container' %></td>
-        <td><%= link_to '<span class="glyphicon glyphicon-edit"></span>'.html_safe, edit_container_path(container), class: 'btn btn-default btn-sm', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Edit Container' %></td>
-        <td><%= link_to '<span class="glyphicon glyphicon-folder-open"></span>'.html_safe, copy_container_path(container), method: :put, class: 'btn btn-default btn-sm', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Copy Container' %></td>
-        <td><%= link_to '<span class="glyphicon glyphicon-play"></span>'.html_safe, submit_container_path(container), method: :put, class: 'btn btn-success btn-sm', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Submit' unless container.submitted? %></td>
-        <td><%= link_to '<span class="glyphicon glyphicon-file"></span>'.html_safe, results_container_path(container), class: 'btn btn-success btn-sm', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'View Results' if container.completed? %></td>
-        <td><%= link_to '<span class="glyphicon glyphicon-trash"></span>'.html_safe, container, method: :delete, class: 'btn btn-danger btn-sm pull-right', data: { confirm: 'Are you sure?', toggle: 'tooltip', placement: 'bottom' }, title: 'Delete Container' %></td>
+        <td><%= container.temperature %></td>
+        <td><%= link_to 'Submit', submit_container_path(container), method: :put, class: 'btn btn-success btn-sm' if container.not_submitted? %></td>
+        <td><%= link_to 'Show', container, class: 'btn btn-primary btn-sm' %></td>
+        <td><%= link_to 'Edit', edit_container_path(container), class: 'btn btn-default btn-sm' if container.not_submitted? %></td>
+        <td><%= link_to 'Copy', copy_container_path(container), method: :put, class: 'btn btn-default btn-sm' %></td>
+        <td><%= link_to 'Destroy', container, method: :delete, class: 'btn btn-danger btn-sm', data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -47,4 +36,4 @@
 
 <br>
 
-<%= link_to 'New Container', new_container_path %>
+<%= link_to 'New container', new_container_path %>

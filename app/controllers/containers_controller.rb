@@ -1,31 +1,28 @@
 class ContainersController < ApplicationController
-  before_action :set_container, only: [:show, :edit, :update, :destroy, :submit, :copy, :results, :stl, :paraview]
+  before_action :update_containers, only: [ :index, :show ]
 
   # GET /containers
   # GET /containers.json
   def index
-    #FIXME: we preload the jobs since we have to look at the jobs for status info
-    # the problem is all of the status presenter methods on Container are actually doing
-    # queries against the jobs table, but those queries never load the Job model objects
-    # which means that after_find is never triggered for each job so the job record cached statuses
-    # never get updated. we need a cleaner solution for all of this
-    @containers = Container.preload(:jobs).all
+    @containers = Container.all
   end
 
   # GET /containers/1
   # GET /containers/1.json
   def show
+    set_container
   end
 
   # GET /containers/new
   def new
     @container = Container.new
+    @container.build_wall
     @container.inlets.build
-    @container.outlets.build
   end
 
   # GET /containers/1/edit
   def edit
+    set_container
   end
 
   # POST /containers
@@ -36,9 +33,9 @@ class ContainersController < ApplicationController
     respond_to do |format|
       if @container.save
         format.html { redirect_to @container, notice: 'Container was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @container }
+        format.json { render :show, status: :created, location: @container }
       else
-        format.html { render action: 'new' }
+        format.html { render :new }
         format.json { render json: @container.errors, status: :unprocessable_entity }
       end
     end
@@ -47,12 +44,14 @@ class ContainersController < ApplicationController
   # PATCH/PUT /containers/1
   # PATCH/PUT /containers/1.json
   def update
+    set_container
+
     respond_to do |format|
       if @container.update(container_params)
         format.html { redirect_to @container, notice: 'Container was successfully updated.' }
-        format.json { head :no_content }
+        format.json { render :show, status: :ok, location: @container }
       else
-        format.html { render action: 'edit' }
+        format.html { render :edit }
         format.json { render json: @container.errors, status: :unprocessable_entity }
       end
     end
@@ -61,6 +60,8 @@ class ContainersController < ApplicationController
   # DELETE /containers/1
   # DELETE /containers/1.json
   def destroy
+    set_container
+
     respond_to do |format|
       if @container.destroy
         format.html { redirect_to containers_url, notice: 'Container was successfully destroyed.' }
@@ -73,9 +74,12 @@ class ContainersController < ApplicationController
   end
 
   # PUT /containers/1/submit
+  # PUT /containers/1/submit.json
   def submit
+    set_container
+
     respond_to do |format|
-      if @container.submitted?
+      if !@container.not_submitted?
         format.html { redirect_to containers_url, alert: 'Container has already been submitted.' }
         format.json { head :no_content }
       elsif @container.submit
@@ -90,39 +94,31 @@ class ContainersController < ApplicationController
 
   # PUT /containers/1/copy
   def copy
-    @new_container = @container.copy
+    set_container
+    @container = @container.copy
 
     respond_to do |format|
-      if @new_container.save
-        format.html { redirect_to @new_container, notice: 'Container was successfully copied.' }
-        format.json { render action: 'show', status: :created, location: @new_container }
+      if @container.save
+        format.html { redirect_to @container, notice: 'Container was successfully copied.' }
+        format.json { render :show, status: :created, location: @container }
       else
-        format.html { redirect_to containers_url, alert: 'Failed to copy container!' }
-        format.json { head :no_content }
+        format.html { redirect_to containers_url, alert: "Container failed to be copied: #{@container.errors.to_a}" }
+        format.json { render json: @container.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # GET /containers/1/results
-  def results
-  end
-
-  # GET /containers/1/stl
-  def stl
-  end
-
-  # GET /containers/1/paraview
-  def paraview
-    send_data @container.to_jnlp, type: :jnlp, filename: "paraview.jnlp"
-  end
-
   private
+    def update_containers
+      Container.active.each(&:update_status)
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_container
       @container = Container.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    # Only allow a trusted parameter "white list" through.
     def container_params
       params.require(:container).permit!
     end

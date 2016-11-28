@@ -1,10 +1,13 @@
-<h1><%= title %></h1>
-
-<%= bootstrap_form_for(@container) do |f| %>
-
+<%# Uses rails_bootstrap_form gem. API at: https://github.com/bootstrap-ruby/rails-bootstrap-forms %>
+<%= bootstrap_form_for(container) do |f| %>
   <%= f.alert_message "Please fix the errors below." %>
 
-  <%= f.text_field :name, placeholder: "New Simulation", required: true %>
+  <%= f.text_field :name %>
+  <%= f.text_field :temperature %>
+
+  <%= f.fields_for :wall do |wall| %>
+    <%= wall.attachment_field :file %>
+  <% end %>
 
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -23,7 +26,7 @@
       <tbody>
         <%= f.nested_fields_for :inlets, wrapper_tag: :tr do |inlet| %>
           <td>
-            <%= inlet.file_field :stl, hide_label: true, class: 'input-sm' %>
+            <%= inlet.attachment_field :file, hide_label: true, class: 'input-sm' %>
           </td><td>
             <%= inlet.number_field :vx, hide_label: true, class: 'input-sm', append: 'm/s', required: true, step: 'any' %>
           </td><td>
@@ -41,86 +44,11 @@
     </div>
   </div><!-- /panel -->
 
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <strong>Outlets</strong>
-    </div>
-    <table class="table table-condensed">
-      <thead>
-        <tr>
-          <th>File</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <%= f.nested_fields_for :outlets, wrapper_tag: :tr do |outlet| %>
-          <td>
-            <%= outlet.file_field :stl, hide_label: true, class: 'input-sm' %>
-          </td><td>
-            <%= outlet.remove_nested_fields_link '<span aria-hidden="true">&times;</span>'.html_safe, class: 'close', :'aria-label' => 'close', role: 'button' %>
-          </td>
-        <% end %>
-      </tbody>
-    </table>
-    <div class="panel-footer">
-      <%= f.add_nested_fields_link :outlets, 'Add Outlet', class: 'btn btn-primary btn-xs' %>
-    </div>
-  </div><!-- /panel -->
-
-  <div class="row">
-    <div class="col-md-6">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <strong>Walls</strong>
-        </div>
-        <div class="panel-body">
-          <%= f.file_field :walls, hide_label: true, class: 'input-sm' %>
-        </div>
-      </div>
-    </div><!-- /col -->
-    <div class="col-md-6">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <strong>Measurement Scale for Meshes</strong>
-        </div>
-        <div class="panel-body">
-          <%= f.select :measurement_scale, Container::MEASUREMENT_SCALES.to_a, { hide_label: true }, { class: 'input-sm' } %>
-        </div>
-      </div><!-- /panel -->
-    </div><!-- /col -->
-  </div><!-- /row -->
-
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <strong>Fluid</strong>
-    </div>
-    <table class="table table-condensed">
-      <thead>
-        <tr>
-          <th width="40%">Type of Fluid</th>
-          <th>Kinematic viscosity</th>
-          <th>Density</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <%= f.text_field :fluid_type, hide_label: true, required: true, icon: 'tint', list: 'fluid_list', class: 'input-sm' %>
-            <datalist id="fluid_list">
-            </datalist>
-          </td><td>
-            <%= f.number_field :kinematic_viscosity, hide_label: true, append: 'm&sup2;/s'.html_safe, required: true, min: 0.0, step: 'any', class: 'input-sm' %>
-          </td><td>
-            <%= f.number_field :density, append: 'kg/m&sup3;'.html_safe, hide_label: true, required: true, min: 0.0, step: 'any', class: 'input-sm' %>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div><!-- /panel -->
-
   <%= f.submit 'Save', class: 'btn btn-primary' %>
   <%= f.button 'Reset', type: :reset, class: 'btn btn-default' %>
-  |
-  <%= link_to '<span class="glyphicon glyphicon-arrow-left"></span>'.html_safe, containers_path, class: 'btn btn-default', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Back' %>
-  <%= link_to '<span class="glyphicon glyphicon-eye-open"></span>'.html_safe, f.object, class: 'btn btn-primary', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'View Container' unless f.object.new_record? %>
+
+  <hr>
+
+  <%= link_to 'Back', containers_path, class: 'btn btn-default' %>
+  <%= link_to 'Show', container, class: 'btn btn-primary' unless container.new_record? %>
 <% end %>

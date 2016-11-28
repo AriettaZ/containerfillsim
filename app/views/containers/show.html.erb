@@ -1,108 +1,49 @@
-<h1><%= @container.name %></h1>
+<div class="page-header">
+    <h2>Showing Container</h2>
+</div>
 
-<div class="row">
-  <div class="col-md-6">
+<p>
+  <strong>Name:</strong>
+  <%= @container.name %>
+</p>
 
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <strong>Inlets</strong>
-      </div>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>File</th>
-            <th>v<sub>x</sub> (m/s)</th>
-            <th>v<sub>y</sub> (m/s)</th>
-            <th>v<sub>z</sub> (m/s)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @container.inlets.each do |inlet| %>
-            <tr>
-              <td><%= link_to inlet.stl_file_name, inlet.stl.url %></td>
-              <td><%= inlet.vx %></td>
-              <td><%= inlet.vy %></td>
-              <td><%= inlet.vz %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div><!-- /panel -->
+<p>
+  <strong>Temperature:</strong>
+  <%= @container.temperature %>
+</p>
 
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <strong>Outlets</strong>
-      </div>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>File</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @container.outlets.each do |outlet| %>
-            <tr>
-              <td><%= link_to outlet.stl_file_name, outlet.stl.url %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div><!-- /panel -->
+<p>
+  <strong>Wall:</strong>
+  <%= link_to @container.wall.file_filename, attachment_url(@container.wall, :file, prefix: "#{ENV['RAILS_RELATIVE_URL_ROOT']}/attachments") %><br />
+  Size: <%= @container.wall.file_size %><br />
+  Content Type: <%= @container.wall.file_content_type %>
+</p>
 
-  </div><!-- /col -->
-  <div class="col-md-6">
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <strong>Inlets</strong>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>File</th>
+        <th>v<sub>x</sub> (m/s)</th>
+        <th>v<sub>y</sub> (m/s)</th>
+        <th>v<sub>z</sub> (m/s)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @container.inlets.each do |inlet| %>
+        <tr>
+          <td><%= link_to inlet.file_filename, attachment_url(inlet, :file, prefix: "#{ENV['RAILS_RELATIVE_URL_ROOT']}/attachments") %></td>
+          <td><%= inlet.vx %></td>
+          <td><%= inlet.vy %></td>
+          <td><%= inlet.vz %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div><!-- /panel -->
 
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <strong>Walls</strong>
-      </div>
-      <ul class="list-group">
-        <li class="list-group-item">
-          <%= link_to @container.walls_file_name, @container.walls.url %>
-        </li>
-      </ul>
-    </div><!-- /panel -->
-
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <strong>Measurement Scale for Meshes</strong>
-      </div>
-      <ul class="list-group">
-        <li class="list-group-item">
-          <%= @container.measurement_scale_name %>
-        </li>
-      </ul>
-    </div><!-- /panel -->
-
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <strong>Fluid</strong>
-      </div>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Type</th>
-            <th>Kinematic Viscosity (m&sup2;/s)</th>
-            <th>Density (kg/m&sup3;)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><%= @container.fluid_type %></td>
-            <td><%= @container.kinematic_viscosity %></td>
-            <td><%= @container.density %></td>
-          </tr>
-        </tbody>
-      </table>
-    </div><!-- /panel -->
-
-  </div><!-- /col -->
-</div><!-- /row -->
-
-<%= link_to '<span class="glyphicon glyphicon-arrow-left"></span>'.html_safe, containers_path, class: 'btn btn-default', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Back' %>
-<%= link_to '<span class="glyphicon glyphicon-edit"></span>'.html_safe, edit_container_path(@container), class: 'btn btn-primary', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Edit' %>
-<%= link_to '<span class="glyphicon glyphicon-globe"></span>'.html_safe, stl_container_path(@container), class: 'btn btn-info', data: { toggle: 'tooltip', placement: 'bottom' }, title: '3D Viewer' %>
-|
-<%= link_to '<span class="glyphicon glyphicon-play"></span>'.html_safe, submit_container_path(@container), method: :put, class: 'btn btn-success', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Submit' unless @container.submitted? %>
-<%= link_to '<span class="glyphicon glyphicon-file"></span>'.html_safe, results_container_path(@container), class: 'btn btn-success', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'View Results' if @container.completed? %>
-<%= link_to '<span class="glyphicon glyphicon-trash"></span>'.html_safe, @container, method: :delete, class: 'btn btn-danger pull-right', data: { confirm: 'Are you sure?', toggle: 'tooltip', placement: 'bottom' }, title: 'Delete Container' %>
+<%= link_to 'Back', containers_path, class: 'btn btn-default' %>
+<%= link_to 'Edit', edit_container_path(@container), class: 'btn btn-default' %>

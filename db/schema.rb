@@ -11,61 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150130170546) do
+ActiveRecord::Schema.define(version: 20161128144420) do
 
-  create_table "containers", force: true do |t|
-    t.string   "name"
-    t.string   "measurement_scale"
-    t.string   "fluid_type"
-    t.float    "kinematic_viscosity"
-    t.float    "density"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "walls_file_name"
-    t.string   "walls_content_type"
-    t.integer  "walls_file_size"
-    t.datetime "walls_updated_at"
-    t.integer  "steps",               default: 5
-    t.string   "staged_dir"
+  create_table "attachments", force: :cascade do |t|
+    t.string  "type"
+    t.integer "workflow_id"
+    t.string  "file_id"
+    t.string  "file_filename"
+    t.integer "file_size"
+    t.string  "file_content_type"
+    t.text    "extend"
   end
 
-  create_table "inlets", force: true do |t|
-    t.float    "vx"
-    t.float    "vy"
-    t.float    "vz"
-    t.string   "stl_file_name"
-    t.string   "stl_content_type"
-    t.integer  "stl_file_size"
-    t.datetime "stl_updated_at"
-    t.integer  "container_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  add_index "attachments", ["workflow_id"], name: "index_attachments_on_workflow_id"
+
+  create_table "workflows", force: :cascade do |t|
+    t.string  "type"
+    t.string  "root"
+    t.integer "status", default: 0
+    t.text    "jobs"
+    t.text    "extend"
   end
-
-  add_index "inlets", ["container_id"], name: "index_inlets_on_container_id"
-
-  create_table "jobs", force: true do |t|
-    t.string   "status"
-    t.string   "pbsid"
-    t.string   "job_path"
-    t.integer  "container_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "script_name"
-  end
-
-  add_index "jobs", ["container_id"], name: "index_jobs_on_container_id"
-
-  create_table "outlets", force: true do |t|
-    t.string   "stl_file_name"
-    t.string   "stl_content_type"
-    t.integer  "stl_file_size"
-    t.datetime "stl_updated_at"
-    t.integer  "container_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "outlets", ["container_id"], name: "index_outlets_on_container_id"
 
 end

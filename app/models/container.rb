@@ -1,159 +1,89 @@
-class Container < ActiveRecord::Base
-  has_many :jobs, dependent: :destroy
-  has_machete_workflow_of :jobs
+class Container < Workflow
+  has_one :wall, foreign_key: "workflow_id", dependent: :destroy
+  has_many :inlets, foreign_key: "workflow_id", dependent: :destroy
 
-  has_many :inlets, dependent: :destroy, inverse_of: :container
-  has_many :outlets, dependent: :destroy, inverse_of: :container
-
-  accepts_nested_attributes_for :inlets, allow_destroy: true
-  accepts_nested_attributes_for :outlets, allow_destroy: true
+  store_accessor :jobs, :main, :post
+  store_accessor :extend, :name, :temperature
 
   validates :name, presence: true
-  validates :measurement_scale, presence: true
-  validates :fluid_type, presence: true
-  validates :kinematic_viscosity, presence: true
-  validates :density, presence: true
+  validates :temperature, presence: true
 
-  has_attached_file :walls
-  do_not_validate_attachment_file_type :walls
-  validates_presence_of :walls
+  validates :temperature, numericality: true
 
-  SOLVE_SCRIPT_NAME="main.sh"
-  POST_SCRIPT_NAME="post.sh"
+  accepts_nested_attributes_for :wall
+  accepts_nested_attributes_for :inlets, allow_destroy: true
 
-  MEASUREMENT_SCALES = {
-    mm: "(0.001 0.001 0.001)",
-    cm: "(0.01 0.01 0.01)",
-    meters: "(1.0 1.0 1.0)",
-    inches: "(0.0254 0.0254 0.0254)"
-  }
-
-  def walltime
-    "4:00:00"
+  def main_script
+    {
+      content: root.join("main.sh")
+    }
   end
 
-  def num_nodes
-    1
+  def post_script
+    {
+      content: root.join("post.sh")
+    }
   end
 
-  def num_cores
-    num_nodes * 12
+  # Setup workflow
+  def stage
+    Workflows::ContainerGenerator.new([self.id]).invoke_all
   end
 
-  # nx * ny * nz = num_cores
-  def nx
-    2
+  # Submit workflow
+  def submit
+    stage
+
+    self.main = {
+      id: submit_job(
+        cluster: cluster("oakley"),
+        script: main_script
+      ),
+      cluster: "oakley"
+    }
+
+    self.post = {
+      id: submit_job(
+        cluster: cluster("oakley"),
+        script: post_script
+      ),
+      cluster: "oakley"
+    }
+
+    self.active!
+    true
+  rescue OodJobRails::JobHandler::Error
+    self.stop
+    false
   end
 
-  def ny
-    3
+  # Stop workflow
+  def stop
+    return true if completed?
+    stop_job(cluster: cluster(main[:cluster]), id: main[:id]) if main && main[:id]
+    stop_job(cluster: cluster(post[:cluster]), id: post[:id]) if post && post[:id]
+    true
+  rescue OodJobRails::JobHandler::Error
+    false
   end
 
-  def nz
-    2
+  # Update workflow status
+  def update_status
+    # Get status of jobs
+    self.main[:status] = status_job(cluster: cluster(main[:cluster]), id: main[:id]) unless main[:status] == "completed"
+    self.post[:status] = status_job(cluster: cluster(post[:cluster]), id: post[:id]) unless post[:status] == "completed"
+    self.save
+
+    # Update status of workflow if all jobs complete
+    self.complete if main[:status] == "completed" && post[:status] == "completed"
+    true
+  rescue OodJobRails::JobHandler::Error
+    false
   end
 
-  def inlet_list
-    inlets.to_a
-  end
-
-  def outlet_list
-    outlets.to_a
-  end
-
-  def walls_name
-    File.basename(self.walls_file_name, '.*')
-  end
-
-  def measurement_scale_name
-    Container::MEASUREMENT_SCALES.invert[measurement_scale]
-  end
-
-  # FIXME: configuration by overriding methods is not as good
-  # as configuration by custom objects
-  def staging_script_name
-    Container::SOLVE_SCRIPT_NAME
-  end
-
-  def after_stage(staged_dir)
-    target = staged_dir.join("constant", "triSurface")
-
-    self.inlets.each do |inlet|
-      FileUtils.cp inlet.stl.path, target
-    end
-    self.outlets.each do |outlet|
-      FileUtils.cp outlet.stl.path, target
-    end
-    FileUtils.cp walls.path, target
-  end
-
-  def build_jobs(staged_dir, jobs = [])
-    # create solve_job and post_job Job objects, given the path to their scripts
-    solve_job = OSC::Machete::Job.new(script: staged_dir.join(Container::SOLVE_SCRIPT_NAME))
-    post_job = OSC::Machete::Job.new(script: staged_dir.join(Container::POST_SCRIPT_NAME))
-
-    # setup dependency so post_job runs after solve_job completes
-    post_job.afterany(solve_job)
-
-    # add them to the array and return the array
-    jobs << solve_job
-    jobs << post_job
-  end
-
-  # Get path to staged simulation directory relative to dataroot
-  # i.e. given staged_dir of
-  #
-  #     /path/to/dataroot/containers/12
-  #
-  # this method returns
-  #
-  #     containers/12
-  #
-  # WARNING: Assumes staged_dir is inside dataroot!
-  def staged_dir_relative_path
-    Pathname.new(staging_target_dir_name).join(Pathname.new(staged_dir).basename) if staged_dir
-  end
-
-  def copy
-    new_container = self.dup
-    new_container.name = "Copy of #{self.name}"
-    new_container.walls = self.walls
-
-    self.inlets.each do |inlet|
-      new_container.inlets << inlet.dup
-      new_container.inlets.last.stl = inlet.stl
-    end
-    self.outlets.each do |outlet|
-      new_container.outlets << outlet.dup
-      new_container.outlets.last.stl = outlet.stl
-    end
-
-    new_container.staged_dir = nil
-
-    new_container
-  end
-
-  def to_jnlp
-    job = PBS::Job.new(conn: PBS::Conn.batch('quick'))
-    script = OSC::VNC::ScriptView.new(
-      :vnc,
-      'oakley',
-      subtype: :shared,
-      xstartup: Rails.root.join("jobs", "vnc", "paraview", "xstartup"),
-      outdir: File.join(OodAppkit.dataroot, "vnc", "paraview"),
-      geom: "1024x768"
-    )
-    session = OSC::VNC::Session.new job, script
-
-    session.submit(
-      headers: {
-        PBS::ATTR[:N] => "FillSim-Paraview",
-      },
-      envvars: {
-        DATAFILE: "#{staged_dir}/out.foam",
-      }
-    )
-
-    OSC::VNC::ConnView.new(session).render(:jnlp)
+  # Post process results when workflow is completed
+  def complete
+    # validate results here...
+    self.completed!
   end
 end
