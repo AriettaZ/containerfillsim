@@ -1,5 +1,5 @@
 class Inlet < Attachment
-  belongs_to :container
+  belongs_to :container, inverse_of: :inlets
 
   store_accessor :extend, :vx, :vy, :vz
 

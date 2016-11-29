@@ -1,6 +1,6 @@
 class Container < Workflow
-  has_one :wall, foreign_key: "workflow_id", dependent: :destroy
-  has_many :inlets, foreign_key: "workflow_id", dependent: :destroy
+  has_one :wall, foreign_key: "workflow_id", inverse_of: :container, dependent: :destroy
+  has_many :inlets, foreign_key: "workflow_id", inverse_of: :container, dependent: :destroy
 
   store_accessor :jobs, :main, :post
   store_accessor :extend, :name, :temperature
