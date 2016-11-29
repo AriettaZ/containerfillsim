@@ -69,21 +69,15 @@ class Container < Workflow
 
   # Update workflow status
   def update_status
-    # Get status of jobs
-    self.main[:status] = status_job(cluster: cluster(main[:cluster]), id: main[:id]) unless main[:status] == "completed"
-    self.post[:status] = status_job(cluster: cluster(post[:cluster]), id: post[:id]) unless post[:status] == "completed"
+    return true if completed?
+    self.main[:status] = status_job(cluster: cluster(main[:cluster]), id: main[:id]) if main && main[:id]
+    self.post[:status] = status_job(cluster: cluster(post[:cluster]), id: post[:id]) if post && post[:id]
     self.save
 
     # Update status of workflow if all jobs complete
-    self.complete if main[:status] == "completed" && post[:status] == "completed"
+    self.complete! if main[:status] == "completed" && post[:status] == "completed"
     true
   rescue OodJobRails::JobHandler::Error
     false
-  end
-
-  # Post process results when workflow is completed
-  def complete
-    # validate results here...
-    self.completed!
   end
 end

@@ -1,5 +1,5 @@
 class ContainersController < ApplicationController
-  before_action :update_containers, only: [ :index, :show ]
+  before_action :update_containers
 
   # GET /containers
   # GET /containers.json
