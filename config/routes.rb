@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount AttachmentUploader::DownloadEndpoint => "/attachments"
+
   resources :containers do
     member do
       put 'submit'

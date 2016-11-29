@@ -6,7 +6,8 @@
   <%= f.text_field :temperature %>
 
   <%= f.fields_for :wall do |wall| %>
-    <%= wall.attachment_field :file %>
+    <%= wall.hidden_field :file, value: wall.object.cached_file_data %>
+    <%= wall.file_field :file %>
   <% end %>
 
   <div class="panel panel-default">
@@ -26,7 +27,8 @@
       <tbody>
         <%= f.nested_fields_for :inlets, wrapper_tag: :tr do |inlet| %>
           <td>
-            <%= inlet.attachment_field :file, hide_label: true, class: 'input-sm' %>
+            <%= inlet.hidden_field :file, value: inlet.object.cached_file_data %>
+            <%= inlet.file_field :file, hide_label: true, class: 'input-sm' %>
           </td><td>
             <%= inlet.number_field :vx, hide_label: true, class: 'input-sm', append: 'm/s', required: true, step: 'any' %>
           </td><td>

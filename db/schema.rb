@@ -16,10 +16,7 @@ ActiveRecord::Schema.define(version: 20161128144420) do
   create_table "attachments", force: :cascade do |t|
     t.string  "type"
     t.integer "workflow_id"
-    t.string  "file_id"
-    t.string  "file_filename"
-    t.integer "file_size"
-    t.string  "file_content_type"
+    t.text    "file_data"
     t.text    "extend"
   end
 

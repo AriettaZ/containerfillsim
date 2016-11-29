@@ -14,9 +14,9 @@
 
 <p>
   <strong>Wall:</strong>
-  <%= link_to @container.wall.file_filename, attachment_url(@container.wall, :file, prefix: "#{ENV['RAILS_RELATIVE_URL_ROOT']}/attachments") %><br />
-  Size: <%= @container.wall.file_size %><br />
-  Content Type: <%= @container.wall.file_content_type %>
+  <%= link_to @container.wall.file.original_filename, @container.wall.file.url %><br />
+  Size: <%= @container.wall.file.size %><br />
+  Content Type: <%= @container.wall.file.mime_type %>
 </p>
 
 <div class="panel panel-default">
@@ -35,7 +35,7 @@
     <tbody>
       <% @container.inlets.each do |inlet| %>
         <tr>
-          <td><%= link_to inlet.file_filename, attachment_url(inlet, :file, prefix: "#{ENV['RAILS_RELATIVE_URL_ROOT']}/attachments") %></td>
+          <td><%= link_to inlet.file.original_filename, inlet.file.url %></td>
           <td><%= inlet.vx %></td>
           <td><%= inlet.vy %></td>
           <td><%= inlet.vz %></td>
