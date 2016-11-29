@@ -45,7 +45,8 @@ class Container < Workflow
     self.post = {
       id: submit_job(
         cluster: cluster("oakley"),
-        script: post_script
+        script: post_script,
+        after_ok: [main[id]]
       ),
       cluster: "oakley"
     }
