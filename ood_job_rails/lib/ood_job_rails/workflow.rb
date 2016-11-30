@@ -56,6 +56,7 @@ module OodJobRails
       jobs.each do |name, job|
         stop_job(job)
       end
+      self.completed if active?
       true
     rescue OodJobRails::JobHandler::Error
       false

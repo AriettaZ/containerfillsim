@@ -18,6 +18,7 @@ AttachmentUploader.storages = {
 AttachmentUploader.plugin :activerecord
 AttachmentUploader.plugin :cached_attachment_data
 AttachmentUploader.plugin :download_endpoint, storages: [:store], prefix: [ENV['RAILS_RELATIVE_URL_ROOT'][1..-1], "attachments"]
+AttachmentUploader.plugin :moving
 
 # clear cache
 AttachmentUploader.storages[:cache].clear!(older_than: Time.now - 3600) # delete files older than an hour

@@ -19,6 +19,8 @@ module OodJobRails
     # @return [Hash{Symbol=>OodCluster::Cluster}] hash of available clusters
     attr_accessor :clusters
 
+    attr_accessor :default_job_script
+
     # Customize configuration for this object
     # @yield [self]
     def configure
@@ -31,6 +33,7 @@ module OodJobRails
       self.adapter  = OodJob::Adapters::Torque
       self.dataroot = ENV['OOD_DATAROOT']
       self.clusters = {}
+      self.default_job_script = {}
     end
   end
 end

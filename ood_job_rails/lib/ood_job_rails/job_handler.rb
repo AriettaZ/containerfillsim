@@ -7,18 +7,23 @@ module OodJobRails
 
     class Error < StandardError; end
 
+    def default_job_script
+      OodJobRails.default_job_script.to_h.merge(
+        workdir: self.root
+      )
+    end
+
     # Submit job for given cluster
     def submit_job(cluster_id:, script:, after: [], afterok: [], afternotok: [], afterany: [], **_)
-      Dir.chdir(self.root) do
-        job_id = OodJobRails.adapter.new(cluster: OodJobRails.clusters[cluster_id.to_sym]).submit(
-          script: OodJob::Script.new(script.to_h),
-          after:      [after     ].flatten.map(&:to_s),
-          afterok:    [afterok   ].flatten.map(&:to_s),
-          afternotok: [afternotok].flatten.map(&:to_s),
-          afterany:   [afterany  ].flatten.map(&:to_s)
-        )
-        { id: job_id, cluster_id: cluster_id }
-      end
+      script = OodJob::Script.new(default_job_script.merge(script.to_h))
+      job_id = OodJobRails.adapter.new(cluster: OodJobRails.clusters[cluster_id.to_sym]).submit(
+        script:     script,
+        after:      [after     ].flatten.map(&:to_s),
+        afterok:    [afterok   ].flatten.map(&:to_s),
+        afternotok: [afternotok].flatten.map(&:to_s),
+        afterany:   [afterany  ].flatten.map(&:to_s)
+      )
+      { id: job_id, cluster_id: cluster_id }
     rescue OodJob::Adapter::Error => e
       msg = "An error occurred when submitting jobs for workflow (#{id}): #{e.message}"
       errors.add(:base, msg)
