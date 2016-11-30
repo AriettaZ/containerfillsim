@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 20161128144420) do
     t.string  "type"
     t.integer "workflow_id"
     t.text    "file_data"
-    t.text    "extend"
+    t.text    "metadata"
   end
 
   add_index "attachments", ["workflow_id"], name: "index_attachments_on_workflow_id"
@@ -25,9 +25,9 @@ ActiveRecord::Schema.define(version: 20161128144420) do
   create_table "workflows", force: :cascade do |t|
     t.string  "type"
     t.string  "root"
-    t.integer "status", default: 0
+    t.integer "status",   default: 0
     t.text    "jobs"
-    t.text    "extend"
+    t.text    "metadata"
   end
 
 end

@@ -5,7 +5,7 @@ class CreateWorkflows < ActiveRecord::Migration
       t.string :root
       t.integer :status, default: 0
       t.text :jobs
-      t.text :extend
+      t.text :metadata
     end
   end
 end

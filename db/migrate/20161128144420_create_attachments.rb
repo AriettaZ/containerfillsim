@@ -4,7 +4,7 @@ class CreateAttachments < ActiveRecord::Migration
       t.string :type
       t.references :workflow, index: true
       t.text :file_data
-      t.text :extend
+      t.text :metadata
     end
   end
 end
