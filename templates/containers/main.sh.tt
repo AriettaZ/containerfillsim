@@ -7,12 +7,12 @@
 echo "---Job started at:"
 date
 
-echo "name = <%= @model.name %>"
-echo "temperature = <%= @model.temperature %>"
+echo "name = <%= model.name %>"
+echo "temperature = <%= model.temperature %>"
 
-echo "wall = wall/<%= @model.wall.file.original_filename %>"
+echo "wall = wall/<%= model.wall.file.original_filename %>"
 
-<% @model.inlets.each do |inlet| %>
+<% model.inlets.each do |inlet| %>
   echo "inlet = inlets/<%= inlet.file.original_filename %>"
 <% end %>
 
