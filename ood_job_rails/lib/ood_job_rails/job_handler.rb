@@ -23,9 +23,9 @@ module OodJobRails
         afternotok: [afternotok].flatten.map(&:to_s),
         afterany:   [afterany  ].flatten.map(&:to_s)
       )
-      { id: job_id, cluster_id: cluster_id }
+      { job_id: job_id, cluster_id: cluster_id }
     rescue OodJob::Adapter::Error => e
-      msg = "An error occurred when submitting jobs for workflow (#{id}): #{e.message}"
+      msg = "An error occurred when submitting jobs for workflow (#{self.id}): #{e.message}"
       errors.add(:base, msg)
       Rails.logger.error(msg)
       raise Error
@@ -33,12 +33,13 @@ module OodJobRails
 
     # Delete job for given cluster
     def stop_job(job)
-      return true if job[:id].nil? || job[:cluster_id].nil? || job[:status] == "completed"
-      cluster_id = job[:cluster_id].to_sym
-      job_id     = job[:id].to_s
-      OodJobRails.adapter.new(cluster: OodJobRails.clusters[cluster_id]).delete(id: job_id)
+      job_id       = job.respond_to?(:job_id)     ? job.job_id     : job[:job_id]
+      cluster_id   = job.respond_to?(:cluster_id) ? job.cluster_id : job[:cluster_id]
+      return true if job_id.nil? || cluster_id.nil?
+      OodJobRails.adapter.new(cluster: OodJobRails.clusters[cluster_id.to_sym]).delete(id: job_id.to_s)
+      job.stopped if job.respond_to?(:stopped)
     rescue OodJob::Adapter::Error => e
-      msg = "An error occurred when deleting jobs for workfow (#{id}): #{e.message}"
+      msg = "An error occurred when deleting jobs for workfow (#{self.id}): #{e.message}"
       errors.add(:base, msg)
       Rails.logger.error(msg)
       raise Error
@@ -46,14 +47,13 @@ module OodJobRails
 
     # Get status of job for given cluster
     def status_job(job)
-      return nil if job[:id].nil? || job[:cluster_id].nil?
-      return "completed" if job[:status] == "completed"
-      cluster_id = job[:cluster_id].to_sym
-      job_id     = job[:id].to_s
-      status = OodJobRails.adapter.new(cluster: OodJobRails.clusters[cluster_id]).status(id: job_id).to_sym
+      job_id       = job.respond_to?(:job_id)     ? job.job_id     : job[:job_id]
+      cluster_id   = job.respond_to?(:cluster_id) ? job.cluster_id : job[:cluster_id]
+      return nil if job_id.nil? || cluster_id.nil?
+      status = OodJobRails.adapter.new(cluster: OodJobRails.clusters[cluster_id.to_sym]).status(id: job_id.to_s).to_sym
       (status == :undetermined) ? "completed" : status.to_s # assume if doesn't exist it is complete
     rescue OodJob::Adapter::Error => e
-      msg = "An error occurred when retrieving the status of jobs for workflow (#{id}): #{e.message}"
+      msg = "An error occurred when retrieving the status of jobs for workflow (#{self.id}): #{e.message}"
       errors.add(:base, msg)
       Rails.logger.error(msg)
       raise Error

@@ -1,8 +1,8 @@
-class CreateWorkflows < ActiveRecord::Migration
+class CreateJobs < ActiveRecord::Migration
   def change
-    create_table :workflows do |t|
+    create_table :jobs do |t|
       t.string :type
-      t.string :root
+      t.references :workflow, index: true
       t.integer :status, default: 0
       t.integer :result, default: 0
       t.text :metadata

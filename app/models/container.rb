@@ -1,19 +1,21 @@
 class Container < OodJobRails::Workflow
-  has_one :wall, foreign_key: "workflow_id", inverse_of: :container, dependent: :destroy
-  has_many :inlets, foreign_key: "workflow_id", inverse_of: :container, dependent: :destroy
-
-  store_accessor :jobs, :main, :post
-  store_accessor :metadata, :name, :temperature, :success
-
-  after_completed { |workflow| workflow.success = true; workflow.save }
-
-  validates :name, presence: true
-  validates :temperature, presence: true
-
-  validates :temperature, numericality: true
-
+  # Attachments
+  has_one :wall, foreign_key: :workflow_id, inverse_of: :container, dependent: :destroy
+  has_many :inlets, foreign_key: :workflow_id, inverse_of: :container, dependent: :destroy
   accepts_nested_attributes_for :wall
   accepts_nested_attributes_for :inlets, allow_destroy: true
+
+  # Jobs
+  has_one :main_job, foreign_key: :workflow_id, inverse_of: :container
+  has_one :post_job, foreign_key: :workflow_id, inverse_of: :container
+
+  # Metadata
+  store_accessor :metadata, :name, :temperature, :success
+  validates :name, presence: true
+  validates :temperature, presence: true
+  validates :temperature, numericality: true
+
+  after_completed { |workflow| workflow.failed! }
 
   def main_script
     {
@@ -30,8 +32,8 @@ class Container < OodJobRails::Workflow
   # Submit workflow
   def submit
     submit_wrapper do
-      self.main = submit_job(cluster_id: "oakley", script: main_script)
-      self.post = submit_job(cluster_id: "oakley", script: post_script, afterok: main[:id])
+      build_main_job(submit_job(cluster_id: "oakley", script: main_script))
+      build_post_job(submit_job(cluster_id: "oakley", script: post_script, afterok: main_job.job_id))
     end
   end
 end

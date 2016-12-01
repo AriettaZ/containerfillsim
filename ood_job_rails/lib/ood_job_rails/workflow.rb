@@ -2,13 +2,15 @@ module OodJobRails
   class Workflow < ActiveRecord::Base
     include JobHandler
 
-    enum status: [ :not_submitted, :active, :completed ]
+    has_many :jobs, inverse_of: :workflow, dependent: :destroy
 
-    store :jobs,     accessors: [], coder: JSON
+    enum status: [ :not_submitted, :active, :completed ]
+    enum result: [ :no_result, :passed, :failed ]
+
     store :metadata, accessors: [], coder: JSON
 
     after_commit :set_root, on: :create
-    before_destroy :clean_up_jobs
+    before_destroy :clean_up_jobs, prepend: true    # run this before destroying jobs
     after_destroy :clean_up_files
 
     define_model_callbacks :completed
@@ -53,8 +55,8 @@ module OodJobRails
     # Stop workflow
     def stop
       return true if completed?
-      jobs.each do |name, job|
-        stop_job(job)
+      jobs.each do |job|
+        stop_job(job) unless job.completed?
       end
       self.completed if active?
       true
@@ -65,13 +67,10 @@ module OodJobRails
     # Update workflow status
     def update_status
       return true if completed?
-      jobs.each do |name, job|
-        job[:status] = status_job(job)
+      jobs.each do |job|
+        job.update_status(status_job(job)) unless job.completed?
       end
-      self.save
-
-      # Update status of workflow if all jobs complete
-      self.completed if jobs.all? { |name, job| job[:status] == "completed" }
+      self.completed if jobs.all?(&:completed?)
       true
     rescue OodJobRails::JobHandler::Error
       false
@@ -81,6 +80,7 @@ module OodJobRails
     def completed
       run_callbacks :completed do
         self.completed!
+        self.passed!
       end
     end
   end
