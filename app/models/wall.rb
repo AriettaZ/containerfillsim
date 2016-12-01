@@ -1,3 +1,3 @@
 class Wall < Attachment
-  belongs_to :container, inverse_of: :wall
+  belongs_to :container, foreign_key: :workflow_id, inverse_of: :wall
 end

@@ -1,5 +1,5 @@
 class Inlet < Attachment
-  belongs_to :container, inverse_of: :inlets
+  belongs_to :container, foreign_key: :workflow_id, inverse_of: :inlets
 
   store_accessor :metadata, :vx, :vy, :vz
 
