@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161202222339) do
+ActiveRecord::Schema.define(version: 20161202222712) do
 
   create_table "attachments", force: :cascade do |t|
     t.string   "type"
@@ -38,7 +38,6 @@ ActiveRecord::Schema.define(version: 20161202222339) do
 
   create_table "workflows", force: :cascade do |t|
     t.string   "type"
-    t.string   "root"
     t.integer  "status",     default: 0
     t.integer  "result",     default: 0
     t.text     "metadata"

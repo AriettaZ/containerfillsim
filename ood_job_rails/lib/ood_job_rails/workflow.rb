@@ -9,23 +9,16 @@ module OodJobRails
 
     store :metadata, accessors: [], coder: JSON
 
-    after_commit :set_root, on: :create
     before_destroy :clean_up_jobs, prepend: true    # run this before destroying jobs
     after_destroy :clean_up_files
 
     define_model_callbacks :completed
 
-    def root
-      if super
-        path = OodJobRails.dataroot.join(super)
-        path.mkpath # make root path if doesn't exist
-        path
-      end
-    end
-
-    def set_root
-      # avoid infinite callback
-      update_column :root, File.join(self.class.name.tableize, "#{id}_#{Time.now.to_i}")
+    def root(mkpath: true)
+      #FIXME: I don't agree with always making the path when you use a GETTER
+      OodJobRails.dataroot.join(self.class.name.tableize).join("#{id}_#{created_at.to_i}").tap {|path|
+        path.mkpath if mkpath # make root path if doesn't exist
+      }
     end
 
     def clean_up_jobs
