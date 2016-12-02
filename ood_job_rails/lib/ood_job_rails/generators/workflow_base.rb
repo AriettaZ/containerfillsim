@@ -19,6 +19,11 @@ module OodJobRails
 
       argument :model_id, type: :string
 
+      def initialize(*args)
+        super
+        self.destination_root = model.root
+      end
+
       no_tasks do
         def model
           @model ||= self.class.generator_name.classify.constantize.find model_id
