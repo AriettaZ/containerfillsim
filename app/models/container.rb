@@ -29,6 +29,11 @@ class Container < OodJobRails::Workflow
     }
   end
 
+  # Stage workflow
+  def stage
+    "Workflows::#{self.class.name.pluralize}Generator".constantize.new([self.id]).invoke_all
+  end
+
   # Submit workflow
   def submit
     submit_wrapper do
