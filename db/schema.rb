@@ -11,33 +11,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161128144421) do
+ActiveRecord::Schema.define(version: 20161202222339) do
 
   create_table "attachments", force: :cascade do |t|
-    t.string  "type"
-    t.integer "workflow_id"
-    t.text    "file_data"
-    t.text    "metadata"
+    t.string   "type"
+    t.integer  "workflow_id"
+    t.text     "file_data"
+    t.text     "metadata"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "attachments", ["workflow_id"], name: "index_attachments_on_workflow_id"
 
   create_table "jobs", force: :cascade do |t|
-    t.string  "type"
-    t.integer "workflow_id"
-    t.integer "status",      default: 0
-    t.integer "result",      default: 0
-    t.text    "metadata"
+    t.string   "type"
+    t.integer  "workflow_id"
+    t.integer  "status",      default: 0
+    t.integer  "result",      default: 0
+    t.text     "metadata"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "jobs", ["workflow_id"], name: "index_jobs_on_workflow_id"
 
   create_table "workflows", force: :cascade do |t|
-    t.string  "type"
-    t.string  "root"
-    t.integer "status",   default: 0
-    t.integer "result",   default: 0
-    t.text    "metadata"
+    t.string   "type"
+    t.string   "root"
+    t.integer  "status",     default: 0
+    t.integer  "result",     default: 0
+    t.text     "metadata"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
