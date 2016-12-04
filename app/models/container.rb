@@ -29,9 +29,8 @@ class Container < OodJobRails::Workflow
     }
   end
 
-  # Stage workflow
   def stage
-    Workflows::ContainersGenerator.new([self.id]).invoke_all
+    Workflows::ContainersGenerator.new(self).invoke_all
   end
 
   # Submit workflow

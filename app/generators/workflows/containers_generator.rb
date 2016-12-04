@@ -1,30 +1,13 @@
 module Workflows
   class ContainersGenerator < Rails::Generators::Base
-    def self.default_source_root
-      Rails.root.join('templates', generator_name)
-    end
+    attr_reader :model
 
-    def self.desc(description = nil)
-      return super if description
-
-      @desc ||= if usage_path
-                  ERB.new(File.read(usage_path)).result(binding)
-                else
-                  "Description:\n    Stages files for the #{generator_name} workflow."
-                end
-    end
-
-    argument :model_id, type: :string
-
-    def initialize(*args)
+    def initialize(model)
       super
-      self.destination_root = model.root
-    end
 
-    no_tasks do
-      def model
-        @model ||= self.class.generator_name.classify.constantize.find model_id
-      end
+      @model = model
+      self.source_paths.replace([Rails.root.join('templates', "containers")])
+      self.destination_root = model.root
     end
 
     def stage_container
