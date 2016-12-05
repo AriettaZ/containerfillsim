@@ -25,10 +25,7 @@ module OodJobRails
       )
       { job_id: job_id, cluster_id: cluster_id }
     rescue OodJob::Adapter::Error => e
-      msg = "An error occurred when submitting jobs for workflow (#{self.id}): #{e.message}"
-      errors.add(:base, msg)
-      Rails.logger.error(msg)
-      raise Error
+      handle_workflow_error(e, when: "submitting jobs")
     end
 
     # Delete job for given cluster
@@ -39,10 +36,7 @@ module OodJobRails
       OodJobRails.adapter.new(cluster: OodJobRails.clusters[cluster_id.to_sym]).delete(id: job_id.to_s)
       job.stopped if job.respond_to?(:stopped)
     rescue OodJob::Adapter::Error => e
-      msg = "An error occurred when deleting jobs for workfow (#{self.id}): #{e.message}"
-      errors.add(:base, msg)
-      Rails.logger.error(msg)
-      raise Error
+      handle_workflow_error(e, when: "deleting jobs")
     end
 
     # Get status of job for given cluster
@@ -53,7 +47,11 @@ module OodJobRails
       status = OodJobRails.adapter.new(cluster: OodJobRails.clusters[cluster_id.to_sym]).status(id: job_id.to_s).to_sym
       (status == :undetermined) ? "completed" : status.to_s # assume if doesn't exist it is complete
     rescue OodJob::Adapter::Error => e
-      msg = "An error occurred when retrieving the status of jobs for workflow (#{self.id}): #{e.message}"
+      handle_workflow_error(e, when: "retrieving the status of jobs")
+    end
+
+    def handle_workflow_error(error, **msg_opts, &block)
+      msg = block_given? ? block.call : %{An error occurred #{"when #{msg_opts[:when]} " if msg_opts[:when]}for workflow ##{self.id}: #{error.message}}
       errors.add(:base, msg)
       Rails.logger.error(msg)
       raise Error

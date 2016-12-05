@@ -82,7 +82,7 @@ class ContainersController < ApplicationController
       if !@container.not_submitted?
         format.html { redirect_to containers_url, alert: 'Container has already been submitted.' }
         format.json { head :no_content }
-      elsif @container.submit
+      elsif @container.stage && @container.submit
         format.html { redirect_to containers_url, notice: 'Container was successfully submitted.' }
         format.json { head :no_content }
       else

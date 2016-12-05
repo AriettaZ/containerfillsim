@@ -43,7 +43,6 @@ module OodJobRails
 
     # Submit workflow
     def submit_wrapper
-      stage
       yield
       self.active!
       true
