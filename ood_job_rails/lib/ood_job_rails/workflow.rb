@@ -29,14 +29,8 @@ module OodJobRails
       root.rmtree
     end
 
-    # Stage workflow
-    def stage
-      "Workflows::#{self.class.name.pluralize}Generator".constantize.new([self.id]).invoke_all
-    end
-
     # Submit workflow
     def submit_wrapper
-      stage
       yield
       self.active!
       true
