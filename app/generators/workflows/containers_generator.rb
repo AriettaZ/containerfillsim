@@ -1,7 +1,17 @@
 module Workflows
-  class ContainersGenerator < OodJobRails::Generators::WorkflowBase
+  class ContainersGenerator < Thor::Group
+    include Thor::Actions
+
+    argument :model
+    source_root Rails.root.join('templates', 'containers')
+
+    def initialize(*)
+      super
+      self.destination_root = model.root
+    end
+
     def stage_container
-      directory ".", model.root
+      directory "."
     end
 
     def copy_over_wall

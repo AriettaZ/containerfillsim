@@ -29,11 +29,22 @@ class Container < OodJobRails::Workflow
     }
   end
 
+  # Stage workflow
+  def stage
+    Workflows::ContainersGenerator.new([self]).invoke_all
+  end
+
   # Submit workflow
   def submit
-    submit_wrapper do
-      build_main_job(submit_job(cluster_id: "oakley", script: main_script))
-      build_post_job(submit_job(cluster_id: "oakley", script: post_script, afterok: main_job.job_id))
-    end
+    # Job setup here
+    build_main_job(submit_job(cluster_id: "oakley", script: main_script))
+    build_post_job(submit_job(cluster_id: "oakley", script: post_script, afterok: main_job.job_id))
+
+    # Don't change below unless you know what you are doing
+    self.active!
+    true
+  rescue OodJobRails::JobHandler::Error
+    self.stop
+    false
   end
 end

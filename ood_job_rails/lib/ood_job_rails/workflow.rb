@@ -36,21 +36,6 @@ module OodJobRails
       root.rmtree
     end
 
-    # Stage workflow
-    def stage
-      "Workflows::#{self.class.name.pluralize}Generator".constantize.new([self.id]).invoke_all
-    end
-
-    # Submit workflow
-    def submit_wrapper
-      yield
-      self.active!
-      true
-    rescue OodJobRails::JobHandler::Error
-      self.stop
-      false
-    end
-
     # Stop workflow
     def stop
       return true if completed?
