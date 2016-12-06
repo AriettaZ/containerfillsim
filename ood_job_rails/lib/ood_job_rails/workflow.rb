@@ -2,30 +2,20 @@ module OodJobRails
   class Workflow < ActiveRecord::Base
     include JobHandler
 
-    has_many :jobs, inverse_of: :workflow, dependent: :destroy
+    has_many :jobs, inverse_of: :ood_job_rails_workflow, dependent: :destroy
 
     enum status: [ :not_submitted, :active, :completed ]
     enum result: [ :no_result, :passed, :failed ]
 
     store :metadata, accessors: [], coder: JSON
 
-    after_commit :set_root, on: :create
     before_destroy :clean_up_jobs, prepend: true    # run this before destroying jobs
     after_destroy :clean_up_files
 
     define_model_callbacks :completed
 
     def root
-      if super
-        path = OodJobRails.dataroot.join(super)
-        path.mkpath # make root path if doesn't exist
-        path
-      end
-    end
-
-    def set_root
-      # avoid infinite callback
-      update_column :root, File.join(self.class.name.tableize, "#{id}_#{Time.now.to_i}")
+      OodJobRails.dataroot.join(self.class.name.tableize).join("#{id}_#{created_at.to_i}")
     end
 
     def clean_up_jobs
