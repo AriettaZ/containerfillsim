@@ -1,4 +1,4 @@
-class Inlet < Attachment
+class Inlet < OodJobRails::Attachment
   belongs_to :container, foreign_key: :workflow_id, inverse_of: :inlets
 
   store_accessor :metadata, :vx, :vy, :vz

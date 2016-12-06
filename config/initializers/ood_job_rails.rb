@@ -13,3 +13,6 @@ OodJobRails.configure do |config|
     accounting_id: OscHelper.get_account_name
   }
 end
+
+# clear cache
+OodJobRails::Uploader.storages[:cache].clear!(older_than: Time.now - 3600) # delete files older than an hour

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  mount AttachmentUploader::DownloadEndpoint => "/attachments"
+  mount OodJobRails::Uploader::DownloadEndpoint => "/attachments"
 
   resources :containers do
     member do
