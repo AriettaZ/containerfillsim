@@ -21,6 +21,14 @@ module OodJobRails
 
     attr_accessor :default_job_script
 
+    def storages
+      @storages || {
+        cache: Uploader::Storage::FileSystem.new(dataroot.join("attachments").to_s, prefix: "cache"),
+        store: Uploader::Storage::FileSystem.new(dataroot.join("attachments").to_s, prefix: "store")
+      }
+    end
+    attr_writer :storages
+
     # Customize configuration for this object
     # @yield [self]
     def configure

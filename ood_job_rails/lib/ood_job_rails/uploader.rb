@@ -1,13 +1,10 @@
-require "shrine"
-require "shrine/storage/file_system"
+require 'shrine'
+require 'shrine/storage/file_system'
 
 module OodJobRails
   class Uploader < Shrine
     def self.storages
-      {
-        cache: Shrine::Storage::FileSystem.new(OodJobRails.dataroot.join("attachments").to_s, prefix: "cache"),
-        store: Shrine::Storage::FileSystem.new(OodJobRails.dataroot.join("attachments").to_s, prefix: "store")
-      }
+      OodJobRails.storages
     end
     plugin :activerecord
     plugin :cached_attachment_data
