@@ -1,3 +1,5 @@
+require 'thor'
+
 module Workflows
   class ContainersGenerator < Thor::Group
     include Thor::Actions
