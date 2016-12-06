@@ -21,6 +21,10 @@ module OodJobRails
       }
     end
 
+    def active?
+      !not_submitted? && !completed?
+    end
+
     def stopped
       completed unless completed?
     end
