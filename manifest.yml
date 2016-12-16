@@ -1,5 +1,6 @@
 ---
 name: Container Fill Sim
+category: Ohio Supercomputer Center
 description: |-
   An AweSim demonstration application that simulates filling a container with liquid.
 
