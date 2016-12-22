@@ -17,7 +17,7 @@ class Container < OodJobRails::Workflow
   enum result: [ :no_result, :passed, :failed ]
 
   # Metadata
-  store_accessor :metadata, :name, :temperature
+  store :metadata, accessors: [ :name, :temperature ], coder: JSON
   validates :name, presence: true
   validates :temperature, presence: true
   validates :temperature, numericality: true

@@ -7,7 +7,7 @@ class Manifold < OodJobRails::Workflow
   enum result: [ :no_result, :passed, :failed ]
 
   # Metadata
-  store_accessor :metadata, :name, :speed
+  store :metadata, accessors: [ :name, :speed ], coder: JSON
   validates :name, presence: true
   validates :speed, presence: true
   validates :speed, numericality: true
