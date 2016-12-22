@@ -11,34 +11,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161206211828) do
+ActiveRecord::Schema.define(version: 20161221154231) do
 
-  create_table "attachments", force: :cascade do |t|
+  create_table "ood_job_rails_attachments", force: :cascade do |t|
     t.string   "type"
-    t.integer  "workflow_id"
+    t.integer  "ood_job_rails_workflow_id"
     t.text     "file_data"
     t.text     "metadata"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
-  add_index "attachments", ["workflow_id"], name: "index_attachments_on_workflow_id"
+  add_index "ood_job_rails_attachments", ["ood_job_rails_workflow_id"], name: "index_ood_job_rails_attachments_on_ood_job_rails_workflow_id"
 
-  create_table "jobs", force: :cascade do |t|
+  create_table "ood_job_rails_jobs", force: :cascade do |t|
     t.string   "type"
-    t.integer  "workflow_id"
-    t.integer  "status",      default: 0
-    t.integer  "result",      default: 0
+    t.integer  "status",                    default: 0
+    t.integer  "result",                    default: 0
+    t.text     "file_data"
     t.text     "metadata"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.integer  "ood_job_rails_workflow_id"
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
   end
 
-  add_index "jobs", ["result"], name: "index_jobs_on_result"
-  add_index "jobs", ["status"], name: "index_jobs_on_status"
-  add_index "jobs", ["workflow_id"], name: "index_jobs_on_workflow_id"
+  add_index "ood_job_rails_jobs", ["ood_job_rails_workflow_id"], name: "index_ood_job_rails_jobs_on_ood_job_rails_workflow_id"
 
-  create_table "workflows", force: :cascade do |t|
+  create_table "ood_job_rails_workflows", force: :cascade do |t|
     t.string   "type"
     t.integer  "status",     default: 0
     t.integer  "result",     default: 0
@@ -47,7 +46,7 @@ ActiveRecord::Schema.define(version: 20161206211828) do
     t.datetime "updated_at",             null: false
   end
 
-  add_index "workflows", ["result"], name: "index_workflows_on_result"
-  add_index "workflows", ["status"], name: "index_workflows_on_status"
+  add_index "ood_job_rails_workflows", ["result"], name: "index_ood_job_rails_workflows_on_result"
+  add_index "ood_job_rails_workflows", ["status"], name: "index_ood_job_rails_workflows_on_status"
 
 end

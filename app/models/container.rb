@@ -1,32 +1,47 @@
 class Container < OodJobRails::Workflow
+  include OodJobRails::ActiveRecord::JobArray
+
   # Attachments
-  has_one :wall, foreign_key: :workflow_id, inverse_of: :container, dependent: :destroy
-  has_many :inlets, foreign_key: :workflow_id, inverse_of: :container, dependent: :destroy
+  has_one :wall, foreign_key: :ood_job_rails_workflow_id, inverse_of: :container, dependent: :destroy
+  has_many :inlets, foreign_key: :ood_job_rails_workflow_id, inverse_of: :container, dependent: :destroy
   accepts_nested_attributes_for :wall
   accepts_nested_attributes_for :inlets, allow_destroy: true
 
   # Jobs
-  has_one :main_job, foreign_key: :workflow_id, inverse_of: :container
-  has_one :post_job, foreign_key: :workflow_id, inverse_of: :container
+  has_one :main_job, foreign_key: :ood_job_rails_workflow_id, inverse_of: :container, dependent: :destroy
+  has_one :post_job, foreign_key: :ood_job_rails_workflow_id, inverse_of: :container, dependent: :destroy
+
+  # State
+  enum status: [ :not_submitted, :completed, :active ]
+  enum result: [ :no_result, :passed, :failed ]
 
   # Metadata
-  store_accessor :metadata, :name, :temperature, :success
+  store_accessor :metadata, :name, :temperature
   validates :name, presence: true
   validates :temperature, presence: true
   validates :temperature, numericality: true
 
-  after_completed { |workflow| workflow.failed! }
+  # Hooks
+  before_destroy :stop, prepend: true
+  after_destroy  :unstage
 
   def main_script
     {
-      content: root.join("main.sh")
+      content: root.join("main.sh"),
+      workdir: root
     }
   end
 
   def post_script
     {
-      content: root.join("post.sh")
+      content: root.join("post.sh"),
+      workdir: root
     }
+  end
+
+  # Staging root for workflow
+  def root
+    OodJobRails.dataroot.join("containers", "#{id}_#{created_at.to_i}")
   end
 
   # Stage workflow
@@ -34,17 +49,49 @@ class Container < OodJobRails::Workflow
     ContainersGenerator.new([self]).invoke_all
   end
 
+  # Unstage workflow
+  def unstage
+    root.rmtree
+  end
+
   # Submit workflow
   def submit
     # Job setup here
-    build_main_job(submit_job(cluster_id: "oakley", script: main_script))
-    build_post_job(submit_job(cluster_id: "oakley", script: post_script, afterok: main_job.job_id))
-
-    # Don't change below unless you know what you are doing
+    build_main_job(OodJobRails::Adapter.submit(cluster_id: "oakley", script: main_script))
+    build_post_job(OodJobRails::Adapter.submit(cluster_id: "oakley", script: post_script, afterok: main_job.job_id))
     self.active!
     true
-  rescue OodJobRails::JobHandler::Error
+  rescue OodJobRails::Adapter::Error => e
     self.stop
+    OodJobRails::WorkflowError.call(self, e, when: 'submitting jobs') # must occur after any record manipulation
     false
+  end
+
+  # Stop workflow
+  def stop
+    return true if completed?
+    stop_jobs
+    self.completed
+    true
+  rescue OodJobRails::Adapter::Error => e
+    OodJobRails::WorkflowError.call(self, e, when: 'stopping jobs')
+    false
+  end
+
+  # Update workflow status
+  def update_status
+    return true if completed?
+    update_jobs
+    self.completed if jobs_completed?
+    true
+  rescue OodJobRails::Adapter::Error => e
+    OodJobRails::WorkflowError.call(self, e, when: 'retrieving the status of jobs')
+    false
+  end
+
+  # Handle completed workflow
+  def completed
+    self.completed!
+    self.passed!
   end
 end

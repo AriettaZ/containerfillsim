@@ -50,8 +50,6 @@ gem 'jquery-datatables-rails', '~> 3.4'
 gem 'rails_12factor', group: :production
 gem 'ood_support', '~> 0.0.2'
 gem 'ood_appkit', '~> 0.3'
-gem 'ood_job', path: '/users/appl/jnicklas/Development/ood_job'
-# gem 'refile', require: 'refile/rails'
-gem 'roda', '~> 2.20'
-gem 'shrine', '~> 2.4'
+gem "ood_job", path: "/users/appl/jnicklas/Development/ood_job"
+gem 'ood_job_rails', path: '/users/appl/jnicklas/Development/ood_job_rails'
 gem 'nested_form_fields', '~> 0.8'

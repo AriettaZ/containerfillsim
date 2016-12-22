@@ -1,6 +1,6 @@
-class MainJob < OodJobRails::Job
+class ManifoldJob < OodJobRails::Job
   # Workflow
-  belongs_to :container, foreign_key: :ood_job_rails_workflow_id, inverse_of: :main_job
+  belongs_to :manifold, foreign_key: :ood_job_rails_workflow_id, inverse_of: :manifold_job
 
   # State
   enum result: [ :no_result, :passed, :failed ]
