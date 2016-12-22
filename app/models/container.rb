@@ -1,6 +1,4 @@
 class Container < OodJobRails::Workflow
-  include OodJobRails::ActiveRecord::JobArray
-
   # Attachments
   has_one :wall, foreign_key: :ood_job_rails_workflow_id, inverse_of: :container, dependent: :destroy
   has_many :inlets, foreign_key: :ood_job_rails_workflow_id, inverse_of: :container, dependent: :destroy
@@ -10,6 +8,9 @@ class Container < OodJobRails::Workflow
   # Jobs
   has_one :main_job, foreign_key: :ood_job_rails_workflow_id, inverse_of: :container, dependent: :destroy
   has_one :post_job, foreign_key: :ood_job_rails_workflow_id, inverse_of: :container, dependent: :destroy
+
+  # Helper with list of all jobs (will loop over all jobs specified above)
+  has_many :all_jobs, class_name: 'OodJobRails::Job', foreign_key: 'ood_job_rails_workflow_id'
 
   # State
   enum status: [ :not_submitted, :completed, :active ]
@@ -70,7 +71,7 @@ class Container < OodJobRails::Workflow
   # Stop workflow
   def stop
     return true if completed?
-    stop_jobs
+    all_jobs.each { |job| job.stop unless job.completed? }
     self.completed
     true
   rescue OodJobRails::Adapter::Error => e
@@ -81,8 +82,8 @@ class Container < OodJobRails::Workflow
   # Update workflow status
   def update_status
     return true if completed?
-    update_jobs
-    self.completed if jobs_completed?
+    all_jobs.each { |job| job.update_status unless job.completed? }
+    self.completed if all_jobs.any? && all_jobs.all?(&:completed?)
     true
   rescue OodJobRails::Adapter::Error => e
     OodJobRails::WorkflowError.call(self, e, when: 'retrieving the status of jobs')
