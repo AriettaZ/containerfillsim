@@ -21,9 +21,9 @@ class MainJob < OodJobRails::Job
   store :metadata, accessors: [ :job_id, :cluster_id ], coder: JSON
 
   # Update status of the job
-  def update_status(stopped: false)
-    status = OodJobRails::Adapter.status(cluster_id: cluster_id, job_id: job_id) unless stopped
-    if stopped || status.undetermined?    # assume job finished it can't find job
+  def update_status
+    status = OodJobRails::Adapter.status(cluster_id: cluster_id, job_id: job_id)
+    if status.undetermined?    # assume job finished it can't find job
       self.completed unless completed?
     elsif status.queued?
       self.queued! unless queued?
@@ -38,7 +38,7 @@ class MainJob < OodJobRails::Job
 
   # Stop the job
   def stop
-    OodJobRails::Adapter.stop(cluster_id: cluster_id, job_id: job_id) && update_status(stopped: true)
+    OodJobRails::Adapter.stop(cluster_id: cluster_id, job_id: job_id) && completed
   end
 
   # Handle completed job
