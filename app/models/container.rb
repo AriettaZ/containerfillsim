@@ -50,7 +50,7 @@ class Container < OodJobRails::Workflow
 
   # Staging root for workflow
   def root
-    OodJobRails.dataroot.join("containers", "#{id}_#{created_at.to_i}")
+    OodAppkit.dataroot.join("containers", "#{id}_#{created_at.to_i}")
   end
 
   # Stage workflow

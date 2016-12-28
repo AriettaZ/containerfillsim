@@ -33,7 +33,7 @@ class Manifold < OodJobRails::Workflow
 
   # Staging root for workflow
   def root
-    OodJobRails.dataroot.join("manifold", "#{id}_#{created_at.to_i}")
+    OodAppkit.dataroot.join("manifold", "#{id}_#{created_at.to_i}")
   end
 
   # Stage workflow

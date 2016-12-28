@@ -9,6 +9,7 @@ PATH
   remote: /users/appl/jnicklas/Development/ood_job_rails
   specs:
     ood_job_rails (0.0.1)
+      ood_appkit (~> 0.3.0, >= 0.3.3)
       rails (~> 4.2)
       roda (~> 2.20)
       shrine (~> 2.4)
@@ -222,7 +223,6 @@ DEPENDENCIES
   jquery-datatables-rails (~> 3.4)
   jquery-rails
   nested_form_fields (~> 0.8)
-  ood_appkit (~> 0.3)
   ood_job!
   ood_job_rails!
   ood_support (~> 0.0.2)
