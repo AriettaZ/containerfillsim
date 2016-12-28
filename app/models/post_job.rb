@@ -20,6 +20,11 @@ class PostJob < OodJobRails::Job
   # Metadata
   store :metadata, accessors: [ :job_id, :cluster_id ], coder: JSON
 
+  # Cluster
+  def cluster_id
+    super || "oakley"
+  end
+
   # Script
   def script
     {
@@ -30,8 +35,8 @@ class PostJob < OodJobRails::Job
 
   # Submit the job
   def submit(opts = {})
-    self.cluster_id = "oakley"
-    self.job_id = OodJobRails::Adapter.new.submit(cluster_id: cluster_id, script: script, **opts)
+    self.cluster_id = cluster_id
+    self.job_id     = OodJobRails::Adapter.new.submit(cluster_id: cluster_id, script: script, **opts)
   end
 
   # Update status of the job
