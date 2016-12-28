@@ -3,8 +3,19 @@ class MainJob < OodJobRails::Job
   belongs_to :container, foreign_key: :ood_job_rails_workflow_id, inverse_of: :main_job
 
   # State
-  enum status: [ :not_submitted, :completed, :queued, :queued_held, :suspended, :running ]
-  enum result: [ :no_result, :passed, :failed ]
+  enum status: {
+    not_submitted: 0,
+    completed: 1,
+    queued: 2,
+    queued_held: 3,
+    suspended: 4,
+    running: 5
+  }
+  enum result: {
+    no_result: 0,
+    passed: 1,
+    failed: 2
+  }
 
   # Metadata
   store :metadata, accessors: [ :job_id, :cluster_id ], coder: JSON

@@ -3,8 +3,16 @@ class Manifold < OodJobRails::Workflow
   has_one :manifold_job, foreign_key: :ood_job_rails_workflow_id, inverse_of: :manifold, dependent: :destroy
 
   # State
-  enum status: [ :not_submitted, :completed, :active ]
-  enum result: [ :no_result, :passed, :failed ]
+  enum status: {
+    not_submitted: 0,
+    completed: 1,
+    active: 2
+  }
+  enum result: {
+    no_result: 0,
+    passed: 1,
+    failed: 2
+  }
 
   # Metadata
   store :metadata, accessors: [ :name, :speed ], coder: JSON
