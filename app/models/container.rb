@@ -64,7 +64,9 @@ class Container < OodJobRails::Workflow
     true
   rescue OodJobRails::Adapter::Error => e
     self.stop
-    OodJobRails::WorkflowError.call(self, e, when: 'submitting jobs') # must occur after any record manipulation
+    msg = "An error occurred when submitting jobs for workflow #{id}: #{e.message}"
+    errors.add(:base, msg) # must occur after any record manipulation
+    Rails.logger.error(msg)
     false
   end
 
@@ -75,7 +77,9 @@ class Container < OodJobRails::Workflow
     self.completed
     true
   rescue OodJobRails::Adapter::Error => e
-    OodJobRails::WorkflowError.call(self, e, when: 'stopping jobs')
+    msg = "An error occurred when stopping jobs for workflow #{id}: #{e.message}"
+    errors.add(:base, msg) # must occur after any record manipulation
+    Rails.logger.error(msg)
     false
   end
 
@@ -86,7 +90,9 @@ class Container < OodJobRails::Workflow
     self.completed if all_jobs.any? && all_jobs.all?(&:completed?)
     true
   rescue OodJobRails::Adapter::Error => e
-    OodJobRails::WorkflowError.call(self, e, when: 'retrieving the status of jobs')
+    msg = "An error occurred when retrieving the status of jobs jobs for workflow #{id}: #{e.message}"
+    errors.add(:base, msg) # must occur after any record manipulation
+    Rails.logger.error(msg)
     false
   end
 

@@ -45,8 +45,10 @@ class Manifold < OodJobRails::Workflow
     self.active!
     true
   rescue OodJobRails::Adapter::Error => e
-    OodJobRails::WorkflowError.call(self, e, when: 'submitting jobs')
     self.stop
+    msg = "An error occurred when submitting jobs for workflow #{id}: #{e.message}"
+    errors.add(:base, msg) # must occur after any record manipulation
+    Rails.logger.error(msg)
     false
   end
 
@@ -57,7 +59,9 @@ class Manifold < OodJobRails::Workflow
     self.completed
     true
   rescue OodJobRails::Adapter::Error => e
-    OodJobRails::WorkflowError.call(self, e, when: 'stopping jobs')
+    msg = "An error occurred when stopping jobs for workflow #{id}: #{e.message}"
+    errors.add(:base, msg) # must occur after any record manipulation
+    Rails.logger.error(msg)
     false
   end
 
@@ -68,7 +72,9 @@ class Manifold < OodJobRails::Workflow
     self.completed if manifold_job.completed?
     true
   rescue OodJobRails::Adapter::Error => e
-    OodJobRails::WorkflowError.call(self, e, when: 'retrieving the status of jobs')
+    msg = "An error occurred when retrieving the status of jobs for workflow #{id}: #{e.message}"
+    errors.add(:base, msg) # must occur after any record manipulation
+    Rails.logger.error(msg)
     false
   end
 
