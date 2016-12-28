@@ -48,7 +48,7 @@ class ManifoldJob < OodJobRails::Job
     elsif status.queued?
       self.queued! unless queued?
     elsif status.queued_held?
-      self.queued_held? unless queued_held?
+      self.queued_held! unless queued_held?
     elsif status.suspended?
       self.suspended! unless suspended?
     elsif status.running?
