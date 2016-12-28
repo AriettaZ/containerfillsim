@@ -20,6 +20,20 @@ class PostJob < OodJobRails::Job
   # Metadata
   store :metadata, accessors: [ :job_id, :cluster_id ], coder: JSON
 
+  # Script
+  def script
+    {
+      content: container.root.join("post.sh"),
+      workdir: container.root
+    }
+  end
+
+  # Submit the job
+  def submit(opts = {})
+    self.cluster_id = "oakley"
+    self.job_id = OodJobRails::Adapter.new.submit(cluster_id: cluster_id, script: script, **opts)
+  end
+
   # Update status of the job
   def update_status
     return if completed?

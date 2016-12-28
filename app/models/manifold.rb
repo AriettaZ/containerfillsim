@@ -24,13 +24,6 @@ class Manifold < OodJobRails::Workflow
   before_destroy :stop, prepend: true
   after_destroy  :unstage
 
-  def script
-    {
-      content: root.join("main.sh"),
-      workdir: root
-    }
-  end
-
   # Staging root for workflow
   def root
     OodAppkit.dataroot.join("manifold", "#{id}_#{created_at.to_i}")
@@ -49,7 +42,7 @@ class Manifold < OodJobRails::Workflow
   # Submit workflow
   def submit
     # Job setup here
-    build_manifold_job(OodJobRails::Adapter.new.submit(cluster_id: "oakley", script: script))
+    build_manifold_job.submit
     self.active!
     true
   rescue OodJobRails::Adapter::Error => e

@@ -34,20 +34,6 @@ class Container < OodJobRails::Workflow
   before_destroy :stop, prepend: true
   after_destroy  :unstage
 
-  def main_script
-    {
-      content: root.join("main.sh"),
-      workdir: root
-    }
-  end
-
-  def post_script
-    {
-      content: root.join("post.sh"),
-      workdir: root
-    }
-  end
-
   # Staging root for workflow
   def root
     OodAppkit.dataroot.join("containers", "#{id}_#{created_at.to_i}")
@@ -66,8 +52,8 @@ class Container < OodJobRails::Workflow
   # Submit workflow
   def submit
     # Job setup here
-    build_main_job(OodJobRails::Adapter.new.submit(cluster_id: "oakley", script: main_script))
-    build_post_job(OodJobRails::Adapter.new.submit(cluster_id: "oakley", script: post_script, afterok: main_job.job_id))
+    build_main_job.submit
+    build_post_job.submit(afterok: main_job.job_id)
     self.active!
     true
   rescue OodJobRails::Adapter::Error => e
