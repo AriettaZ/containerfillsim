@@ -66,8 +66,8 @@ class Container < OodJobRails::Workflow
   # Submit workflow
   def submit
     # Job setup here
-    build_main_job(OodJobRails::Adapter.submit(cluster_id: "oakley", script: main_script))
-    build_post_job(OodJobRails::Adapter.submit(cluster_id: "oakley", script: post_script, afterok: main_job.job_id))
+    build_main_job(OodJobRails::Adapter.new.submit(cluster_id: "oakley", script: main_script))
+    build_post_job(OodJobRails::Adapter.new.submit(cluster_id: "oakley", script: post_script, afterok: main_job.job_id))
     self.active!
     true
   rescue OodJobRails::Adapter::Error => e

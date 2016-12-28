@@ -49,7 +49,7 @@ class Manifold < OodJobRails::Workflow
   # Submit workflow
   def submit
     # Job setup here
-    build_manifold_job(OodJobRails::Adapter.submit(cluster_id: "oakley", script: script))
+    build_manifold_job(OodJobRails::Adapter.new.submit(cluster_id: "oakley", script: script))
     self.active!
     true
   rescue OodJobRails::Adapter::Error => e

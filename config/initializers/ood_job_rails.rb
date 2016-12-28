@@ -7,7 +7,7 @@ end
 OodJobRails.configure do |config|
   config.adapter  = OodJob::Adapters::Torque
 
-  config.default_job_script = {
+  config.default_script = {
     accounting_id: OscHelper.get_account_name
   }
 end
