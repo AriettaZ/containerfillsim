@@ -63,7 +63,7 @@ class Manifold < OodJobRails::Workflow
   # Stop workflow
   def stop
     return true if completed?
-    manifold_job.stop unless manifold_job.completed?
+    manifold_job.stop
     self.completed
     true
   rescue OodJobRails::Adapter::Error => e
@@ -76,7 +76,7 @@ class Manifold < OodJobRails::Workflow
   # Update workflow status
   def update_status
     return true if completed?
-    manifold_job.update_status unless manifold_job.completed?
+    manifold_job.update_status
     self.completed if manifold_job.completed?
     true
   rescue OodJobRails::Adapter::Error => e

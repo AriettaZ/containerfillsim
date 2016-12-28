@@ -22,6 +22,7 @@ class PostJob < OodJobRails::Job
 
   # Update status of the job
   def update_status
+    return if completed?
     status = OodJobRails::Adapter.status(cluster_id: cluster_id, job_id: job_id)
     if status.undetermined?    # assume job finished it can't find job
       self.completed unless completed?
@@ -38,6 +39,7 @@ class PostJob < OodJobRails::Job
 
   # Stop the job
   def stop
+    return if completed?
     OodJobRails::Adapter.stop(cluster_id: cluster_id, job_id: job_id) && completed
   end
 

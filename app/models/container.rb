@@ -81,7 +81,7 @@ class Container < OodJobRails::Workflow
   # Stop workflow
   def stop
     return true if completed?
-    all_jobs.each { |job| job.stop unless job.completed? }
+    all_jobs.each(&:stop)
     self.completed
     true
   rescue OodJobRails::Adapter::Error => e
@@ -94,7 +94,7 @@ class Container < OodJobRails::Workflow
   # Update workflow status
   def update_status
     return true if completed?
-    all_jobs.each { |job| job.update_status unless job.completed? }
+    all_jobs.each(&:update_status)
     self.completed if all_jobs.any? && all_jobs.all?(&:completed?)
     true
   rescue OodJobRails::Adapter::Error => e
