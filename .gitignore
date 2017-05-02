@@ -39,3 +39,6 @@
 
 # Ignore .env.production
 .env.production
+
+# Ignore optional wiki
+/wiki
